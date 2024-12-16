@@ -37,11 +37,99 @@ void Sort(std::vector<Point>& arr) {
 }
 
 void Mesh::generateAboveX() {
+    auto lxy = linesAmountX_ * linesAmountY_;
+    for (size_t i(0); i < linesAmountZ_; ++i) {
+        for (size_t j(0); j < linesAmountY_; ++j) {
+            for (size_t k(0); k < linesAmountX_ - 1; ++k) {
+                std::vector<Point> pointsToInsert{};
+                auto& pnt1 = points_[i * lxy + j * linesAmountX_ + k];
+                auto& pnt2 = points_[i * lxy + j * linesAmountX_ + k + 1];
+
+                // Find difference above axis.
+                double_t dx = pnt2.x - pnt1.x;
+                double_t dy = pnt2.y - pnt1.y;
+                double_t dz = pnt2.z - pnt1.z;
+
+                // Get delimeters amount and it's coefficient.
+                auto delimAmount = delimetersX_[k].first;
+                auto delimCoef = delimetersX_[k].second;
+
+                double_t denominator(0.0);
+                for (size_t ii(0); ii < delimAmount; ++ii)
+                    denominator += pow(delimCoef, ii);
+
+                double_t hx0 = dx / denominator;
+                double_t hy0 = dy / denominator;
+                double_t hz0 = dz / denominator;
+
+                double_t mnoz(0.0);
+                for (size_t ii(0); ii < delimAmount - 1; ++ii) {
+                    mnoz += pow(delimCoef, ii);
+                    pointsToInsert.push_back(Point(
+                        pnt1.x + hx0 * mnoz,
+                        pnt1.y + hy0 * mnoz,
+                        pnt1.z + hz0 * mnoz
+                    ));
+                }
+                if (pointsToInsert.size() > 0) {
+                    Sort(pointsToInsert);
+                    points_.insert(points_.end(), pointsToInsert.begin(), pointsToInsert.end());
+                }
+            }
+        }
+    }
+    Sort(points_);
+    linesAmountX_ = points_.size() / (linesAmountY_ * linesAmountZ_);
 }
 
+// Fully works, but not optimal.
 void Mesh::generateAboveY() {
+    auto lxy = linesAmountX_ * linesAmountY_;
+    for (size_t i(0); i < linesAmountZ_; ++i) {
+        for (size_t j(0); j < linesAmountY_ - 1; ++j) {
+            std::vector<Point> pointsToInsert{};
+            for (size_t k(0); k < linesAmountX_; ++k) {
+                auto& pnt1 = points_[i * lxy + j * linesAmountX_ + k];
+                auto& pnt2 = points_[i * lxy + (j + 1) * linesAmountX_ + k];
+
+                // Find difference above axis.
+                double_t dx = pnt2.x - pnt1.x;
+                double_t dy = pnt2.y - pnt1.y;
+                double_t dz = pnt2.z - pnt1.z;
+
+                // Get delimeters amount and it's coefficient.
+                auto delimAmount = delimetersY_[j].first;
+                auto delimCoef = delimetersY_[j].second;
+
+                double_t denominator(0.0);
+                for (size_t ii(0); ii < delimAmount; ++ii)
+                    denominator += pow(delimCoef, ii);
+
+                double_t hx0 = dx / denominator;
+                double_t hy0 = dy / denominator;
+                double_t hz0 = dz / denominator;
+
+                double_t mnoz(0.0);
+                for (size_t ii(0); ii < delimAmount - 1; ++ii) {
+                    mnoz += pow(delimCoef, ii);
+                    pointsToInsert.push_back(Point(
+                        pnt1.x + hx0 * mnoz,
+                        pnt1.y + hy0 * mnoz,
+                        pnt1.z + hz0 * mnoz
+                    ));
+                }
+            }
+            if (pointsToInsert.size() > 0) {
+                Sort(pointsToInsert);
+                points_.insert(points_.end(), pointsToInsert.begin(), pointsToInsert.end());
+            }
+        }
+    }
+    Sort(points_);
+    linesAmountY_ = points_.size() / (linesAmountX_ * linesAmountZ_);
 }
 
+// Fully works.
 void Mesh::generateAboveZ() {
     auto lxy = linesAmountX_ * linesAmountY_;
     for (size_t i(0); i < linesAmountZ_ - 1; ++i) {
@@ -69,7 +157,7 @@ void Mesh::generateAboveZ() {
                 double_t hz0 = dz / denominator;
 
                 double_t mnoz(0.0);
-                for (size_t ii(0); ii < delimAmount; ++ii) {
+                for (size_t ii(0); ii < delimAmount - 1; ++ii) {
                     mnoz += pow(delimCoef, ii);
                     pointsToInsert.push_back(Point(
                         pnt1.x + hx0 * mnoz,
@@ -79,9 +167,12 @@ void Mesh::generateAboveZ() {
                 }
             }
         }
-        Sort(pointsToInsert);
-        points_.insert(points_.begin() + (i + 1) * lxy, pointsToInsert.begin(), pointsToInsert.end());
+        if (pointsToInsert.size() > 0) {
+            Sort(pointsToInsert);
+            points_.insert(points_.begin() + (i + 1) * lxy, pointsToInsert.begin(), pointsToInsert.end());
+        }
     }
+    linesAmountZ_ = points_.size() / lxy;
 }
 
 void Mesh::Generate() {
@@ -89,6 +180,25 @@ void Mesh::Generate() {
     generateAboveZ();
     generateAboveY();
     generateAboveX();
+}
+
+bool Mesh::CheckData() {
+    if (linesAmountX_ * linesAmountY_ * linesAmountZ_ != points_.size()) return false;
+    if (linesAmountX_ - 1 != delimetersX_.size()) return false;
+    if (linesAmountY_ - 1 != delimetersY_.size()) return false;
+    if (linesAmountZ_ - 1 != delimetersZ_.size()) return false;
+    uint32_t maxLineX = 0;
+    uint32_t maxLineY = 0;
+    uint32_t maxLineZ = 0;
+    for (const auto& subdomain : subdomains_) {
+        maxLineX = maxLineX < subdomain[2] ? subdomain[2] : maxLineX;
+        maxLineY = maxLineY < subdomain[4] ? subdomain[4] : maxLineY;
+        maxLineZ = maxLineZ < subdomain[6] ? subdomain[6] : maxLineZ;
+    }
+    if (linesAmountX_ - 1 != maxLineX) return false;
+    if (linesAmountY_ - 1 != maxLineY) return false;
+    if (linesAmountZ_ - 1 != maxLineZ) return false;
+    return true;
 }
 
 void Mesh::FileWriteGeneratedPoints(std::string fileName) {

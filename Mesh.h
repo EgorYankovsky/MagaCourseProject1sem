@@ -37,6 +37,7 @@ public:
     Mesh() {};
     ~Mesh() {};
     void Generate();
+    bool CheckData();
     void FileWriteGeneratedPoints(std::string fileName = defaultOutputPointsPath);
     __declspec(property(get = getLinesAmountX)) size_t LinesAmountX;
     __declspec(property(get = getLinesAmountY)) size_t LinesAmountY;
