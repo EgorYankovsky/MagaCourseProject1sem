@@ -24,6 +24,9 @@
     <ClCompile Include="Drawer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainHeader.h">
@@ -35,12 +38,21 @@
     <ClInclude Include="Drawer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data\generatedPoints.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
     <Text Include="Data\input.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\generatedRibs.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\generatedAreas.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>

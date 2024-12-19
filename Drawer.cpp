@@ -1,11 +1,9 @@
 #include "Drawer.h"
 
-#include <iostream>
-
 const char* Drawer::scriptName = "python";
 const char* Drawer::pythonScriptName = "pythonScripts\\drawer.py";
-const char* Drawer::fileName = "Data\\generatedPoints.txt";
-
+const char* Drawer::pointsFileName = "Data\\generatedPoints.txt";
+const char* Drawer::ribsFileName = "Data\\generatedRibs.txt";
 
 void Drawer::DrawMesh() {
     char commandToRun[100];
@@ -13,6 +11,8 @@ void Drawer::DrawMesh() {
     strcat_s(commandToRun, " ");
     strcat_s(commandToRun, pythonScriptName);
     strcat_s(commandToRun, " ");
-    strcat_s(commandToRun, fileName);
+    strcat_s(commandToRun, pointsFileName);
+    strcat_s(commandToRun, " ");
+    strcat_s(commandToRun, ribsFileName);
     system(commandToRun);
 }

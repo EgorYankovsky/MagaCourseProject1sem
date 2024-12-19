@@ -8,7 +8,8 @@
 
 const std::string standartInputPath = "Data\\input.txt";
 const std::string defaultOutputPointsPath = "Data\\generatedPoints.txt";
-
+const std::string defaultOutputRibsPath = "Data\\generatedRibs.txt";
+const std::string defaultOutputAreasPath = "Data\\generatedAreas.txt";
 
 struct Point {
     double_t x = 0.0;
@@ -18,22 +19,42 @@ struct Point {
     Point(double_t x_, double_t y_, double_t z_) : x(x_), y(y_), z(z_) {}
 };
 
-struct Area {
+struct AreaPoints {
     uint32_t subdomainNum;
-    uint32_t p1;
-    uint32_t p2;
-    uint32_t p3;
-    uint32_t p4;
-    uint32_t p5;
-    uint32_t p6;
-    uint32_t p7;
-    uint32_t p8;
+    std::array<uint32_t, 8> refs_{};
+};
+
+struct AreaRibs {
+    size_t subdomainNum_ = 0;
+    std::array<size_t, 12> refs_{};
+    AreaRibs() {};
+    AreaRibs(size_t subdomainNum, std::array<size_t, 12> refs) : subdomainNum_(subdomainNum), refs_(refs) {};
+};
+
+struct Rib {
+    Point p1;
+    Point p2;
+    Rib() {};
+    Rib(Point p1_, Point p2_) : p1(p1_), p2(p2_) {}
+};
+
+struct RibRef {
+    size_t p1 = 0;
+    size_t p2 = 0;
+    RibRef() {};
+    RibRef(size_t p1_, size_t p2_) : p1(p1_), p2(p2_) {}
+};
+
+struct AreaInfo {
+    size_t subdomainNum_ = 0;
+    double_t mu_ = 0.0;
+    double_t sigma_ = 0.0;
+    AreaInfo() {};
+    AreaInfo(double_t mu, double_t sigma) : mu_(mu), sigma_(sigma) {};
 };
 
 struct Border {
-    uint32_t borderNum;
-    uint32_t p1;
-    uint32_t p2;
-    uint32_t p3;
-    uint32_t p4;
+    size_t type = 0;
+    size_t formulaNum = 0;
+    std::array<size_t, 6> refs{};
 };

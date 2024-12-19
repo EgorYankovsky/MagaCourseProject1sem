@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MainHeader.h"
+#include "Logger.h"
 
 #include <cassert>
 #include <cmath>
@@ -13,10 +14,13 @@ private:
     size_t linesAmountX_ = 0;
     size_t linesAmountY_ = 0;
     size_t linesAmountZ_ = 0;
-    std::vector<Area> areas_{};
+    std::vector<AreaPoints> areasPoints_{};
+    std::vector<AreaRibs> areasRibs_{};
     std::vector<Border> borders_{};
     std::vector<Point> points_{};
     std::vector<Point> immutablePoints_{};
+    std::vector<RibRef> referableRibs_{};
+    std::vector<AreaInfo> areasInfo_{};
 
     // Additional.
     size_t subdomainsAmount_ = 0;
@@ -27,6 +31,8 @@ private:
     void generateAboveX();
     void generateAboveY();
     void generateAboveZ();
+    void generateRibsArray();
+    void generateAreasArray();
     inline size_t getLinesAmountX() const { return linesAmountX_; }
     inline size_t getLinesAmountY() const { return linesAmountY_; }
     inline size_t getLinesAmountZ() const { return linesAmountZ_; }
@@ -39,6 +45,8 @@ public:
     void Generate();
     bool CheckData();
     void FileWriteGeneratedPoints(std::string fileName = defaultOutputPointsPath);
+    void FileWriteGeneratedRibs(std::string fileName = defaultOutputRibsPath);
+    void FileWriteGeneratedAreas(std::string fileName = defaultOutputAreasPath);
     __declspec(property(get = getLinesAmountX)) size_t LinesAmountX;
     __declspec(property(get = getLinesAmountY)) size_t LinesAmountY;
     __declspec(property(get = getLinesAmountZ)) size_t LinesAmountZ;

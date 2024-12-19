@@ -4,10 +4,11 @@
 int main() {
     Mesh myMesh;
     ReadData(myMesh, standartInputPath);
-    auto isDataCorrect = myMesh.CheckData();
-    if (!isDataCorrect) return -1;
+    if (!myMesh.CheckData()) return -1;
     myMesh.Generate();
     myMesh.FileWriteGeneratedPoints();
+    myMesh.FileWriteGeneratedRibs();
+    myMesh.FileWriteGeneratedAreas();
     Drawer::DrawMesh();
     return 0;
 }
