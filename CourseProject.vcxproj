@@ -129,11 +129,13 @@
   <ItemGroup>
     <ClCompile Include="CourseProject.cpp" />
     <ClCompile Include="Drawer.cpp" />
+    <ClCompile Include="Integration.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer.h" />
+    <ClInclude Include="Integration.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MainHeader.h" />
     <ClInclude Include="Mesh.h" />

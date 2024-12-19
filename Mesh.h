@@ -33,26 +33,31 @@ private:
     void generateAboveZ();
     void generateRibsArray();
     void generateAreasArray();
-    inline size_t getLinesAmountX() const { return linesAmountX_; }
-    inline size_t getLinesAmountY() const { return linesAmountY_; }
-    inline size_t getLinesAmountZ() const { return linesAmountZ_; }
     inline bool isGenerated() const { return isGenerated_; }
     inline bool isDeclarated() const { return isDeclarated_; }
-    inline std::vector<Point> getPoints() const { return points_; }
 public:
     Mesh() {};
     ~Mesh() {};
+    
     void Generate();
     bool CheckData();
+
     void FileWriteGeneratedPoints(std::string fileName = defaultOutputPointsPath);
     void FileWriteGeneratedRibs(std::string fileName = defaultOutputRibsPath);
     void FileWriteGeneratedAreas(std::string fileName = defaultOutputAreasPath);
+    
+    inline size_t getLinesAmountX() const { return linesAmountX_; }
+    inline size_t getLinesAmountY() const { return linesAmountY_; }
+    inline size_t getLinesAmountZ() const { return linesAmountZ_; }
+    inline std::vector<Point> getPoints() const { return points_; }
+
     __declspec(property(get = getLinesAmountX)) size_t LinesAmountX;
     __declspec(property(get = getLinesAmountY)) size_t LinesAmountY;
     __declspec(property(get = getLinesAmountZ)) size_t LinesAmountZ;
     __declspec(property(get = isGeneraed)) bool IsGenerated;
     __declspec(property(get = isDeclarated)) bool IsDeclarated;
     __declspec(property(get = getPoints)) std::vector<Point> Points;
+    
     friend void Sort(std::vector<Point>& arr);
     friend void ReadData(Mesh& _mesh, std::string inputData);
 };

@@ -324,5 +324,6 @@ void ReadData(Mesh& _mesh, std::string inputData) {
             border.refs[0] >> border.refs[1] >> border.refs[2] >>
             border.refs[3] >> border.refs[4] >> border.refs[5];
     _mesh.isDeclarated_ = true;
+    Logger::ConsoleOutput("Mesh completely read.", NotificationColor::Passed);
     fin.close();
 }

@@ -7,6 +7,11 @@
 #include <iomanip>
 
 const std::string standartInputPath = "Data\\input.txt";
+const std::string inputPath1 = "Data\\input1.txt";
+const std::string inputPath2 = "Data\\input2.txt";
+const std::string inputPath3 = "Data\\input3.txt";
+const std::string inputPath4 = "Data\\input4.txt";
+const std::string inputPath5 = "Data\\input5.txt";
 const std::string defaultOutputPointsPath = "Data\\generatedPoints.txt";
 const std::string defaultOutputRibsPath = "Data\\generatedRibs.txt";
 const std::string defaultOutputAreasPath = "Data\\generatedAreas.txt";
