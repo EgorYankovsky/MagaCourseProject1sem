@@ -1,6 +1,6 @@
-﻿#include "Mesh.h"
-#include "Drawer.h"
-#include "Integration.h"
+﻿#include "Mesh\\Mesh.h"
+#include "Drawer\\Drawer.h"
+#include "Integration\\Integration.h"
 
 static auto SelectTest() -> std::string;
 
@@ -10,6 +10,10 @@ int main() {
     ReadData(myMesh, inputPath);
     if (!myMesh.CheckData()) return -1;
     myMesh.Generate();
+    
+
+
+
     myMesh.FileWriteGeneratedPoints();
     myMesh.FileWriteGeneratedRibs();
     myMesh.FileWriteGeneratedAreas();

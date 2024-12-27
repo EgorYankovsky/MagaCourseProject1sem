@@ -1,7 +1,7 @@
 #pragma once
 
-#include "MainHeader.h"
-#include "Logger.h"
+#include "..\\MainHeader.h"
+#include "..\\Logger\\Logger.h"
 
 #include <cassert>
 #include <cmath>
@@ -31,16 +31,20 @@ private:
     void generateAboveX();
     void generateAboveY();
     void generateAboveZ();
+    void generatePoints();
     void generateRibsArray();
     void generateAreasArray();
-    inline bool isGenerated() const { return isGenerated_; }
-    inline bool isDeclarated() const { return isDeclarated_; }
+    void generateBorderArray();
+
 public:
-    Mesh() {};
+    Mesh() { Logger::ConsoleOutput("Mesh declared, but empty.", NotificationColor::Warning); };
     ~Mesh() {};
     
     void Generate();
     bool CheckData();
+
+    inline bool isGenerated() const { return isGenerated_; }
+    inline bool isDeclarated() const { return isDeclarated_; }
 
     void FileWriteGeneratedPoints(std::string fileName = defaultOutputPointsPath);
     void FileWriteGeneratedRibs(std::string fileName = defaultOutputRibsPath);

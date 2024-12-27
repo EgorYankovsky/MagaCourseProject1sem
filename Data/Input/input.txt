@@ -1,0 +1,56 @@
+2 2 2
+0.0 0.0 0.0     1.0 0.0 0.0
+0.0 1.0 0.0     1.0 1.0 0.0
+0.0 0.0 2.0     2.0 0.0 2.0
+0.0 2.0 2.0     2.0 2.0 2.0
+1
+1 0 1 0 1 0 1
+1 1.0 1.0
+2 1.0 
+2 1.0
+2 1.0
+6
+1 1 0 1 0 0 0 1
+1 1 0 1 1 1 0 1
+1 1 0 0 0 1 0 1
+1 1 1 1 0 1 0 1
+1 1 0 1 0 1 0 0
+1 1 0 1 0 1 1 1
+
+
+----------------------------------------
+linesAmountX(n) linesAmountY(m) linesAmountZ(k)
+/*
+    Field description.
+    x[0]y[0]z[0]    x[1]y[0]z[0]    ...     x[n]y[0]z[0]
+    x[0]y[1]z[0]    x[1]y[1]z[0]    ...     x[n]y[1]z[0]
+        ...             ...         ...         ...
+    x[0]y[m]z[0]    x[1]y[m]z[0]    ...     x[n]y[m]z[0]
+
+    x[0]y[0]z[1]    x[1]y[0]z[1]    ...     x[n]y[0]z[1]
+    x[0]y[1]z[1]    x[1]y[1]z[1]    ...     x[n]y[1]z[1]
+        ...             ...         ...         ...
+    x[0]y[m]z[1]    x[1]y[m]z[1]    ...     x[n]y[m]z[1]
+        ...             ...         ...         ...
+        ...             ...         ...         ...
+    x[0]y[m]z[k]    x[1]y[m]z[k]    ...     x[n]y[m]z[k]
+*/
+[uniqueAreasAmount]
+/*
+    unique areas description.
+    [fieldNum] xi[0] xi[1] yi[0] yi[1] zi[0] zi[1]
+                          ...
+*/
+/*
+    unique areas coefficients description.
+    mui[0] sigmai[0]
+         ...
+*/
+/* delimiters above X description [delimitersX0Amount] [delimitersX0Coef] ... [delimitersXn_1Amount] [delimitersXn_1Coef]*/
+/* delimiters above Y description [delimitersY0Amount] [delimitersY0Coef] ... [delimitersYn_1Amount] [delimitersYn_1Coef]*/
+/* delimiters above Z description [delimitersZ0Amount] [delimitersZ0Coef] ... [delimitersZn_1Amount] [delimitersZn_1Coef]*/
+[bordersAmount]
+/*
+   borders description.
+
+*/

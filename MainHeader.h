@@ -6,15 +6,15 @@
 #include <vector>
 #include <iomanip>
 
-const std::string standartInputPath = "Data\\input.txt";
-const std::string inputPath1 = "Data\\input1.txt";
-const std::string inputPath2 = "Data\\input2.txt";
-const std::string inputPath3 = "Data\\input3.txt";
-const std::string inputPath4 = "Data\\input4.txt";
-const std::string inputPath5 = "Data\\input5.txt";
-const std::string defaultOutputPointsPath = "Data\\generatedPoints.txt";
-const std::string defaultOutputRibsPath = "Data\\generatedRibs.txt";
-const std::string defaultOutputAreasPath = "Data\\generatedAreas.txt";
+const std::string standartInputPath = "Data\\Input\\input.txt";
+const std::string inputPath1 = "Data\\Input\\input1.txt";
+const std::string inputPath2 = "Data\\Input\\input2.txt";
+const std::string inputPath3 = "Data\\Input\\input3.txt";
+const std::string inputPath4 = "Data\\Input\\input4.txt";
+const std::string inputPath5 = "Data\\Input\\input5.txt";
+const std::string defaultOutputPointsPath = "Data\\Generated\\generatedPoints.txt";
+const std::string defaultOutputRibsPath = "Data\\Generated\\generatedRibs.txt";
+const std::string defaultOutputAreasPath = "Data\\Generated\\generatedAreas.txt";
 
 struct Point {
     double_t x = 0.0;

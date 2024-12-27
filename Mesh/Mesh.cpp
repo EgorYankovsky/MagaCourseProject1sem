@@ -130,6 +130,7 @@ void Mesh::generateAboveY() {
     Sort(points_);
     linesAmountY_ = points_.size() / (linesAmountX_ * linesAmountZ_);
     Logger::ConsoleOutput("Generated above Y.", NotificationColor::Warning);
+    Logger::ConsoleOutput("Possible mistakes during generation above Y.", NotificationColor::Alert);
 }
 
 // Fully works.
@@ -179,6 +180,14 @@ void Mesh::generateAboveZ() {
     Logger::ConsoleOutput("Generated above Z.", NotificationColor::Passed);
 }
 
+// Fully works.
+void Mesh::generatePoints() {
+    generateAboveZ();
+    generateAboveY();
+    generateAboveX();
+    Logger::ConsoleOutput("Points generated.", NotificationColor::Passed);
+}
+
 void Mesh::generateRibsArray() {
     auto nx = linesAmountX_;
     auto ny = linesAmountY_;
@@ -225,15 +234,17 @@ void Mesh::generateAreasArray() {
                     curr + rxy + nxy, curr + rxy + nxy + rx, curr + rxy + nxy + rx + 1, curr + rxy + nxy + rx + nx };
                 areasRibs_.emplace_back(1, arrI);
             }
-    Logger::ConsoleOutput("Area number doesn't commits!", NotificationColor::Warning);
+    Logger::ConsoleOutput("Area number doesn't commits!", NotificationColor::Alert);
     Logger::ConsoleOutput("Areas array generated.", NotificationColor::Warning);
+}
+
+void Mesh::generateBorderArray() {
+
 }
 
 void Mesh::Generate() {
     assert(isDeclarated_);
-    generateAboveZ();
-    generateAboveY();
-    generateAboveX();
+    generatePoints();
     generateRibsArray();
     generateAreasArray();
 }
@@ -254,6 +265,7 @@ bool Mesh::CheckData() {
     if (linesAmountX_ - 1 != maxLineX) return false;
     if (linesAmountY_ - 1 != maxLineY) return false;
     if (linesAmountZ_ - 1 != maxLineZ) return false;
+    Logger::ConsoleOutput("Mesh checked and declared.", NotificationColor::Passed);
     return true;
 }
 

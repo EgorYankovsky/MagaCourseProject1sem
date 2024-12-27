@@ -1,0 +1,29 @@
+[lines amount x] 2 [lines amount y] 2 [lines amount z] 2
+
+[field description]
+0.0 0.0 0.0     1.0 0.0 0.0
+0.0 1.0 0.0     1.0 1.0 0.0
+0.0 0.0 2.0     2.0 0.0 2.0
+0.0 2.0 2.0     2.0 2.0 2.0
+
+[unique areas amount] 1
+
+[unique areas description]
+1 0 1 0 1 0 1
+
+[unique areas coefficients description]
+1 1.0 1.0
+
+[delimiters above X description] 2 1.0 
+[delimiters above Y description] 2 1.0
+[delimiters above X description] 2 1.0
+
+[bordersAmount] 6
+
+[borders description]
+1 1 0 1 0 0 0 1
+1 1 0 1 1 1 0 1
+1 1 0 0 0 1 0 1
+1 1 1 1 0 1 0 1
+1 1 0 1 0 1 0 0
+1 1 0 1 0 1 1 1

@@ -15,51 +15,75 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Data\Generated\generatedAreas.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Generated\generatedPoints.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Generated\generatedRibs.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Input\input.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Input\input1.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Input\input2.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Input\input3.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Input\input4.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Input\input5.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="Data\Input\testInput.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="CourseProject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
+    <ClCompile Include="Drawer\Drawer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Drawer.cpp">
+    <ClCompile Include="Mesh\Mesh.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
+    <ClCompile Include="Logger\Logger.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Integration.cpp">
+    <ClCompile Include="Integration\Integration.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh\MeshReader.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Drawer\Drawer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Integration\Integration.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger\Logger.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh\Mesh.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
     <ClInclude Include="MainHeader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
+    <ClInclude Include="Mesh\MeshReader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Drawer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Integration.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Data\generatedPoints.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\input.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\generatedRibs.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\generatedAreas.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
   </ItemGroup>
 </Project>
