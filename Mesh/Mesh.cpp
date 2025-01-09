@@ -1,5 +1,9 @@
 #include "Mesh.h"
 
+std::string Mesh::defaultOutputPointsPath = "Data\\Generated\\generatedPoints.txt";
+std::string Mesh::defaultOutputRibsPath = "Data\\Generated\\generatedRibs.txt";
+std::string Mesh::defaultOutputAreasPath = "Data\\Generated\\generatedAreas.txt";
+
 void Sort(std::vector<Point>& arr) {
     Point temp;
     bool isSorted(false);

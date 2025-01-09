@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\\MainHeader.h"
+#include "..\\DataTypes.h"
 #include "..\\Logger\\Logger.h"
 
 #include <cassert>
@@ -28,6 +28,11 @@ private:
     std::vector<std::pair<size_t, double_t>> delimetersX_{};
     std::vector<std::pair<size_t, double_t>> delimetersY_{};
     std::vector<std::pair<size_t, double_t>> delimetersZ_{};
+    
+    static std::string defaultOutputPointsPath;// = "Data\\Generated\\generatedPoints.txt";
+    static std::string defaultOutputRibsPath;// = "Data\\Generated\\generatedRibs.txt";
+    static std::string defaultOutputAreasPath;// = "Data\\Generated\\generatedAreas.txt";
+    
     void generateAboveX();
     void generateAboveY();
     void generateAboveZ();
@@ -39,7 +44,7 @@ private:
 public:
     Mesh() { Logger::ConsoleOutput("Mesh declared, but empty.", NotificationColor::Warning); };
     ~Mesh() {};
-    
+
     void Generate();
     bool CheckData();
 
@@ -49,7 +54,7 @@ public:
     void FileWriteGeneratedPoints(std::string fileName = defaultOutputPointsPath);
     void FileWriteGeneratedRibs(std::string fileName = defaultOutputRibsPath);
     void FileWriteGeneratedAreas(std::string fileName = defaultOutputAreasPath);
-    
+
     inline size_t getLinesAmountX() const { return linesAmountX_; }
     inline size_t getLinesAmountY() const { return linesAmountY_; }
     inline size_t getLinesAmountZ() const { return linesAmountZ_; }
@@ -61,7 +66,7 @@ public:
     __declspec(property(get = isGeneraed)) bool IsGenerated;
     __declspec(property(get = isDeclarated)) bool IsDeclarated;
     __declspec(property(get = getPoints)) std::vector<Point> Points;
-    
+
     friend void Sort(std::vector<Point>& arr);
     friend void ReadData(Mesh& _mesh, std::string inputData);
 };

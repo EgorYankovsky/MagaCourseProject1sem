@@ -1,4 +1,6 @@
-﻿#include "Mesh\\Mesh.h"
+﻿#include "MainHeader.h"
+
+//#include "Mesh\\MeshHeader.h"
 #include "Drawer\\Drawer.h"
 #include "Integration\\Integration.h"
 
@@ -7,6 +9,10 @@ static auto SelectTest() -> std::string;
 int main() {
     auto inputPath = SelectTest();
     Mesh myMesh;
+    std::string f = "Data\\Input\\testInput.txt";
+    MeshFileStreamer::Read(myMesh, f);
+    
+    return 0;
     ReadData(myMesh, inputPath);
     if (!myMesh.CheckData()) return -1;
     myMesh.Generate();
