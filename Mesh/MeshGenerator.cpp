@@ -1,6 +1,43 @@
 #include "MeshGenerator.h"
 
+void Sort(std::vector<Point>& arr) {
+    Point temp;
+    bool isSorted(false);
+    while (!isSorted) {
+        isSorted = true;
+        for (size_t counter(0); counter < arr.size() - 1; ++counter) {
+            if (arr[counter].z > arr[counter + 1].z) {
+                temp = arr[counter];
+                arr[counter] = arr[counter + 1];
+                arr[counter + 1] = temp;
+                isSorted = false;
+            }
+            else {
+                if (arr[counter].z == arr[counter + 1].z) {
+                    if (arr[counter].y > arr[counter + 1].y) {
+                        temp = arr[counter];
+                        arr[counter] = arr[counter + 1];
+                        arr[counter + 1] = temp;
+                        isSorted = false;
+                    }
+                    else {
+                        if (arr[counter].y == arr[counter + 1].y) {
+                            if (arr[counter].x > arr[counter + 1].x) {
+                                temp = arr[counter];
+                                arr[counter] = arr[counter + 1];
+                                arr[counter + 1] = temp;
+                                isSorted = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 void MeshGenerator::Generate3DMesh(Mesh& mesh) {
+    assert(mesh.IsDeclarated);
     GenerateListOfPointsAboveZ(mesh);
     GenerateListOfPointsAboveY(mesh);
     GenerateListOfPointsAboveX(mesh);
@@ -23,8 +60,8 @@ void MeshGenerator::GenerateListOfPointsAboveZ(Mesh& mesh) {
         std::vector<Point> pointsToInsert{};
         for (size_t j(0); j < mesh.LinesAmountY; ++j) {
             for (size_t k(0); k < mesh.LinesAmountX; ++k) {
-                auto& pnt1 = immutablePoints_[i * lxy + j * linesAmountX_ + k];
-                auto& pnt2 = immutablePoints_[(i + 1) * lxy + j * linesAmountX_ + k];
+                auto& pnt1 = mesh.immutablePoints_[i * lxy + j * mesh.linesAmountX_ + k];
+                auto& pnt2 = mesh.immutablePoints_[(i + 1) * lxy + j * mesh.linesAmountX_ + k];
 
                 // Find difference above axis.
                 double_t dx = pnt2.x - pnt1.x;
@@ -32,8 +69,8 @@ void MeshGenerator::GenerateListOfPointsAboveZ(Mesh& mesh) {
                 double_t dz = pnt2.z - pnt1.z;
 
                 // Get delimiters amount and it's coefficient.
-                auto delimAmount = delimetersZ_[i].first;
-                auto delimCoef = delimetersZ_[i].second;
+                auto delimAmount = mesh.delimetersZ_[i].first;
+                auto delimCoef = mesh.delimetersZ_[i].second;
 
                 double_t denominator(0.0);
                 for (size_t ii(0); ii < delimAmount; ++ii)
@@ -56,10 +93,10 @@ void MeshGenerator::GenerateListOfPointsAboveZ(Mesh& mesh) {
         }
         if (pointsToInsert.size() > 0) {
             Sort(pointsToInsert);
-            points_.insert(points_.begin() + (i + 1) * lxy, pointsToInsert.begin(), pointsToInsert.end());
+            mesh.points_.insert(mesh.points_.begin() + (i + 1) * lxy, pointsToInsert.begin(), pointsToInsert.end());
         }
     }
-    linesAmountZ_ = points_.size() / lxy;
+    mesh.linesAmountZ_ = mesh.points_.size() / lxy;
 
     Logger::ConsoleOutput("Couldn't generate list of points above Z axis", NotificationColor::Warning);
 }

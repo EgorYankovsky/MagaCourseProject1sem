@@ -19,8 +19,6 @@ private:
     size_t linesAmountZ_ = 0;
     
     std::vector<Point> points_{};
-    std::vector<Point> immutablePoints_{};
-
 
     size_t subdomainsAmount_ = 0;
     std::vector<std::array<size_t, 7>> subdomains_{};
@@ -38,16 +36,13 @@ private:
     std::vector<AreaPoints> areasPoints_{};
     std::vector<RibRef> referableRibs_{};
 
-    // Additional.
-    std::vector<std::array<size_t, 7>> subdomains_{};
-    
-    static std::string defaultOutputPointsPath;// = "Data\\Generated\\generatedPoints.txt";
-    static std::string defaultOutputRibsPath;// = "Data\\Generated\\generatedRibs.txt";
-    static std::string defaultOutputAreasPath;// = "Data\\Generated\\generatedAreas.txt";
-    
+    // Additional.    
+    std::vector<Point> immutablePoints_{};
+    std::vector<Border> immutableBorders_{};
+
     void generateAboveX();
     void generateAboveY();
-    void generateAboveZ();
+
     void generatePoints();
     void generateRibsArray();
     void generateAreasArray();
@@ -59,20 +54,19 @@ public:
 
     void Generate();
     bool CheckData();
+    void CommitData(std::vector<std::string>* data);
 
     inline bool isGenerated() const { return isGenerated_; }
     inline bool isDeclarated() const { return isDeclarated_; }
 
-    void CommitData(std::vector<std::string>* data);
-
-    void FileWriteGeneratedPoints(std::string fileName = defaultOutputPointsPath);
-    void FileWriteGeneratedRibs(std::string fileName = defaultOutputRibsPath);
-    void FileWriteGeneratedAreas(std::string fileName = defaultOutputAreasPath);
-
     inline size_t getLinesAmountX() const { return linesAmountX_; }
     inline size_t getLinesAmountY() const { return linesAmountY_; }
     inline size_t getLinesAmountZ() const { return linesAmountZ_; }
+
     inline std::vector<Point> getPoints() const { return points_; }
+    inline std::vector<AreaRibs> getAreasAsRibs() const { return areasRibs_; }
+    inline std::vector<RibRef> getRibsRefs() const { return referableRibs_; }
+    inline std::vector<Border> getBorders() const { return borders_; }
 
     __declspec(property(get = getLinesAmountX)) size_t LinesAmountX;
     __declspec(property(get = getLinesAmountY)) size_t LinesAmountY;
@@ -81,6 +75,5 @@ public:
     __declspec(property(get = isDeclarated)) bool IsDeclarated;
     __declspec(property(get = getPoints)) std::vector<Point> Points;
 
-    friend void Sort(std::vector<Point>& arr);
-    friend void ReadData(Mesh& _mesh, std::string inputData);
+    friend class MeshGenerator;
 };

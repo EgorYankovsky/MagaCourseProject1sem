@@ -2,6 +2,8 @@
 
 #include "Mesh.h"
 
+#include <cassert>
+
 class MeshGenerator {
 private:
     static void GenerateListOfPointsAboveX(Mesh& mesh);
@@ -13,4 +15,5 @@ private:
 public:
     MeshGenerator() = delete;
     static void Generate3DMesh(Mesh& mesh);
+    friend void Sort(std::vector<Point>& arr);
 };
