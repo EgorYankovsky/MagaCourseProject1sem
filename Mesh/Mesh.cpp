@@ -273,6 +273,77 @@ bool Mesh::CheckData() {
     return true;
 }
 
+void Mesh::CommitData(std::vector<std::string>* data) {
+    // Select first item of vector.
+    auto currentItem = data->begin();
+    
+    // Commit lines amount above X,Y,Z axis.
+    linesAmountX_ = std::stoul(*currentItem); currentItem++;
+    linesAmountY_ = std::stoul(*currentItem); currentItem++;
+    linesAmountZ_ = std::stoul(*currentItem); currentItem++;
+
+    // Commit area description.
+    for (size_t i(0); i < linesAmountX_ * linesAmountY_ * linesAmountZ_; ++i) {
+        points_.emplace_back(std::stod(*currentItem),           // X 
+                             std::stod(*(currentItem + 1)),     // Y
+                             std::stod(*(currentItem + 2)));    // Z
+        currentItem += 3;
+    }
+    
+    // Commit unique areas description.
+    subdomainsAmount_ = std::stoul(*currentItem); currentItem++;
+    for (size_t i(0); i < subdomainsAmount_; ++i) {
+
+        std::array<size_t, 7> currentArray = { std::stoul(*currentItem),            // Formula num.
+                                               std::stoul(*(currentItem + 1)),      // X0.
+                                               std::stoul(*(currentItem + 2)),      // X1.
+                                               std::stoul(*(currentItem + 3)),      // Y0.
+                                               std::stoul(*(currentItem + 4)),      // Y1.
+                                               std::stoul(*(currentItem + 5)),      // Z0.
+                                               std::stoul(*(currentItem + 6)) };    // Z1.
+        subdomains_.push_back(currentArray);
+        currentItem += 7;
+    }
+
+    for (size_t i(0); i < subdomainsAmount_; ++i) {
+        areasInfo_.emplace_back(std::stoul(*currentItem),           // Area num.
+                                std::stod(*(currentItem + 1)),      // Mu_i.
+                                std::stod(*(currentItem + 2)));     // Sigma_i.
+        currentItem += 3;
+    }
+
+    for (size_t i(0); i < linesAmountX_ - 1; ++i) {
+        delimetersX_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above X.
+                                  std::stod(*(currentItem + 1)));   // Delimiters coefficient above X.
+        currentItem += 2;
+    }
+
+    for (size_t i(0); i < linesAmountX_ - 1; ++i) {
+        delimetersX_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Y.
+            std::stod(*(currentItem + 1)));                         // Delimiters coefficient above Y.
+        currentItem += 2;
+    }
+
+    for (size_t i(0); i < linesAmountX_ - 1; ++i) {
+        delimetersX_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Z.
+            std::stod(*(currentItem + 1)));                         // Delimiters coefficient above Z.
+        currentItem += 2;
+    }
+
+    bordersAmount_ = std::stoul(*currentItem); currentItem++;
+    for (size_t i(0); i < bordersAmount_; ++i) {
+        borders_.emplace_back(std::stoul(*currentItem),             // Border type.
+                              std::stoul(*(currentItem + 1)),       // Border formula num.
+                              std::stoul(*(currentItem + 2)),       // X0.
+                              std::stoul(*(currentItem + 3)),       // X1.
+                              std::stoul(*(currentItem + 4)),       // Y0.
+                              std::stoul(*(currentItem + 5)),       // Y1.
+                              std::stoul(*(currentItem + 6)),       // Z0.
+                              std::stoul(*(currentItem + 7)));      // Z1.
+        currentItem += 8;
+    }
+}
+
 void Mesh::FileWriteGeneratedPoints(std::string fileName) {
     std::ofstream fout(fileName);
     fout << points_.size() << std::endl; 
@@ -335,10 +406,10 @@ void ReadData(Mesh& _mesh, std::string inputData) {
     size_t bordersAmount(0);
     fin >> bordersAmount;
     _mesh.borders_.resize(bordersAmount);
-    for (auto& border : _mesh.borders_)
-        fin >> border.type >> border.formulaNum >>
-            border.refs[0] >> border.refs[1] >> border.refs[2] >>
-            border.refs[3] >> border.refs[4] >> border.refs[5];
+    //for (auto& border : _mesh.borders_)
+    //    fin >> border.type >> border.formulaNum >>
+    //        border.refs[0] >> border.refs[1] >> border.refs[2] >>
+    //        border.refs[3] >> border.refs[4] >> border.refs[5];
     _mesh.isDeclarated_ = true;
     Logger::ConsoleOutput("Mesh completely read.", NotificationColor::Passed);
     fin.close();

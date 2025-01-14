@@ -5,6 +5,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <string>
 
 class Mesh {
 private:
@@ -24,6 +25,7 @@ private:
 
     // Additional.
     size_t subdomainsAmount_ = 0;
+    size_t bordersAmount_ = 0;
     std::vector<std::array<size_t, 7>> subdomains_{};
     std::vector<std::pair<size_t, double_t>> delimetersX_{};
     std::vector<std::pair<size_t, double_t>> delimetersY_{};
@@ -50,6 +52,8 @@ public:
 
     inline bool isGenerated() const { return isGenerated_; }
     inline bool isDeclarated() const { return isDeclarated_; }
+
+    void CommitData(std::vector<std::string>* data);
 
     void FileWriteGeneratedPoints(std::string fileName = defaultOutputPointsPath);
     void FileWriteGeneratedRibs(std::string fileName = defaultOutputRibsPath);

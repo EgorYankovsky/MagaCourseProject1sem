@@ -45,7 +45,7 @@ void MeshFileStreamer::Read(Mesh& _mesh, std::string path) {
         case 93: // ]
             readMode = 2;
             mes = word + " already read!";
-            Logger::ConsoleOutput(mes, NotificationColor::Warning);
+            Logger::ConsoleOutput(mes, NotificationColor::Passed);
             word = std::string();
             break;
         case 32: // (space)
@@ -57,7 +57,7 @@ void MeshFileStreamer::Read(Mesh& _mesh, std::string path) {
             break;
         default:
             if (readMode == -1) {
-                Logger::ConsoleOutput("Failure during reading", NotificationColor::Alert);
+                Logger::ConsoleOutput("Failure during reading", NotificationColor::Passed);
                 exit(-1);
             }
             if (readMode == 0) {
@@ -67,4 +67,6 @@ void MeshFileStreamer::Read(Mesh& _mesh, std::string path) {
             if (readMode == 1 || readMode == 2) word += character;
         }
     }
+    numbers.push_back(word);
+    _mesh.CommitData(&numbers);
 }

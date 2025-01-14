@@ -43,11 +43,18 @@ struct AreaInfo {
     double_t mu_ = 0.0;
     double_t sigma_ = 0.0;
     AreaInfo() {};
-    AreaInfo(double_t mu, double_t sigma) : mu_(mu), sigma_(sigma) {};
+    AreaInfo(size_t subdomainNum, double_t mu, double_t sigma) : subdomainNum_(subdomainNum), mu_(mu), sigma_(sigma) {};
 };
 
 struct Border {
-    size_t type = 0;
-    size_t formulaNum = 0;
-    std::array<size_t, 6> refs{};
+    size_t type_ = 0;
+    size_t formulaNum_ = 0;
+    std::array<size_t, 6> refs_{};
+    Border() {};
+    Border(size_t type, size_t formulaNum, std::array<size_t, 6> refs) :
+        type_(type), formulaNum_(formulaNum), refs_(refs) {}
+    Border(size_t type, size_t formulaNum, size_t i1, size_t i2, size_t i3, size_t i4, size_t i5, size_t i6) :
+        type_(type), formulaNum_(formulaNum) {
+        refs_ = {i1, i2, i3, i4, i5, i6};
+    }
 };
