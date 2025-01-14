@@ -1,6 +1,6 @@
 [lines amount x] 2 [lines amount y] 2 [lines amount z] 2
 
-[field description]
+[field description of points]
 0.0 0.0 0.0     1.0 0.0 0.0
 0.0 1.0 0.0     1.0 1.0 0.0
 0.0 0.0 2.0     2.0 0.0 2.0

@@ -145,6 +145,7 @@
     <ClCompile Include="Logger\Logger.cpp" />
     <ClCompile Include="Mesh\Mesh.cpp" />
     <ClCompile Include="Mesh\MeshFileStreamer.cpp" />
+    <ClCompile Include="Mesh\MeshGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTypes.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="MainHeader.h" />
     <ClInclude Include="Mesh\Mesh.h" />
     <ClInclude Include="Mesh\MeshFileStreamer.h" />
+    <ClInclude Include="Mesh\MeshGenerator.h" />
     <ClInclude Include="Mesh\MeshHeader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

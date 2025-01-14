@@ -12,24 +12,34 @@ private:
     // Based.
     bool isGenerated_ = false;
     bool isDeclarated_ = false;
+    
+    
     size_t linesAmountX_ = 0;
     size_t linesAmountY_ = 0;
     size_t linesAmountZ_ = 0;
-    std::vector<AreaPoints> areasPoints_{};
-    std::vector<AreaRibs> areasRibs_{};
-    std::vector<Border> borders_{};
+    
     std::vector<Point> points_{};
     std::vector<Point> immutablePoints_{};
-    std::vector<RibRef> referableRibs_{};
-    std::vector<AreaInfo> areasInfo_{};
 
-    // Additional.
+
     size_t subdomainsAmount_ = 0;
-    size_t bordersAmount_ = 0;
     std::vector<std::array<size_t, 7>> subdomains_{};
+    std::vector<AreaInfo> areasInfo_{};
+    std::vector<AreaRibs> areasRibs_{};
+
     std::vector<std::pair<size_t, double_t>> delimetersX_{};
     std::vector<std::pair<size_t, double_t>> delimetersY_{};
     std::vector<std::pair<size_t, double_t>> delimetersZ_{};
+
+    size_t bordersAmount_ = 0;
+    std::vector<Border> borders_{};
+
+
+    std::vector<AreaPoints> areasPoints_{};
+    std::vector<RibRef> referableRibs_{};
+
+    // Additional.
+    std::vector<std::array<size_t, 7>> subdomains_{};
     
     static std::string defaultOutputPointsPath;// = "Data\\Generated\\generatedPoints.txt";
     static std::string defaultOutputRibsPath;// = "Data\\Generated\\generatedRibs.txt";

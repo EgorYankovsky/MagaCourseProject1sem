@@ -319,13 +319,13 @@ void Mesh::CommitData(std::vector<std::string>* data) {
     }
 
     for (size_t i(0); i < linesAmountX_ - 1; ++i) {
-        delimetersX_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Y.
+        delimetersY_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Y.
             std::stod(*(currentItem + 1)));                         // Delimiters coefficient above Y.
         currentItem += 2;
     }
 
     for (size_t i(0); i < linesAmountX_ - 1; ++i) {
-        delimetersX_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Z.
+        delimetersZ_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Z.
             std::stod(*(currentItem + 1)));                         // Delimiters coefficient above Z.
         currentItem += 2;
     }
