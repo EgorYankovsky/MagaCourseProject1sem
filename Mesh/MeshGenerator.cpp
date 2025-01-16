@@ -38,67 +38,77 @@ void Sort(std::vector<Point>& arr) {
 
 void MeshGenerator::Generate3DMesh(Mesh& mesh) {
     assert(mesh.IsDeclarated);
-    GenerateListOfPointsAboveZ(mesh);
-    GenerateListOfPointsAboveY(mesh);
-    GenerateListOfPointsAboveX(mesh);
+    GenerateListOfPoints(mesh);
     GenerateListOfRibs(mesh);
     GenerateListOfAreas(mesh);
     GenerateListOfBorders(mesh);
 }
 
-void MeshGenerator::GenerateListOfPointsAboveX(Mesh& mesh) {
-    Logger::ConsoleOutput("Couldn't generate list of points above X axis", NotificationColor::Warning);
-}
+void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
+    
+    // Construct 3D area.
+    std::vector<std::vector<std::vector<Point>>> figure{};
+    figure.resize(mesh.LinesAmountZ);
+    for (auto& square : figure) {
+        square.resize(mesh.LinesAmountY);
+        for (auto& line : square) line.resize(mesh.LinesAmountX);
+    }
 
-void MeshGenerator::GenerateListOfPointsAboveY(Mesh& mesh){
-    Logger::ConsoleOutput("Couldn't generate list of points above Y axis", NotificationColor::Warning);
-}
+    // Fill 3D area.
+    auto sxy = mesh.LinesAmountX * mesh.LinesAmountY;
+    auto lx = mesh.LinesAmountX;
+    for (size_t k(0); k < mesh.LinesAmountZ; ++k)
+        for (size_t j(0); j < mesh.LinesAmountY; ++j)
+            for (size_t i(0); i < mesh.LinesAmountX; ++i)
+                figure[k][j][i] = mesh.immutablePoints_[k * sxy + j * lx + i];
 
-void MeshGenerator::GenerateListOfPointsAboveZ(Mesh& mesh) {
-    auto lxy = mesh.LinesAmountX * mesh.LinesAmountY;
-    for (size_t i(0); i < mesh.LinesAmountZ - 1; ++i) {
-        std::vector<Point> pointsToInsert{};
+
+
+    for (size_t k(0); k < mesh.LinesAmountZ; ++k) {
         for (size_t j(0); j < mesh.LinesAmountY; ++j) {
-            for (size_t k(0); k < mesh.LinesAmountX; ++k) {
-                auto& pnt1 = mesh.immutablePoints_[i * lxy + j * mesh.linesAmountX_ + k];
-                auto& pnt2 = mesh.immutablePoints_[(i + 1) * lxy + j * mesh.linesAmountX_ + k];
+            std::vector<Point> lineToBuild{};
+            lineToBuild = figure[k][j];
+            size_t shift = mesh.LinesAmountX - 1;
+            for (const auto& info : mesh.delimitersX_) {
+                auto rightBorderIter = lineToBuild.end() - shift;
+                auto amountOfDelimiters = info.first;
+                auto coefficientOfDelimiter = info.second;
 
-                // Find difference above axis.
-                double_t dx = pnt2.x - pnt1.x;
-                double_t dy = pnt2.y - pnt1.y;
-                double_t dz = pnt2.z - pnt1.z;
+                double denum = 0.0;
+                for (size_t ii(0); ii < amountOfDelimiters; ++ii)
+                    denum += pow(coefficientOfDelimiter, ii);
 
-                // Get delimiters amount and it's coefficient.
-                auto delimAmount = mesh.delimetersZ_[i].first;
-                auto delimCoef = mesh.delimetersZ_[i].second;
+                double x0 = (*(rightBorderIter - 1)).x;
+                double x1 = (*rightBorderIter).x;
 
-                double_t denominator(0.0);
-                for (size_t ii(0); ii < delimAmount; ++ii)
-                    denominator += pow(delimCoef, ii);
+                double y0 = (*(rightBorderIter - 1)).y;
+                double y1 = (*rightBorderIter).y;
+                
+                double z0 = (*(rightBorderIter - 1)).z;
+                double z1 = (*rightBorderIter).z;
 
-                double_t hx0 = dx / denominator;
-                double_t hy0 = dy / denominator;
-                double_t hz0 = dz / denominator;
+                double deltX = x1 - x0;
+                double deltY = y1 - y0;
+                double deltZ = z1 - z0;
 
-                double_t mnoz(0.0);
-                for (size_t ii(0); ii < delimAmount - 1; ++ii) {
-                    mnoz += pow(delimCoef, ii);
-                    pointsToInsert.push_back(Point(
-                        pnt1.x + hx0 * mnoz,
-                        pnt1.y + hy0 * mnoz,
-                        pnt1.z + hz0 * mnoz
-                    ));
+                double xh = deltX / denum;
+                double yh = deltY / denum;
+                double zh = deltZ / denum;
+
+                double multiplier = 0.0;
+                for (size_t ii(0); ii < amountOfDelimiters - 1; ++ii) {
+                    multiplier += pow(coefficientOfDelimiter, ii);
+                    auto pointToInsert = Point(x0 + xh * multiplier, 
+                                               y0 + yh * multiplier, 
+                                               z0 + zh * multiplier);
+                    lineToBuild.insert(lineToBuild.end() - shift, pointToInsert);
                 }
+                shift--;
             }
-        }
-        if (pointsToInsert.size() > 0) {
-            Sort(pointsToInsert);
-            mesh.points_.insert(mesh.points_.begin() + (i + 1) * lxy, pointsToInsert.begin(), pointsToInsert.end());
+            figure[k][j] = lineToBuild;
         }
     }
-    mesh.linesAmountZ_ = mesh.points_.size() / lxy;
 
-    Logger::ConsoleOutput("Couldn't generate list of points above Z axis", NotificationColor::Warning);
 }
 
 void MeshGenerator::GenerateListOfAreas(Mesh& mesh) {

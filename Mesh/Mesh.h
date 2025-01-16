@@ -25,9 +25,9 @@ private:
     std::vector<AreaInfo> areasInfo_{};
     std::vector<AreaRibs> areasRibs_{};
 
-    std::vector<std::pair<size_t, double_t>> delimetersX_{};
-    std::vector<std::pair<size_t, double_t>> delimetersY_{};
-    std::vector<std::pair<size_t, double_t>> delimetersZ_{};
+    std::vector<std::pair<size_t, double_t>> delimitersX_{};
+    std::vector<std::pair<size_t, double_t>> delimitersY_{};
+    std::vector<std::pair<size_t, double_t>> delimitersZ_{};
 
     size_t bordersAmount_ = 0;
     std::vector<Border> borders_{};
@@ -38,23 +38,16 @@ private:
 
     // Additional.    
     std::vector<Point> immutablePoints_{};
+    std::vector<std::array<size_t, 7>> immutableSubdomains_{};
     std::vector<Border> immutableBorders_{};
-
-    void generateAboveX();
-    void generateAboveY();
-
-    void generatePoints();
-    void generateRibsArray();
-    void generateAreasArray();
-    void generateBorderArray();
 
 public:
     Mesh() { Logger::ConsoleOutput("Mesh declared, but empty.", NotificationColor::Warning); };
     ~Mesh() {};
 
-    void Generate();
     bool CheckData();
     void CommitData(std::vector<std::string>* data);
+
 
     inline bool isGenerated() const { return isGenerated_; }
     inline bool isDeclarated() const { return isDeclarated_; }

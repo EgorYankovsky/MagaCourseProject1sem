@@ -9,11 +9,13 @@ int main() {
     auto inputPath = SelectTest();
     Mesh myMesh;
     MeshFileStreamer::Read(myMesh, inputPath);
-    if (!myMesh.CheckData()) return -1;
+    if (!myMesh.CheckData()) {
+        Logger::ConsoleOutput("Error during data checking", NotificationColor::Alert);
+        return -1;
+    }
     MeshGenerator::Generate3DMesh(myMesh);
-    MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
+    //MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
     return 0;
-    myMesh.Generate();
     Drawer::DrawMesh();
     return 0;
 }
