@@ -1,7 +1,9 @@
 #include "MeshFileStreamer.h"
 
-std::string const MeshFileStreamer::pathToText = "..\\Data\\Generated\\Text\\";
-std::string const MeshFileStreamer::pathToBin = "..\\Data\\Generated\\Bin\\";
+#include <stdlib.h>
+
+std::string MeshFileStreamer::pathToText = "Data/Generated/Text/";
+std::string MeshFileStreamer::pathToBin = "Data/Generated/Bin/";
 
 void MeshFileStreamer::Read(Mesh& _mesh, std::string path) {
     std::ifstream file(path, std::ios::in | std::ios::binary | std::ios::ate);
@@ -88,8 +90,8 @@ void MeshFileStreamer::Write(const Mesh* mesh, FileExtension fe) {
     }
 }
 
-void MeshFileStreamer::WriteTxt(const Mesh* mesh, std::string path) {
-    std::ofstream fout(path + "GeneratedPoints.txt", std::ios::out);
+void MeshFileStreamer::WriteTxt(const Mesh* mesh) {
+    std::ofstream fout(pathToText + "GeneratedPoints.txt");
 
     // Write array of points.
     if (!fout.is_open()) {
@@ -103,32 +105,35 @@ void MeshFileStreamer::WriteTxt(const Mesh* mesh, std::string path) {
     fout.close();
 
     // Write array of areas.
-    fout.open(path + "GeneratedAreas.txt", std::ios::out);
+    fout.open(pathToText + "GeneratedAreas.txt", std::ios::out);
     if (!fout.is_open()) {
         Logger::ConsoleOutput("Error during file writing array of areas. File isn't open", NotificationColor::Alert);
         exit(-1);
     }
     fout << "[ Total areas ] " << mesh->getAreasAsRibs().size() << std::endl;
-    
-    // To be continued.
-    
-    Logger::ConsoleOutput("Areas array couldn't output", NotificationColor::Alert);
-    exit(-1);
     for (auto& area : mesh->getAreasAsRibs()) {
-        //fout << area[0] << " " << area[1] << " " << area[2] << " " << area[3] << 
-        //                   " " << area[4] << " " << area[5] << " " << area[6];
+        fout << area.subdomainNum_ << " " << area.refs_[0] << " " << area.refs_[1] << " "
+            << area.refs_[2] << " " << area.refs_[3] << " " << area.refs_[4] << " "
+            << area.refs_[5] << " " << area.refs_[6] << " " << area.refs_[7] << " "
+            << area.refs_[8] << " " << area.refs_[9] << " " << area.refs_[10] << " "
+            << area.refs_[11] << std::endl;
     }
     fout.close();
 
+    
     // Write array of ribs.
-    fout.open(path + "GeneratedRibs.txt", std::ios::out);
+    fout.open(pathToText + "GeneratedRibs.txt", std::ios::out);
     if (!fout.is_open()) {
         Logger::ConsoleOutput("Error during file writing array of areas. File isn't open", NotificationColor::Alert);
         exit(-1);
     }
-    //fout << "[ Total ribs ] " << mesh->
+    fout << "[ Total ribs ] " << mesh->getRibsRefs().size() << std::endl;
+    for (auto& rib : mesh->getRibsRefs()) {
+        fout << rib.p1 << " " << rib.p2 << std::endl;
+    }
+    fout.close();
 }
 
-void MeshFileStreamer::WriteBin(const Mesh* mesh, std::string path) {
-    std::ofstream fout(path, std::ios::out | std::ios::binary);
+void MeshFileStreamer::WriteBin(const Mesh* mesh) {
+    std::ofstream fout(pathToBin, std::ios::out | std::ios::binary);
 }

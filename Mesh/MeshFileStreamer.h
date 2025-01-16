@@ -12,10 +12,10 @@ enum FileExtension {
 
 class MeshFileStreamer {
 private:
-    static std::string const pathToText;
-    static std::string const pathToBin;
-    static void WriteTxt(const Mesh* mesh, std::string path = pathToText);
-    static void WriteBin(const Mesh* mesh, std::string path = pathToBin);
+    static std::string pathToText;
+    static std::string pathToBin;
+    static void WriteTxt(const Mesh* mesh);
+    static void WriteBin(const Mesh* mesh);
 public:
     MeshFileStreamer() = delete;
     static void Read(Mesh& _mesh, std::string path);

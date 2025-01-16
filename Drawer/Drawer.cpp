@@ -2,11 +2,11 @@
 
 const char* Drawer::scriptName = "python";
 const char* Drawer::pythonScriptName = "pythonScripts\\drawer.py";
-const char* Drawer::pointsFileName = "Data\\Generated\\generatedPoints.txt";
-const char* Drawer::ribsFileName = "Data\\Generated\\generatedRibs.txt";
+const char* Drawer::pointsFileName = "Data\\Generated\\Text\\GeneratedPoints.txt";
+const char* Drawer::ribsFileName = "Data\\Generated\\Text\\GeneratedRibs.txt";
 
 void Drawer::DrawMesh() {
-    char commandToRun[100];
+    char commandToRun[_MAX_PATH];
     strcpy_s(commandToRun, scriptName);
     strcat_s(commandToRun, " ");
     strcat_s(commandToRun, pythonScriptName);

@@ -14,8 +14,7 @@ int main() {
         return -1;
     }
     MeshGenerator::Generate3DMesh(myMesh);
-    //MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
-    return 0;
+    MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
     Drawer::DrawMesh();
     return 0;
 }

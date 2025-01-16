@@ -108,7 +108,7 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
             figure[k][j] = lineToBuild;
         }
     }
-
+    //mesh.linesAmountX_ = figure[0][0].size();
 }
 
 void MeshGenerator::GenerateListOfAreas(Mesh& mesh) {
@@ -116,7 +116,26 @@ void MeshGenerator::GenerateListOfAreas(Mesh& mesh) {
 }
 
 void MeshGenerator::GenerateListOfRibs(Mesh& mesh) {
-    Logger::ConsoleOutput("Couldn't generate list of ribs", NotificationColor::Warning);
+    auto nx = mesh.LinesAmountX;
+    auto ny = mesh.LinesAmountY;
+    auto nz = mesh.LinesAmountZ;
+    auto nxny = mesh.LinesAmountX * mesh.LinesAmountY;
+    for (int k = 0; k < mesh.LinesAmountZ; k++)
+    {
+        for (int j = 0; j < mesh.LinesAmountY; j++)
+        {
+            for (int i = 0; i < mesh.LinesAmountX - 1; i++)
+                mesh.referableRibs_.emplace_back(k * nxny + nx * j + i, k * nxny + nx * j + i + 1);
+            if (j != mesh.LinesAmountY - 1)
+                for (int i = 0; i < nx; i++)
+                    mesh.referableRibs_.emplace_back(k * nxny + nx * j + i, k * nxny + nx * (j + 1) + i);
+        }
+        if (k != mesh.LinesAmountZ - 1)
+            for (int j = 0; j < mesh.LinesAmountY; j++)
+                for (int i = 0; i < mesh.LinesAmountX; i++)
+                    mesh.referableRibs_.emplace_back(k * nxny + nx * j + i, (k + 1) * nxny + nx * j + i);
+    }
+    Logger::ConsoleOutput("Ribs array generated.", NotificationColor::Passed);
 }
 
 void MeshGenerator::GenerateListOfBorders(Mesh& mesh) {
