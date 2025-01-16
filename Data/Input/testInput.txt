@@ -19,7 +19,7 @@
 [unique areas coefficients description]
 1 1.0 1.0
 
-[delimiters above X description] 2 1.0 2 1.0 
+[delimiters above X description] 1 1.0 1 1.0 
 [delimiters above Y description] 2 1.0 2 1.0
 [delimiters above X description] 2 1.0 2 1.0
 
