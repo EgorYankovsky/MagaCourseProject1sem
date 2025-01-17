@@ -132,13 +132,13 @@ void Mesh::CommitData(std::vector<std::string>* data) {
         currentItem += 2;
     }
 
-    for (size_t i(0); i < linesAmountX_ - 1; ++i) {
+    for (size_t i(0); i < linesAmountY_ - 1; ++i) {
         delimitersY_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Y.
             std::stod(*(currentItem + 1)));                         // Delimiters coefficient above Y.
         currentItem += 2;
     }
 
-    for (size_t i(0); i < linesAmountX_ - 1; ++i) {
+    for (size_t i(0); i < linesAmountZ_ - 1; ++i) {
         delimitersZ_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Z.
             std::stod(*(currentItem + 1)));                         // Delimiters coefficient above Z.
         currentItem += 2;

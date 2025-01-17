@@ -44,6 +44,7 @@ void MeshGenerator::Generate3DMesh(Mesh& mesh) {
     GenerateListOfBorders(mesh);
 }
 
+// Try to optimize memory.
 void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
     
     // Construct 3D area.
@@ -171,10 +172,67 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
     mesh.linesAmountY_ = figure[0].size();
 
     // Generate above Z-axis.
+    std::vector<std::vector<std::vector<Point>>> areaToBuild{};
+    areaToBuild = figure;
     size_t shift = mesh.LinesAmountZ - 1;
     for (const auto info : mesh.delimitersZ_) {
+        auto rightBorderIter = areaToBuild.end() - shift;
+        auto amountOfDelimiters = info.first;
+        auto coefficientOfDelimiter = info.second;
 
+        std::vector<std::vector<Point>> s0(mesh.LinesAmountY); for (auto& line : s0) line.resize(mesh.LinesAmountX);
+        std::vector<std::vector<Point>> s1(mesh.LinesAmountY); for (auto& line : s1) line.resize(mesh.LinesAmountX);
+        std::copy((*(rightBorderIter - 1)).begin(), (*(rightBorderIter - 1)).end(), s0.begin());
+        std::copy((*(rightBorderIter)).begin(), (*(rightBorderIter)).end(), s1.begin());
+
+        std::vector<std::vector<std::vector<Point>>> subAreaToBuild(amountOfDelimiters - 1);
+        for (auto& square : subAreaToBuild) {
+            square.resize(mesh.LinesAmountY);
+            for (auto& line : square)
+                line.resize(mesh.LinesAmountX);
+        }
+
+        double denum = 0.0;
+        for (size_t ii(0); ii < amountOfDelimiters; ++ii)
+            denum += pow(coefficientOfDelimiter, ii);
+
+        for (size_t j(0); j < mesh.LinesAmountY; ++j) {
+            for (size_t i(0); i < mesh.LinesAmountX; ++i) {
+                double x0 = s0[j][i].x;
+                double x1 = s1[j][i].x;
+
+                double y0 = s0[j][i].y;
+                double y1 = s1[j][i].y;
+
+                double z0 = s0[j][i].z;
+                double z1 = s1[j][i].z;
+
+                double deltX = x1 - x0;
+                double deltY = y1 - y0;
+                double deltZ = z1 - z0;
+
+                double xh = deltX / denum;
+                double yh = deltY / denum;
+                double zh = deltZ / denum;
+
+                double multiplier = 0.0;
+                for (size_t ii(0); ii < amountOfDelimiters - 1; ++ii) {
+                    multiplier += pow(coefficientOfDelimiter, ii);
+                    auto pointToInsert = Point(x0 + xh * multiplier,
+                        y0 + yh * multiplier,
+                        z0 + zh * multiplier);
+
+                    subAreaToBuild[ii][j][i] = pointToInsert;
+                }
+            }
+        }
+        for (auto square : subAreaToBuild)
+            areaToBuild.insert(areaToBuild.end() - shift, square);
+        shift--;
     }
+    figure = areaToBuild;
+    mesh.linesAmountZ_ = figure.size();
+
 
     // Convert to line-format.
     mesh.linesAmountZ_ = figure.size();

@@ -10,7 +10,7 @@ int main() {
     Mesh myMesh;
     MeshFileStreamer::Read(myMesh, inputPath);
     if (!myMesh.CheckData()) {
-        Logger::ConsoleOutput("Error during data checking", NotificationColor::Alert);
+        Logger::ConsoleOutput("Error during data checking.", NotificationColor::Alert);
         return -1;
     }
     MeshGenerator::Generate3DMesh(myMesh);
