@@ -1,0 +1,268 @@
+% Поддержка русского языка и кодировки UTF-8
+\usepackage[T2A]{fontenc}  
+\usepackage[utf8]{inputenc}
+\usepackage[english,main=russian]{babel}
+
+% Для вставки картинок
+\usepackage{graphicx}
+
+% Цвета для листинга
+\usepackage[dvipsnames]{xcolor}
+\usepackage[square,numbers,sort&compress]{natbib}
+
+% Пакет для листинга
+\usepackage{minted}
+
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{tikz}
+% \usepackage{aeguill}
+\usepackage{tabularx}
+\usepackage[bottom]{footmisc}
+\usepackage{makecell,booktabs}
+\usepackage{pdfpages}
+
+% Полезные пакеты
+\usepackage {
+	caption,		% Для заголовков
+	listings,		% Для оформления исходного кода
+	float,			% Для изменени расположения рисунков и таблиц
+	multirow,		% Для таблиц
+	tabularx,
+	subcaption,
+	amsmath,		% Математический пакет
+	mathtext,	
+	amsfonts,
+	array,			% Для таблиц и формул
+	amssymb,		% Математический пакет для символов
+	enumerate,		% Для списков
+	enumitem,	
+	indentfirst,	% Красная строка
+	cmap			% Копирование и поиск текста на русском в PDF файле
+}
+
+% Убрать разделение между пунктами списка и отступы до и после
+\setlist{noitemsep, topsep=0pt}
+
+% Для автоматического создания ссылок в тексте  и оглавлении
+\usepackage[linktocpage=true,plainpages=false,pdfpagelabels=false, hidelinks]{hyperref}
+
+% Красная строка
+\usepackage[indentfirst]{titlesec}
+
+% Для вставки сложных таблиц
+\usepackage{pgfplotstable}
+
+% Цвет
+\usepackage{color, colortbl}
+
+% Полуторный междустрочный интервал
+\linespread{1.5}
+
+% Поля страницы
+\usepackage[left=3cm,top=2cm,right=1cm,bottom=2cm]{geometry}
+
+% Избавление от переполнения боксов
+\sloppy
+
+% Запрещаем разрыв страницы после первой строки абзаца
+\clubpenalty = 10000
+
+% Запрещаем разрыв страницы после последней строки абзаца
+\widowpenalty = 10000
+
+% Отступ для абзаца
+\setlength{\parindent}{1cm}
+
+% Параметры названия для иллюстраций (Рисунок 1 - <название>)
+\DeclareCaptionLabelFormat{PictureCaptionFormat}{Рисунок {#2}}
+\captionsetup[figure] {
+	labelformat=PictureCaptionFormat,
+	skip=0pt,
+	format=hang,
+	justification=raggedright,
+	labelsep=endash,
+}
+
+% Параметры названия для таблиц (Таблица 1 - <название>)
+\DeclareCaptionLabelFormat{TableCaptionFormat}{Таблица {#2}}
+\captionsetup[table] {
+	labelformat=TableCaptionFormat,
+	skip=0pt,
+	format=hang,
+	justification=raggedright,
+	singlelinecheck=off,
+	labelsep=endash,
+}
+
+% Все рисунки и таблицы будут располагаться в том месте, в котором из вставили в коде
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+
+% нумерация источников в самом списке — через точку
+\renewcommand{\bibnumfmt}[1]{#1. }
+
+% Переопределения стилей заголовков
+\titleformat{\chapter}[block] {
+	\normalfont
+	\Large
+	\bfseries
+	\centering
+}{\thechapter. }{0em}{\MakeUppercase}
+
+\titleformat{\section}[block]{
+	\normalfont
+	\large
+	\bfseries
+	\centering
+}{\thesection. }{0em}{\MakeUppercase}
+
+\titleformat{\subsection}[block]{
+	\normalfont
+	\normalsize
+	\bfseries
+	\centering
+}{\thesubsection. }{0em}{}
+
+% Изменение заголовка приложения
+\makeatletter
+\newcommand\appendix@chapter[1]{
+  \renewcommand{\thechapter}{\Asbuk{chapter}}
+  \refstepcounter{chapter}
+  \orig@chapter*{\appendixname~\thechapter.~#1}
+  \addcontentsline{toc}{chapter}{\appendixname~\thechapter.~#1}
+}
+\let\orig@chapter\chapter
+\g@addto@macro\appendix{\let\chapter\appendix@chapter}
+\makeatother
+
+% Переименовываем "Литература" в "Список литературы"
+\renewcommand\bibname{Список литературы}
+
+% Переименовываем "Оглавление" в "Содержание"
+\addto\captionsrussian{
+  \renewcommand{\contentsname}%
+    {СОДЕРЖАНИЕ}%
+}
+
+% Различные математические выражения
+\newcommand{\der}{\partial} % Символ дифференцирования
+\newcommand{\divr}{\, \mathrm{div} \,} % Дивергенция
+\newcommand{\grad}{\, \mathrm{grad} \,} % Градиент
+\newcommand{\detm}{\, \mathrm{det} \,} % Определитель
+\newcommand{\Mass}{\, \mathbf{M} \,} % Матрица массы
+\newcommand{\Grav}{\, \mathbf{G} \,} % Матрица жёсткости
+\newcommand{\Weight}{\, \mathbf{q} \,} % Вектор весов
+\newcommand{\blocal}{\, \mathbf{b} \,} % Локальный вектор правой части
+\newcommand{\Alocal}{\, \mathbf{A} \,} % Изменённая локальная матрица
+\newcommand{\dlocal}{\, \mathbf{d} \,} % Изменённый вектор правой части
+
+% Для установки точки в содержании после заголовка (подзаголовка и т.д.)
+\let \savenumberline \numberline
+\def \numberline#1{\savenumberline{#1.}}
+
+% Команда для парсинга csv файла в таблицу
+\newcommand{\MyTable}[1]{
+\pgfplotstabletypeset[
+    col sep=comma,
+    every head row/.style={before row=\hline,after row=\hline\hline},
+    every last row/.style={after row=\hline},
+    every first column/.style={column type/.add={|}{}},
+    column type=c,
+    every column/.style={column type/.add={}{|}},
+    every even row/.style={before row={\rowcolor{gray!15}}},
+    empty cells with={$\cdots$},
+    columns/$r$/.style={fixed, zerofill, precision=10},
+    columns/$u$/.style={fixed, zerofill, precision=10},
+    columns/$u^*$/.style={fixed, zerofill, precision=10},
+    columns/relative/.style={column name=$\tfrac{u - u^*}{u^*}$}
+    ]{#1.csv}
+}
+
+% ГОСТы отступов для заголовка и подзаголовка
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+\titlespacing*{\section}{18pt}{18pt}{12pt}
+
+% Для одинакового отступа между формулой и текстом
+\makeatletter
+\g@addto@macro{\normalsize}{%
+   \setlength{\belowdisplayskip}{24pt}
+   \setlength{\belowdisplayshortskip}{24pt}}
+\makeatother
+
+% Для задания размеров ячеек таблиц -> данные команды портят эстетику таблиц
+% \setlength{\tabcolsep}{9pt}
+% \renewcommand{\arraystretch}{0.9} 
+
+
+\setminted[csharp] {
+  fontsize=\footnotesize,
+  fontfamily=tt,
+  linenos=true,
+  numberblanklines=true,
+  numbersep=5pt,
+  frame=leftline,
+  framerule=0.4pt,
+  framesep=1mm,
+  funcnamehighlighting=true,
+  tabsize=4,
+  breaklines=true,
+  linenos=true,
+  breakanywhere=true,
+  mathescape=true
+}
+
+\setminted[cpp] {
+	fontsize=\footnotesize,
+	fontfamily=tt,
+	linenos=false,
+	numberblanklines=false,
+	numbersep=5pt,
+	frame=leftline,
+	framerule=0.4pt,
+	framesep=2mm,
+	funcnamehighlighting=true,
+	tabsize=4,
+	breaklines=true,
+	linenos=false,
+	breakanywhere=true,
+	mathescape=true
+}
+
+\setminted[python] {
+  fontfamily=tt,
+  linenos=true,
+  numberblanklines=true,
+  numbersep=5pt,
+  frame=leftline,
+  framerule=0.4pt,
+  framesep=2mm,
+  funcnamehighlighting=true,
+  tabsize=4,
+  breaklines=true,
+  linenos=true,
+  breakanywhere=true,
+  mathescape=true,
+  fontsize=\footnotesize
+}
+
+% \lst вставляет код из файла, где
+% первый аргумент -- язык, второй -- имя файла
+\newcommand{\lst}[2] {
+    \inputminted[
+        baselinestretch=0.75,
+        fontfamily=tt,
+        numberblanklines=true,
+        numbersep=5pt,
+        frame=leftline,
+        framerule=0.4pt,
+        framesep=2mm,
+        funcnamehighlighting=true,
+        tabsize=2,
+        breaklines=true,
+        linenos=true,
+        breakanywhere=true,
+        %bgcolor=LightGray,
+        fontsize=\footnotesize
+    ]{#1}{#2}
+}

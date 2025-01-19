@@ -127,9 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="Data\Generated\generatedAreas.txt" />
-    <Text Include="Data\Generated\generatedPoints.txt" />
-    <Text Include="Data\Generated\generatedRibs.txt" />
     <Text Include="Data\Input\input.txt" />
     <Text Include="Data\Input\input1.txt" />
     <Text Include="Data\Input\input2.txt" />

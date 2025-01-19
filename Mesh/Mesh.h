@@ -40,6 +40,9 @@ private:
     std::vector<Point> immutablePoints_{};
     std::vector<std::array<size_t, 7>> immutableSubdomains_{};
     std::vector<Border> immutableBorders_{};
+    std::vector<size_t> numRefsOfLinesAboveX{};
+    std::vector<size_t> numRefsOfLinesAboveY{};
+    std::vector<size_t> numRefsOfLinesAboveZ{};
 
 public:
     Mesh() { Logger::ConsoleOutput("Mesh declared, but empty.", NotificationColor::Warning); };

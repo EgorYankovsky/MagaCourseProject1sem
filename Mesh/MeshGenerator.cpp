@@ -38,17 +38,47 @@ void Sort(std::vector<Point>& arr) {
 
 void MeshGenerator::Generate3DMesh(Mesh& mesh) {
     assert(mesh.IsDeclarated);
+    for (size_t i(0); i < mesh.LinesAmountX; ++i) mesh.numRefsOfLinesAboveX.push_back(i);
+    for (size_t i(0); i < mesh.LinesAmountY; ++i) mesh.numRefsOfLinesAboveY.push_back(i);
+    for (size_t i(0); i < mesh.LinesAmountZ; ++i) mesh.numRefsOfLinesAboveZ.push_back(i);
     GenerateListOfPoints(mesh);
     GenerateListOfRibs(mesh);
     GenerateListOfAreas(mesh);
     GenerateListOfBorders(mesh);
 }
 
+int MeshGenerator::SelectAreaNum(Mesh& mesh, std::array<size_t, 12> arr) {
+    auto sxy = mesh.LinesAmountX * mesh.LinesAmountY;
+
+    auto p1 = mesh.referableRibs_[arr[0]].p1;
+    auto p2 = mesh.referableRibs_[arr[11]].p2;
+
+    auto lx0 = p1 % mesh.LinesAmountX;
+    auto lx1 = p2 % mesh.LinesAmountX;
+    
+    auto ly0 = (p1 % sxy) / mesh.LinesAmountX;
+    auto ly1 = (p2 % sxy) / mesh.LinesAmountX;
+    
+    auto lz0 = p1 / sxy;
+    auto lz1 = p2 / sxy;
+
+    //std::cout << lx0 << " " << lx1 << " " << ly0 << " " << ly1 << " " << lz0 << " " << lz1 << std::endl;
+
+    for (const auto& area : mesh.subdomains_) 
+        if (mesh.numRefsOfLinesAboveX[area[1]] <= lx0 and lx1 <= mesh.numRefsOfLinesAboveX[area[2]] and
+            mesh.numRefsOfLinesAboveY[area[3]] <= ly0 and ly1 <= mesh.numRefsOfLinesAboveY[area[4]] and
+            mesh.numRefsOfLinesAboveZ[area[5]] <= lz0 and lz1 <= mesh.numRefsOfLinesAboveZ[area[6]])
+            return area[0];
+
+    Logger::ConsoleOutput("Error during selection of area num", NotificationColor::Alert);
+    return NAN;
+}
+
 // Try to optimize memory.
 void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
     
     // Construct 3D area.
-    std::vector<std::vector<std::vector<Point>>> figure{};
+    area3D figure{};
     figure.resize(mesh.LinesAmountZ);
     for (auto& square : figure) {
         square.resize(mesh.LinesAmountY);
@@ -67,13 +97,18 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
     // Generation above X-axis.
     for (size_t k(0); k < mesh.LinesAmountZ; ++k) {
         for (size_t j(0); j < mesh.LinesAmountY; ++j) {
-            std::vector<Point> lineToBuild{};
+            line1D lineToBuild{};
             lineToBuild = figure[k][j];
             size_t shift = mesh.LinesAmountX - 1;
+            
+            auto iterOnXRefs = mesh.numRefsOfLinesAboveX.begin() + 1;
             for (const auto& info : mesh.delimitersX_) {
                 auto rightBorderIter = lineToBuild.end() - shift;
                 auto amountOfDelimiters = info.first;
                 auto coefficientOfDelimiter = info.second;
+
+                *iterOnXRefs = *(iterOnXRefs - 1) + amountOfDelimiters;
+                iterOnXRefs++;
 
                 double denum = 0.0;
                 for (size_t ii(0); ii < amountOfDelimiters; ++ii)
@@ -113,20 +148,25 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
 
     // Generation above Y-axis.
     for (size_t k(0); k < mesh.LinesAmountZ; ++k) {
-        std::vector<std::vector<Point>> squareToBuild{};
+        square2D squareToBuild{};
         squareToBuild = figure[k];
         size_t shift = mesh.LinesAmountY - 1;
+
+        auto iterOnYRefs = mesh.numRefsOfLinesAboveY.begin() + 1;
         for (const auto info : mesh.delimitersY_) {
             auto rightBorderIter = squareToBuild.end() - shift;
             auto amountOfDelimiters = info.first;
             auto coefficientOfDelimiter = info.second;
 
-            std::vector<Point> v0(mesh.LinesAmountX);
-            std::vector<Point> v1(mesh.LinesAmountX);
+            *iterOnYRefs = *(iterOnYRefs - 1) + amountOfDelimiters;
+            iterOnYRefs++;
+
+            line1D v0(mesh.LinesAmountX);
+            line1D v1(mesh.LinesAmountX);
             std::copy((*(rightBorderIter - 1)).begin(), (*(rightBorderIter - 1)).end(), v0.begin());
             std::copy((*(rightBorderIter)).begin(), (*(rightBorderIter)).end(), v1.begin());
 
-            std::vector<std::vector<Point>> subSquareToBuild(amountOfDelimiters - 1);
+            square2D subSquareToBuild(amountOfDelimiters - 1);
             for (auto& line : subSquareToBuild) line.resize(mesh.LinesAmountX);
 
             double denum = 0.0;
@@ -172,20 +212,25 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
     mesh.linesAmountY_ = figure[0].size();
 
     // Generate above Z-axis.
-    std::vector<std::vector<std::vector<Point>>> areaToBuild{};
+    area3D areaToBuild{};
     areaToBuild = figure;
     size_t shift = mesh.LinesAmountZ - 1;
+
+    auto iterOnZRefs = mesh.numRefsOfLinesAboveZ.begin() + 1;
     for (const auto info : mesh.delimitersZ_) {
         auto rightBorderIter = areaToBuild.end() - shift;
         auto amountOfDelimiters = info.first;
         auto coefficientOfDelimiter = info.second;
 
-        std::vector<std::vector<Point>> s0(mesh.LinesAmountY); for (auto& line : s0) line.resize(mesh.LinesAmountX);
-        std::vector<std::vector<Point>> s1(mesh.LinesAmountY); for (auto& line : s1) line.resize(mesh.LinesAmountX);
+        *iterOnZRefs = *(iterOnZRefs - 1) + amountOfDelimiters;
+        iterOnZRefs++;
+
+        square2D s0(mesh.LinesAmountY); for (auto& line : s0) line.resize(mesh.LinesAmountX);
+        square2D s1(mesh.LinesAmountY); for (auto& line : s1) line.resize(mesh.LinesAmountX);
         std::copy((*(rightBorderIter - 1)).begin(), (*(rightBorderIter - 1)).end(), s0.begin());
         std::copy((*(rightBorderIter)).begin(), (*(rightBorderIter)).end(), s1.begin());
 
-        std::vector<std::vector<std::vector<Point>>> subAreaToBuild(amountOfDelimiters - 1);
+        area3D subAreaToBuild(amountOfDelimiters - 1);
         for (auto& square : subAreaToBuild) {
             square.resize(mesh.LinesAmountY);
             for (auto& line : square)
@@ -246,7 +291,30 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
 }
 
 void MeshGenerator::GenerateListOfAreas(Mesh& mesh) {
-    Logger::ConsoleOutput("Couldn't generate list of areas", NotificationColor::Warning);
+
+    size_t rx = mesh.LinesAmountX - 1;
+    size_t ry = mesh.LinesAmountY - 1;
+
+    size_t nx = mesh.LinesAmountX;
+    size_t ny = mesh.LinesAmountY;
+
+    size_t rxy = rx * ny + ry * nx;
+    size_t nxy = nx * ny;
+    size_t nz = mesh.LinesAmountZ;
+
+    for (size_t k(0); k < nz - 1; ++k)
+        for (size_t j(0); j < ny - 1; ++j)
+            for (size_t i(0); i < nx - 1; ++i)
+            {
+                size_t curr = i + j * (nx + rx) + k * (rxy + nxy);
+                std::array<size_t, 12> arrI = {
+                    curr, curr + rx, curr + rx + 1, curr + rx + nx,
+                    curr + rxy - j * rx, curr + rxy + 1 - j * rx, curr + rxy + nx - j * rx, curr + rxy + nx + 1 - j * rx,
+                    curr + rxy + nxy, curr + rxy + nxy + rx, curr + rxy + nxy + rx + 1, curr + rxy + nxy + rx + nx };
+
+                int areaNumber = SelectAreaNum(mesh, arrI);
+                mesh.areasRibs_.emplace_back(areaNumber, arrI);
+            }
 }
 
 void MeshGenerator::GenerateListOfRibs(Mesh& mesh) {

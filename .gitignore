@@ -2,3 +2,8 @@
 **/CourseProject
 **/Data/Generated/
 **/log/**
+*.aux
+*.gz
+*.out
+*.toc
+**/_minted-main/**

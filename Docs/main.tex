@@ -1,0 +1,91 @@
+\documentclass[14pt,a4paper]{extreport}
+
+\usepackage{style/style}
+\usepackage{physics}
+\usepackage{fancyhdr}
+\usepackage{pdfpages}
+
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[C]{\small\thepage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\pagestyle{plain}
+
+\makeatletter
+  \def\my@tag@font{\small}
+  \def\maketag@@@#1{\hbox{\m@th\normalfont\my@tag@font#1}}
+  \let\amsmath@eqref\eqref
+  \renewcommand\eqref[1]{{\let\my@tag@font\relax\amsmath@eqref{#1}}}
+\makeatother
+
+\usepackage{titletoc}
+\titlecontents{chapter}[0em]{\bfseries}{\thecontentslabel.\hspace{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+\titlecontents{section}[1.25em]{}{\thecontentslabel.\hspace{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+\titlecontents{subsection}[2.5em]{}{\thecontentslabel.\hspace{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+
+\begin{document}
+
+\includepdf[pages=-]{Title.pdf}
+\includepdf[pages=-]{Task_list.pdf}
+
+% Отключение нумерации страниц
+\pagenumbering{gobble}
+
+\input{tex/annotation}
+
+\newpage
+
+\tableofcontents
+\newpage
+
+% Включение нумерации страниц
+\pagenumbering{arabic}
+\setcounter{page}{6}
+\input{tex/introduction}
+\input{tex/problemStatement}
+\input{tex/theory}
+\input{tex/practice}
+\input{tex/research}
+\input{tex/conclusion}
+
+\newpage
+
+\addcontentsline{toc}{chapter}{Список используемых источников}
+\renewcommand\bibname{СПИСОК ИСПОЛЬЗУЕМЫХ ИСТОЧНИКОВ}
+
+\begin{thebibliography}{00}
+	\bibitem{1}
+			М.С. Жданов Электроразведка. - М.: Недра, 1986. - 316 с.
+    \bibitem{2}
+			А.А. Логачев, В.П. Захаров Магниторазведка. - 5 изд. - Ленинград: Недра, 1979. - 350 с.
+    \bibitem{3}
+    		Pavel Solin Partial Differential Equations and the Finite Element Method. - Hoboken, New Jersey: A JOHN WILEY $\&$ SONS, INC., 2006.
+    \bibitem{4}
+    		А.Н. Тихонов, А.А. Самарский Уравнения математической физики: Учеб.пособие. / А.Н. Тихонов, А.А. Самарский — 6-е изд., — М: Изд-во МГУ, 1999 — 799 с.
+   	\bibitem{5}		
+ 			М.Г. Персова, Ю.Г. Соловейчик, М.Г. Токарева, М.В. Абрамов 3D-моделирование процессов индукционной вызванной поляризации при возбуждении токовой петлей и проблема эквивалентности // Научный вестник НГТУ. - 2013. - №2(51). - С. 53 - 61.
+    \bibitem{6}
+   			М. Г. Персова, Ю. Г. Соловейчик, Г. М. Тригубович, М. В. Абрамов, А. А. Заборцева О вычислении трёхмерного нестационарного поля вертикальной электрической линии в удалённой обсаженной скважине // Сибирский журнал индустриальной математики. - 2007. - №3(31). - С. 114 - 127.
+    \bibitem{7}
+			Ю.Г. Соловейчик, М.Э. Рояк, М.Г. Персова Метод конечных элементов для скалярных и векторных задач Учеб. пособие. — Новосибирск: Изд-во НГТУ, 2007 — 896 с.
+	\bibitem{8}
+			М.Ю.Баландин, Э.П.Шурина Векторный метод конечных элементов: Учеб. пособие. - Новосибирск: Изд-во НГТУ, 2001 — 69 с.
+	\bibitem{9}
+  			М.Ю.Баландин, Э.П.Шурина Методы решения СЛАУ большой размерности: Учеб. пособие. - Новосибирск: Изд-во НГТУ, 2000 — 70 с.
+	\bibitem{10}
+    		М.Г. Персова, Ю.Г. Соловейчик, Д.В. Вагин, П.А. Домников, Ю.И. Кошкина Численные методы в уравнениях математической физики.  - Новосибирск: Изд-во НГТУ, 2016 — 60 с.
+    \bibitem{11}
+    		Вагин Денис Владимирович Разработка методов конечноэлементного моделирования трехмерных электромагнитных полей на неструктурированных сетках: автореф. дис. канд. техн. наук: 05.13.18. - Новосибирск, 2012.
+    \bibitem{12}	
+    		Тракимус Юрий Викторович Разработка и применение схем конечноэлементного моделирования электромагнитных полей в задачах электроразведки с использованием скважин: автореф. дис. канд. техн. наук: 05.13.18. - Новосибирск, 2007.
+    \bibitem{13}
+    		П.А. Домников Решение систем конечноэлементных уравнений при моделировании гармонических геоэлектромагнитных полей в трехмерных задачах морской электроразведки // Доклады Академии наук высшей школы Российской Федерации. - 2013. - №1 (20).
+\end{thebibliography}
+
+\newpage
+%\input{tex/appendix2}
+%\input{tex/appendix3}
+\input{tex/appendix1}
+
+\end{document}

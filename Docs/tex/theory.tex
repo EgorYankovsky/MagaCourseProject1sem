@@ -1,0 +1,528 @@
+\chapter{Теоретическая часть}
+
+\section{Многоэтапная схема разделения поля}
+
+
+Предлагаемый в работе подход к численному моделированию основан на технологии разделения полей, позволяющей существенно сократить вычислительные затраты. В рассматриваемой задаче под неоднородностями (аномалиями) будем понимать трёхмерные геологические объекты, существенно отличные от сопротивления вмещающей горизонтально-слоистой среды \cite{6}. Сначала решение ищется на поле, создаваемом в среде, максимально упрощённой относительно исходной. Её решение, которое может быть меньшей размерности, берётся в качестве основного поля первого уровня. На основе этого поля решается задача на добавочное поле, в которую включается часть неоднородностей исходной задачи, дающих максимальный вклад в искомое решение. Используемая для нахождения этого добавочного поля сетка строится так, чтобы максимально учесть влияние источников, порождённых включёнными в на этом этапе неоднородностями \cite{7}.
+
+Далее в качестве основного поля будет учитываться сумма основного и добавочного на предыдущем этапе выделения. Новое добавочное поле будет формироваться из учёта следующих по влиянию на решение исходной задачи. Процесс можно продолжать до тех пор, пока не будут учтены все неоднородности среды.
+
+\section{Вариационная постановка двумерной задачи}
+
+Перед тем, как приступить к решению задачи на нормальное поле, необходимо перевести уравнение (\ref{eq_1_5}) в вариационную форму. В основе использования МКЭ лежит вариационная постановка, в которой решение краевой задачи заменяется минимизацией функционала невязки. Областью определения этого функционала обычно является Гильбертово пространство функций $H^m$, содержащее в качестве одного из своих элементов решение данной краевой задачи. Потребуем, чтобы невязка $R(A_{\varphi}) = -\frac{1}{\mu_0} \Delta A_{\varphi} + \frac{A_{\varphi}}{\mu_0 r^2} + \sigma \frac{\partial A_{\varphi}}{\partial t} - J_{\varphi}$ дифференциального уравнения (\ref{eq_1_5}) была ортогональна в смысле скалярного произведения пространства $L^2(\Omega) \equiv H_0$ некоторому пространству $\Phi$ функций $v$, которое называется пространством пробных функций, т.е.:
+
+\begin{equation} \label{eq_2_1}
+	\int \limits_{\Omega} \left( -\frac{1}{\mu_0} \Delta A_{\varphi} + \frac{A_{\varphi}}{\mu_0 r^2} + \sigma \frac{\partial A_{\varphi}}{\partial t} - J_{\varphi}\right) v d\Omega = 0,
+\end{equation}
+
+\begin{equation} \label{eq_2_2}
+	\int \limits_{\Omega} \left( -\frac{1}{\mu_0} \Delta A_{\varphi} + \frac{A_{\varphi}}{\mu_0 r^2} + \sigma \frac{\partial A_{\varphi}}{\partial t} \right) v d\Omega = \int \limits_{\Omega} J_{\varphi} v d\Omega.
+\end{equation}
+
+Используя формулу Грина, получим:
+
+\begin{equation} \label{eq_2_3}
+\begin{gathered}
+	\int \limits_{\Omega}  \frac{1}{\mu_0} \text{grad} A_{\varphi} \cdot \text{grad} v d\Omega - \int \limits_{S} \frac{1}{\mu_0} \frac{\partial A_{\varphi}}{\partial n} v dS + \int \limits_{\Omega} \frac{A_{\varphi}}{\mu_0 r^2} d \Omega + \\ + \int \limits_{\Omega} \sigma \frac{\partial A_{\varphi}}{\partial t}  v d\Omega = \int \limits_{\Omega} J_{\varphi} v d\Omega.
+\end{gathered}
+\end{equation}
+
+Так как пространство пробных функций $H_0^1$ имеет след 0, то слагаемое $\int \limits_{S} \frac{1}{\mu_0} \frac{\partial A_{\varphi}}{\partial n} v dS$ не оказывает никакого вклада в (\ref{eq_2_3}). Таким образом для (\ref{eq_1_5}) получим уравнение в слабой форме:
+
+\begin{equation} \label{eq_2_4}
+	\int \limits_{\Omega}  \frac{1}{\mu_0} \text{grad} A_{\varphi} \cdot \text{grad} v d\Omega + \int \limits_{\Omega} \frac{A_{\varphi}}{\mu_0 r^2} v d \Omega + \int \limits_{\Omega} \sigma \frac{\partial A_{\varphi}}{\partial t}  v d\Omega = \int \limits_{\Omega} J_{\varphi} v d\Omega.
+\end{equation}
+
+\section{Конечноэлементная дискретизация двумерной задачи}
+
+Сетку для решения задачи будем строить используя прямоугольные элементы. При использовании многоэтапной схемы разделения поля для первичного слоя допускается, что сетка может быть равномерной, не сгущающейся к неоднородностям среды. Поэтому рассмотрим сетку на 26878 узлов, имеющей 302 узла по оси $r$ и 89 узлов по оси $z$.
+
+Для решения задачи будем использовать билинейные базисные функции, задаваемые линейными функциями на $\Omega_{ps} = [r_p, r_{p + 1}] \times [z_s, z_{s + 1}]$ следующего вида: 
+
+
+\begin{equation} \label{eq_2_5}
+	\begin{cases}
+		& \hat{\psi_1}(r,z) = R_1(r)Z_1(z), \\
+		& \hat{\psi_2}(r,z) = R_2(r)Z_1(z), \\
+		& \hat{\psi_3}(r,z) = R_1(r)Z_2(z), \\
+		& \hat{\psi_4}(r,z) = R_2(r)Z_2(z). \\
+	\end{cases}
+\end{equation}
+где:
+
+\begin{equation} \label{eq_2_6}
+	\begin{cases}
+		& R_1(r) = \frac{r_{p + 1} - r}{r_{p + 1} - r_p}, \\
+		& R_2(r) = \frac{r - r_p}{r_{p + 1} - r_p}, \\
+		& Z_1(z) = \frac{z_{p + 1} - z}{z_{p + 1} - z_p}, \\
+		& Z_2(z) = \frac{z - z_p}{z_{p + 1} - z_p}. \\
+	\end{cases}
+\end{equation}
+
+
+\section{Построение матриц масс и жёсткости для двумерной задачи}
+
+Будем считать, что функции $A_{\varphi}$ и $v$ в вариационном уравнении (\ref{eq_2_4}) являются компонентами конечноэлементного функционального пространства, натянутого на базисные функции $\hat{\psi_j}$, где $j = \overline{1, n}$, т.е.
+
+\begin{equation} \label{eq_2_7}
+	\begin{cases}
+		& A_{\varphi} = \displaystyle\sum_{j=1}^{n} q_j^{A_{\varphi}} \hat{\psi_j}, \\
+		& v = \displaystyle\sum_{j=1}^{n} q_j^v \hat{\psi_j},
+	\end{cases}
+\end{equation}
+где $q_j^{A_{\varphi}}$ -- веса в разложении функции $u$ по базисным функциями $\hat{\psi_j}$, а $q_j^v$ -- веса в разложении функции $v$ по тем же базисным функциями $\hat{\psi_j}$. Нетрудно убедиться, что с учётом разложения (\ref{eq_2_7}) вариационное уравнение (\ref{eq_2_4}) эквивалентно системе уравнений
+
+\begin{equation} \label{eq_2_8}
+\begin{gathered}
+	\displaystyle\sum_{j=1}^{n} \left( \int \limits_{\Omega}  -\frac{1}{\mu_0} \text{grad} \hat{\psi_i} \cdot \text{grad} \hat{\psi_j} d\Omega + \int \limits_{\Omega} \frac{\hat{\psi_i} \hat{\psi_j}}{\mu_0 r^2} d \Omega \right) + \\ + \displaystyle\sum_{j=1}^{n} \int \limits_{\Omega} \sigma \frac{\partial \hat{\psi_i}}{\partial t}  \hat{\psi_j} d\Omega \cdot q_j^u = \int \limits_{\Omega} J_{\varphi} \hat{\psi_i} d\Omega.
+\end{gathered}
+\end{equation}
+
+Так как задача решается в цилиндрических координатах, то в уравнении (\ref{eq_2_8}) $d \Omega = r dr dz$, где $r$ - якобиан перехода от декартовых к цилиндрическим координатам.
+
+\begin{equation} \label{eq_2_9}
+\begin{gathered}
+	\displaystyle\sum_{j=1}^{n} \left( \int \limits_{r} \int \limits_{z} r \frac{1}{\mu_0} \text{grad} \hat{\psi_i} \cdot \text{grad} \hat{\psi_j} dr dz + \int \limits_{r} \int \limits_{z} r  \frac{\hat{\psi_i}}{\mu_0 r^2} \hat{\psi_j} dr dz \right) \cdot q_j^u + \\ + \displaystyle\sum_{j=1}^{n} \int \limits_{r} \int \limits_{z} r  \sigma \frac{\partial \hat{\psi_i}}{\partial t}  \hat{\psi_j} dr dz \cdot q_j^u = \int \limits_{r} \int \limits_{z} r  J_{\varphi} \hat{\psi_i} dr dz.
+\end{gathered}
+\end{equation}
+
+Рассмотрим аппроксимацию по пространству $(r, z)$ в уравнении (\ref{eq_2_9}) для произвольных $i$ и $j$
+
+\begin{equation} \label{eq_2_10}
+\begin{gathered}
+	\left( \int \limits_{r} \int \limits_{z} r \frac{1}{\mu_0} \text{grad} \hat{\psi_i} \cdot \text{grad} \hat{\psi_j} dr dz + \int \limits_{r} \int \limits_{z} r  \frac{\hat{\psi_i}}{\mu_0 r^2} \hat{\psi_j} dr dz \right) \cdot q_j^u = \\ = \int \limits_{r} \int \limits_{z} r  J_{\varphi} \hat{\psi_i} dr dz.
+\end{gathered}
+\end{equation}
+
+Пусть $\hat{\psi_i} = R_i(r) \cdot Z_i(z)$, а $\hat{\psi_j} = R_j(r) \cdot Z_j(z)$, тогда
+
+\begin{equation} \label{eq_2_11}
+\begin{gathered}
+	\left( \int \limits_{r} \int \limits_{z} r \frac{1}{\mu_0} \text{grad} (R_i Z_i) \cdot \text{grad} (R_j Z_j) dr dz + \int \limits_{r} \int \limits_{z} r  \frac{R_i Z_i}{\mu_0 r^2} R_j Z_j dr dz \right) \cdot q_j^u = \\ = \int \limits_{r} \int \limits_{z} r  J_{\varphi} R_i Z_i dr dz.
+\end{gathered}
+\end{equation}
+
+Преобразовав (\ref{eq_2_11}) получим следующее
+
+\begin{equation} \label{eq_2_12}
+\begin{gathered}
+	\left(\frac{1}{\mu_0} \left(\int \limits_{r} r \frac{d R_i}{dr} \frac{d R_j}{dr} dr \cdot \int \limits_{z} Z_i Z_j dz + \int \limits_{r} r R_i R_j dr \cdot \int \limits_{z} \frac{d Z_i}{dz} \frac{d Z_j}{dz} dz\right) \right) q_j^u + \\ + \left( \frac{1}{\mu_0} \int \limits_{r} \frac{1}{r} R_i R_j dr \int \limits_{z} Z_i Z_j dz \right) q_j^u = \int \limits_{r} \int \limits_{z} r  J_{\varphi} R_i Z_i dr dz.
+\end{gathered}
+\end{equation}
+
+Получим локальные матрицы масс $\hat{\textbf{M}}$ и жёсткости $\hat{\textbf{G}}$, а также локальный вектор правой части $\hat{\textbf{b}}$. Поскольку на одном элементе для аппроксимации билинейными базисными функциями необходимо 4 узла, то локальные матрицы будут иметь размерность 4 $\times$ 4, а векторы 4 $\times$ 1. Заметим, что каждый интеграл в уравнении (\ref{eq_2_12}) является компонентой интеграла, лежащего в основе построения локальных матриц масс и жёсткости для одномерных задач (\ref{eq_2_13}) -- (\ref{eq_2_17}).
+
+\begin{equation} \label{eq_2_13}
+	\hat{\textbf{G}}_r^{1D} = \frac{r_k + \frac{h_k}{2}}{h_k} \left(
+	\begin{array}{rr}
+		1 & -1\\
+		-1 &  1\\
+	\end{array}
+	\right),
+\end{equation}
+
+\begin{equation} \label{eq_2_14}
+	\hat{\textbf{M}}_r^{1D} = \frac{\hat{\gamma} h_k}{6} \left( r_k \left(
+	\begin{array}{rr}
+		2 & 1\\
+		1 & 2\\
+	\end{array}
+	\right) + \frac{h_k}{2} \left(
+	\begin{array}{rr}
+		1 & 1\\
+		1 & 3\\
+	\end{array}
+	\right) \right),
+\end{equation}
+
+
+\begin{equation} \label{eq_2_15}
+\begin{gathered}
+	\hat{\textbf{M}}_{rr}^{1D} = \ln\left(1 + \frac{1}{d}\right)
+	\left(
+	\begin{array}{cc}
+		(1+d)^2 & -d(1+d)\\
+		-d(1+d) &  d^2\\
+	\end{array}
+	\right)
+	-d
+	\left(
+	\begin{array}{rr}
+		1 & -1\\
+		-1 & 1\\
+	\end{array}
+	\right) + \\
+	+ \frac{1}{2}
+	\left(
+	\begin{array}{rr}
+		-3 & 1\\
+		1 & 1\\
+	\end{array}
+	\right),
+\end{gathered}
+\end{equation}
+где $d = \frac{r_k}{h_k}$.
+
+
+\begin{equation} \label{eq_2_16}
+	\hat{\textbf{G}}_z^{1D} = \frac{\hat{\lambda}}{h_k} \left(
+	\begin{array}{rr}
+		1 & -1\\
+		-1 &  1\\
+	\end{array}
+	\right),
+\end{equation}
+
+\begin{equation} \label{eq_2_17}
+	\hat{\textbf{M}}_z^{1D} = \frac{\hat{\gamma} h_k}{6} \left(
+	\begin{array}{rr}
+		2 & 1\\
+		1 & 2\\
+	\end{array}
+	\right).
+\end{equation}
+
+Тогда элементы верхнего треугольника матрицы жесткости для двумерных задач, можем представить в виде:
+
+\begin{equation*}
+	\begin{array}{ll}
+		\hat{\textbf{G}}_{11} = \left(\hat{\textbf{G}}^{1D}_{r11}\hat{\textbf{M}}^{1D}_{z11} + \hat{\textbf{M}}^{1D}_{r11}\hat{\textbf{G}}^{1D}_{z11}\right), & \hat{\textbf{G}}_{12} = \left(\hat{\textbf{G}}^{1D}_{r12}\hat{\textbf{M}}^{1D}_{z11} + \hat{\textbf{M}}^{1D}_{r12}\hat{\textbf{G}}^{1D}_{z11}\right),\\
+		\hat{\textbf{G}}_{13} = \left(\hat{\textbf{G}}^{1D}_{r11}\hat{\textbf{M}}^{1D}_{z12} + \hat{\textbf{M}}^{1D}_{r11}\hat{\textbf{G}}^{1D}_{z12}\right), & \hat{\textbf{G}}_{14} = \left(\hat{\textbf{G}}^{1D}_{r12}\hat{\textbf{M}}^{1D}_{z12} +\hat{\textbf{M}}^{1D}_{r12}\hat{\textbf{G}}^{1D}_{z12}\right),\\
+		\hat{\textbf{G}}_{22} = \left(\hat{\textbf{G}}^{1D}_{r22}\hat{\textbf{M}}^{1D}_{z11} + \hat{\textbf{M}}^{1D}_{r22}\hat{\textbf{G}}^{1D}_{z11}\right), & \hat{\textbf{G}}_{23} = \left(\hat{\textbf{G}}^{1D}_{r21}\hat{\textbf{M}}^{1D}_{z12} +\hat{\textbf{M}}^{1D}_{r21}\hat{\textbf{G}}^{1D}_{z12}\right),\\
+		\hat{\textbf{G}}_{24} = \left(\hat{\textbf{G}}^{1D}_{r22}\hat{\textbf{M}}^{1D}_{z12} + \hat{\textbf{M}}^{1D}_{r22}\hat{\textbf{G}}^{1D}_{z12}\right), & \hat{\textbf{G}}_{33} = \left(\hat{\textbf{G}}^{1D}_{r11}\hat{\textbf{M}}^{1D}_{z22} + \hat{\textbf{M}}^{1D}_{r11}\hat{\textbf{G}}^{1D}_{z22}\right),\\
+		\hat{\textbf{G}}_{34} = \left(\hat{\textbf{G}}^{1D}_{r12}\hat{\textbf{M}}^{1D}_{z22} + \hat{\textbf{M}}^{1D}_{r12}\hat{\textbf{G}}^{1D}_{z22}\right), & \hat{\textbf{G}}_{44} = \left(\hat{\textbf{G}}^{1D}_{r22}\hat{\textbf{M}}^{1D}_{z22} + \hat{\textbf{M}}^{1D}_{r22}\hat{\textbf{G}}^{1D}_{z22}\right).\\
+	\end{array}
+\end{equation*}
+
+Верхний треугольник элементов матрицы масс, для слагаемого с коэффициентом $\frac{1}{r^2}$ может быть представлен в виде:
+
+\begin{equation*}
+	\begin{array}{ll}
+		\hat{\textbf{M}}_{11} = \hat{\textbf{M}}^{1D}_{rr11}\hat{\textbf{M}}^{1D}_{z11}, & \hat{\textbf{M}}_{12} = \hat{\textbf{M}}^{1D}_{rr12}\hat{\textbf{M}}^{1D}_{z11},\\
+		\hat{\textbf{M}}_{13} = \hat{\textbf{M}}^{1D}_{rr11}\hat{\textbf{M}}^{1D}_{z12}, & \hat{\textbf{M}}_{14} = \hat{\textbf{M}}^{1D}_{rr12}\hat{\textbf{M}}^{1D}_{z12},\\
+		\hat{\textbf{M}}_{22} = \hat{\textbf{M}}^{1D}_{rr22}\hat{\textbf{M}}^{1D}_{z11}, & \hat{\textbf{M}}_{23} = \hat{\textbf{M}}^{1D}_{rr21}\hat{\textbf{M}}^{1D}_{z12},\\
+		\hat{\textbf{M}}_{24} = \hat{\textbf{M}}^{1D}_{rr22}\hat{\textbf{M}}^{1D}_{z12}, & \hat{\textbf{M}}_{33} = \hat{\textbf{M}}^{1D}_{rr11}\hat{\textbf{M}}^{1D}_{z22},\\
+		\hat{\textbf{M}}_{34} = \hat{\textbf{M}}^{1D}_{rr12}\hat{\textbf{M}}^{1D}_{z22}, & \hat{\textbf{M}}_{44} = \hat{\textbf{M}}^{1D}_{rr22}\hat{\textbf{M}}^{1D}_{z22}.\\
+	\end{array}
+\end{equation*}
+
+
+Верхние треугольники элементов матрицы масс, для слагаемых с коэффициентом $\sigma$ могут быть представлены в виде:
+
+\begin{equation*}
+	\begin{array}{ll}
+		\hat{\textbf{C}}_{11} = \hat{\textbf{M}}^{1D}_{r11}\hat{\textbf{M}}^{1D}_{z11}, & \hat{\textbf{C}}_{12} = \hat{\textbf{M}}^{1D}_{r12}\hat{\textbf{M}}^{1D}_{z11},\\
+		\hat{\textbf{C}}_{13} = \hat{\textbf{M}}^{1D}_{r11}\hat{\textbf{M}}^{1D}_{z12}, & \hat{\textbf{C}}_{14} = \hat{\textbf{M}}^{1D}_{r12}\hat{\textbf{M}}^{1D}_{z12},\\
+		\hat{\textbf{C}}_{22} = \hat{\textbf{M}}^{1D}_{r22}\hat{\textbf{M}}^{1D}_{z11}, & \hat{\textbf{C}}_{23} = \hat{\textbf{M}}^{1D}_{r21}\hat{\textbf{M}}^{1D}_{z12},\\
+		\hat{\textbf{C}}_{24} = \hat{\textbf{M}}^{1D}_{r22}\hat{\textbf{M}}^{1D}_{z12}, & \hat{\textbf{C}}_{33} = \hat{\textbf{M}}^{1D}_{r11}\hat{\textbf{M}}^{1D}_{z22},\\
+		\hat{\textbf{C}}_{34} = \hat{\textbf{M}}^{1D}_{r12}\hat{\textbf{M}}^{1D}_{z22}, & \hat{\textbf{C}}_{44} = \hat{\textbf{M}}^{1D}_{r22}\hat{\textbf{M}}^{1D}_{z22}.\\
+	\end{array}
+\end{equation*}
+
+Так как мы имеем сосредоточенный в точке источник $J_{\varphi}$, то получим следующее:
+
+\begin{equation} \label{eq_2_18}
+	\int \limits_{\Omega} J_{\phi} \delta d \Omega = 
+	\left \{ \begin{aligned}
+		& 1, p \in \Omega_{\epsilon}\\
+		& 0,    p \notin \Omega_{\epsilon}\\
+	\end{aligned} \right.
+\end{equation}
+
+Преобразуем теперь нестационарную составляющую в уравнении (\ref{eq_2_4}) в матричную форму. Для аппроксимации задачи по времени будем использовать трёхслойную неявную схему. Тогда искомое решение $A_{\varphi}$ на интервале $(t_{j-2}, t_j)$ представим в следующем виде:
+
+\begin{equation} \label{eq_2_19}
+	A_{\varphi}(r, z, t) \approx A_{\varphi}^{j - 2}(r, z) \eta_2(t)^j + A_{\varphi}^{j - 1}(r, z) \eta_1(t)^j + A_{\varphi}^{j}(r, z) \eta_0(t)^j,
+\end{equation}
+где $\eta_2(t)^j$, $\eta_1(t)^j$, $\eta_0(t)^j$ -- базисные квадратичные полиномы Лагранжа, которые записываются в виде (\ref{eq_2_20}).
+
+\begin{equation} \label{eq_2_20}
+	\begin{cases}
+		& \eta_2(t)^j = \frac{(t-t_{j-1})(t - t_j)}{(t_{j-1} - t_{j-2}) (t_j - t_{j-2})}, \\
+		& \eta_1(t)^j = -\frac{(t-t_{j-2})(t - t_j)}{(t_{j-1} - t_{j-2}) (t_j - t_{j-1})}, \\
+		& \eta_0(t)^j = \frac{(t-t_{j-2})(t - t_{j - 1})}{(t_{j} - t_{j-2}) (t_j - t_{j-1})}.
+	\end{cases}
+\end{equation}
+
+Подставим выражение (\ref{eq_2_19}) в нестационарное слагаемое уравнения (\ref{eq_2_4}) на временном слое $t=t_j$:
+
+\begin{equation} \label{eq_2_23}
+\begin{gathered}
+	\frac{\partial}{\partial t} \left(A_{\varphi}^{j - 2}(r, z) \eta_2^j(t) + A_{\varphi}^{j - 1}(r, z) \eta_1^j(t) + A_{\varphi}^{j}(r, z) \eta_0^j(t)\right) |_{t=t_j} = \\ = \tau_2 A_{\varphi}^{j - 2}(r, z) + \tau_1 A_{\varphi}^{j - 1}(r, z) +\tau_0 A_{\varphi}^{j}(r, z),
+\end{gathered}
+\end{equation}
+где
+
+\begin{equation} \label{eq_2_24}
+	\begin{cases}
+		& \tau_2 = \left.\frac{\partial \eta_2^j(t)}{\partial t}\right|_{t=t_j} = \frac{t_j - t_{j-1}}{(t_{j-1} - t_{j-2}) (t_j - t_{j-2})}, \\
+		
+		& \tau_1 = \left.\frac{\partial \eta_1^j(t)}{\partial t}\right|_{t=t_j} = -\frac{t_j - t_{j-2}}{(t_{j-1} - t_{j-2}) (t_j - t_{j-1})}, \\
+		
+		& \tau_0 = \left.\frac{\partial \eta_0^j(t)}{\partial t}\right|_{t=t_j} = \frac{(t_j - t_{j-2}) + (t_{j} - t_{j-1})}{(t_{j} - t_{j-2}) (t_j - t_{j-1})}.
+	\end{cases}
+\end{equation}
+
+
+Выполняя конечноэлементную аппроксимацию краевой задачи для уравнения (\ref{eq_2_4}), получим СЛАУ следующего вида:
+
+\begin{equation} \label{eq_2_27}
+	\left(\tau_0 \textbf{C} + \textbf{G} + \textbf{M}\right) \textbf{q}^j = \textbf{b} - \tau_2 \textbf{C} \textbf{q}^{j-2} + \tau_1 \textbf{C} \textbf{q}^{j-1}.
+\end{equation}
+
+\section{Связь компонент электромагнитного поля в декартовой и цилиндрической системе координат}
+
+Как мы уже выяснили, решение задачи в $(r, z)$ координатах можно использовать в качестве нормального поля. Перед тем, как перейти к трёхмерной постановке задачи, найдем значение $E^0_{\varphi}$, через следующее преобразование:
+
+\begin{equation} \label{eq_2_28}
+	E^0_{\varphi}(r, z, t) = -\frac{\partial A^0_{\varphi}(r, z, t)}{\partial t}.
+\end{equation}
+
+Для перевода полученных результатов в трёхмерную задачу нужно перевести полученные значения вектора-потенциала $A^0_{\varphi}$ и напряженности электрического поля  $E^0_{\varphi}$ из цилиндрической в декартову систему координат. По формулам преобразования векторов (\ref{eq_2_29}) -- (\ref{eq_2_30}) найдем составляющие компоненты базисных вектор-функций уже для трёхмерной постановки задачи.
+
+\begin{equation} \label{eq_2_29}
+	\begin{cases}
+		&	E_x^0(x, y, z, t) = -E_{\varphi}^0(\sqrt{x^2 + y^2}, z, t)\frac{y}{\sqrt{x^2 + y^2}},\\
+		& 	E_y^0(x, y, z, t) = E_{\varphi}^0(\sqrt{x^2 + y^2}, z, t)\frac{x}{\sqrt{x^2 + y^2}},\\
+		& 	E_z^0(x, y, z, t) = 0.
+	\end{cases}
+\end{equation}
+
+\begin{equation} \label{eq_2_30}
+	\begin{cases}
+		&	A_x^0(x, y, z, t) = -A_{\varphi}^0(\sqrt{x^2 + y^2}, z, t)\frac{y}{\sqrt{x^2 + y^2}},\\
+		& 	A_y^0(x, y, z, t) = A_{\varphi}^0(\sqrt{x^2 + y^2}, z, t)\frac{x}{\sqrt{x^2 + y^2}},\\
+		& 	A_z^0(x, y, z, t) = 0.
+	\end{cases}
+\end{equation}
+
+\section{Вариационная постановка трёхмерной задачи}
+
+Принцип построения вариационного уравнения для трёхмерной задачи в целом похож на принцип построения вариационного уравнения для двумерной задачи \cite{8}, поэтому сразу получим слабую форму для (\ref{eq_1_6}): домножим обе части на пробную вектор-функцию $\overrightarrow{\Psi}$ и проинтегрируем по всей области $\Omega$.
+
+\begin{equation} \label{eq_2_35}
+	\int \limits_{\Omega} \frac{1}{\mu_0}  \text{rot} \left( \text{rot} \overrightarrow{\textbf{A}}^+ \right) \overrightarrow{\Psi} d \Omega + \int \limits_{\Omega} \sigma \frac{\partial \overrightarrow{\textbf{A}}^+}{\partial t} \overrightarrow{\Psi} d \Omega = \int \limits_{\Omega}(\sigma - \sigma_n) \overrightarrow{\textbf{E}^n} \overrightarrow{\Psi} d \Omega.
+\end{equation}
+
+Применяя формулу Грина и учитывая главные краевые условия для (\ref{eq_1_6}), в итоге получим:
+
+\begin{equation} \label{eq_2_36}
+	\int \limits_{\Omega} \frac{1}{\mu_0} \text{rot} \overrightarrow{\textbf{A}}^+ \text{rot}  \overrightarrow{\Psi} d \Omega + \int \limits_{\Omega} \sigma \frac{\partial \overrightarrow{\textbf{A}}^+}{\partial t} \overrightarrow{\Psi} d \Omega = \int \limits_{\Omega}(\sigma - \sigma_n) \overrightarrow{\textbf{E}}^n \overrightarrow{\Psi} d \Omega.
+\end{equation}
+
+\section{Конечноэлементная дискретизация трёхмерной задачи}
+
+Сетку для решения задач на добавочное поле будем строить с помощью прямоугольных параллелепипедов. Будем сгущать сетку к аномальным элементам в расчётной области, чтобы не создавать лишних вычислительных затрат. 
+
+Для решения задачи будем использовать билинейные базисные вектор-функции, которые задаются на параллелепипеде $\Omega_{rsp} = [x_p, x_{p+1}] \times [y_s, y_{s+1}] \times [z_p, z_{p+1}]$ следующим образом:
+
+\begin{equation*}
+	\overrightarrow{\psi}_1 = \left(
+	\begin{array}{c}
+		Y_1 \cdot Z_1\\
+		0\\
+		0\\
+	\end{array}
+	\right),
+	\hspace{10mm}
+	\overrightarrow{\psi}_2 = \left(
+	\begin{array}{c}
+		Y_2 \cdot Z_1\\
+		0\\
+		0\\
+	\end{array}
+	\right),
+	\hspace{10mm}
+	\overrightarrow{\psi}_3 = \left(
+	\begin{array}{c}
+		Y_1 \cdot Z_2\\
+		0\\
+		0\\
+	\end{array}
+	\right),
+\end{equation*}
+
+\begin{equation*}
+	\overrightarrow{\psi}_4 = \left(
+	\begin{array}{c}
+		Y_2 \cdot Z_2\\
+		0\\
+		0\\
+	\end{array}
+	\right),
+	\hspace{10mm}
+	\overrightarrow{\psi}_5 = \left(
+	\begin{array}{c}
+		0\\
+		X_1 \cdot Z_1\\
+		0\\
+	\end{array}
+	\right),
+	\hspace{10mm}
+	\overrightarrow{\psi}_6 = \left(
+	\begin{array}{c}
+		0\\
+		X_2 \cdot Z_1\\
+		0\\
+	\end{array}
+	\right),
+\end{equation*}
+
+
+\begin{equation*}
+	\overrightarrow{\psi}_7 = \left(
+	\begin{array}{c}
+		0\\
+		X_1 \cdot Z_2\\
+		0\\
+	\end{array}
+	\right),
+	\hspace{10mm}
+	\overrightarrow{\psi}_8 = \left(
+	\begin{array}{c}
+		0\\
+		X_2 \cdot Z_2\\
+		0\\
+	\end{array}
+	\right),
+	\hspace{10mm}
+	\overrightarrow{\psi}_9 = \left(
+	\begin{array}{c}
+		0\\
+		0\\
+		X_1 \cdot Y_1\\
+	\end{array}
+	\right),
+\end{equation*}
+
+\begin{equation*}
+	\overrightarrow{\psi}_{10} = \left(
+	\begin{array}{c}
+		0\\
+		0\\
+		X_2 \cdot Y_1\\	\end{array}
+	\right),
+	\hspace{10mm}
+	\overrightarrow{\psi}_{11} = \left(
+	\begin{array}{c}
+		0\\
+		0\\
+		X_1 \cdot Y_2\\\end{array}
+	\right),
+	\hspace{10mm}
+	\overrightarrow{\psi}_{12} = \left(
+	\begin{array}{c}
+		0\\
+		0\\
+		X_2 \cdot Y_2\\
+	\end{array}
+	\right),
+\end{equation*}
+где
+
+\begin{equation*} \label{eq_2_37}
+	X_1(x) = \frac{x_{r + 1} - x}{x_{r + 1} - x_r}, \hspace{10mm} X_2(x) = \frac{x - x_r}{x_{r + 1} - x_r},
+\end{equation*}
+
+\begin{equation*} \label{eq_2_38}
+	Y_1(y) = \frac{y_{s + 1} - y}{y_{s + 1} - y_s}, \hspace{10mm} Y_2(y) = \frac{y - y_s}{y_{s + 1} - y_s},
+\end{equation*}
+
+\begin{equation*} \label{eq_2_39}
+	Z_1(z) = \frac{z_{p + 1} - z}{z_{p + 1} - z_p}, \hspace{10mm} Z_2(z) = \frac{z - z_p}{z_{p + 1} - z_p}.
+\end{equation*}
+
+\section{Построение матриц масс и жёсткости для трёхмерной задачи}
+
+Формулы для вычисления глобальных матриц жёсткости $\textbf{G}$ и масс $\textbf{M}$ конечноэлементной СЛАУ имеют вид:
+
+\begin{equation*} \label{eq_2_40}
+	\hat{\textbf{G}}_{ij} = \int \limits_{\Omega} \frac{1}{\mu_0} \text{rot} \overrightarrow{\textbf{$\Psi_i$}} \cdot \text{rot} \overrightarrow{\textbf{$\Psi_j$}} d \Omega, \hspace{15mm} \hat{\textbf{M}}_{ij} = \int \limits_{\Omega} \sigma \overrightarrow{\textbf{$\Psi_i$}} \cdot \overrightarrow{\textbf{$\Psi_j$}} d \Omega.
+\end{equation*}
+
+Компоненты глобального вектора $\textbf{b}$ конечноэлементной СЛАУ определяются соотношением:
+
+\begin{equation*} \label{eq_2_41}
+	\textbf{b}_{i} = \int \limits_{\Omega} \overrightarrow{\textbf{F}} \cdot \overrightarrow{\textbf{$\Psi_i$}} d \Omega.
+\end{equation*}
+
+Локальная матрица жёсткости $\hat{\textbf{G}}$ на параллелепипеде при $\overline{\mu} = const$ принимает вид:
+
+\begin{equation*}
+	\hat{\textbf{G}} = \frac{1}{\overline{\mu}} \left(
+	\begin{array}{ccc}
+		\frac{h_x h_y}{6h_z}\textbf{G}_1 + \frac{h_x h_z}{6h_y}\textbf{G}_2 & -\frac{h_z}{6}\textbf{G}_2 & \frac{h_y}{6}\textbf{G}_3 \\
+		-\frac{h_z}{6}\textbf{G}_2 & \frac{h_x h_y}{6h_z}\textbf{G}_1 + \frac{h_y h_z}{6h_x}\textbf{G}_2 & -\frac{h_x}{6}\textbf{G}_1 \\
+		\frac{h_y}{6}\textbf{G}^\text{T}_3 & -\frac{h_x}{6}\textbf{G}_1 & \frac{h_x h_z}{6h_y}\textbf{G}_1 + \frac{h_y h_z}{6h_x}\textbf{G}_2 \\
+	\end{array}
+	\right),
+\end{equation*}
+где
+\begin{equation*}
+	\textbf{G}_1 = \left(
+	\begin{array}{rrrr}
+		2 & 1 & -2 & -1 \\
+		1 & 2 & -1 & -2 \\
+		-2 & -1 & 2 & 1 \\
+		-1 & -2 & 1 & 2 \\
+	\end{array}
+	\right),
+	\hspace{10mm}
+	\textbf{G}_2 = \left(
+	\begin{array}{rrrr}
+		2 & -2 & 1 & -1 \\
+		-2 & 2 & -1 & 2 \\
+		1 & -1 & 2 & -2 \\
+		-1 & 1 & -2 & 2 \\
+	\end{array}
+	\right),
+\end{equation*}
+
+\begin{equation*}
+	\textbf{G}_3 = \left(
+	\begin{array}{rrrr}
+		-2 & 2 & -1 & 1 \\
+		-1 & 1 & -2 & 2 \\
+		2 & -2 & 1 & -1 \\
+		1 & -1 & 2 & -2 \\
+	\end{array}
+	\right).
+\end{equation*}
+
+Матрицу $\hat{\textbf{M}}$ можно представить в виде:
+
+\begin{equation*}
+	\textbf{M} = \left(
+	\begin{array}{ccc}
+		\textbf{D} & \textbf{O} & \textbf{O}\\
+		\textbf{O} & \textbf{D} & \textbf{O}\\
+		\textbf{O} & \textbf{O} & \textbf{D} \\
+	\end{array}
+	\right) ,
+\end{equation*}
+где $\textbf{O}$ - матрица $4 \times 4$, состоящая из нулей подматрица, а $\textbf{D}$ определяется следующим образом:
+
+\begin{equation*}
+	\textbf{D} = \left(
+	\begin{array}{rrrr}
+		4 & 2 & 2 & 1 \\
+		2 & 4 & 1 & 2 \\
+		2 & 1 & 4 & 2 \\
+		1 & 2 & 2 & 4 \\
+	\end{array}
+	\right).
+\end{equation*}
+
+Локальный вектор правой части определяется в виде:
+\begin{equation} \label{eq_2_42}
+	\hat{\textbf{b}}_i = \hat{\textbf{M}} \cdot \hat{\textbf{f}}_i,
+\end{equation}
+где $\hat{\textbf{f}}_i = \overrightarrow{\textbf{F}}(\hat{x}_c, \hat{y}_c, \hat{z}_c) \cdot \overrightarrow{\textbf{v}} / l$, для которого $\hat{x}_c, \hat{y}_c, \hat{z}_c$ -- координаты центра ребра, $\overrightarrow{\textbf{v}}$ -- вектор, направленный вдоль ребра $\Gamma$ и сонаправленный с базисной вектор-функцией $\overrightarrow{\textbf{$\Psi_i$}}$, $l$ -- длина вектора $\overrightarrow{\textbf{F}}$.
+
+Применяя трехслойную неявную схему аппроксимации по времени, получим итоговое СЛАУ для вариационного уравнения (\ref{eq_2_36}):
+
+\begin{equation} \label{eq_2_43}
+	\left(\textbf{G} + \tau_0 \textbf{M}^{\sigma}\right) \textbf{q} = \textbf{M}^{\sigma - \sigma_n} \cdot \textbf{E} + \tau_1 \textbf{M}^{\sigma}  \textbf{q}^{\Leftarrow 1} - \tau_2 \textbf{M}^{\sigma}  \textbf{q}^{\Leftarrow 2}.
+\end{equation}
+
+% Далее глава пркатической части.

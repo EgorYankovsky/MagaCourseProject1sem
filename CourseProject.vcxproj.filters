@@ -15,15 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Data\Generated\generatedAreas.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Generated\generatedPoints.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Generated\generatedRibs.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
     <Text Include="Data\Input\input.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
