@@ -54,39 +54,176 @@
 	\label{fig:GridCube}
 \end{figure}
 
-Приведём ещё насколько примеров для построения сеток на шестигранниках, изображённых на рисунках в таблице \ref{tab:figures}.
+Приведём ещё насколько примеров для построения сеток на шестигранниках, изображённых на рисунках  \ref{fig:Emerald} - \ref{fig:DEmerald}.
 
-\begin{table}
-	\caption{Примеры сеток на шестигранниках}
-	\centering
-	\small
-	\begin{tabular}{|p{3.5cm}|c|c|}
-		\hline
-		\centering{Фигура} & \centering{Расчётная область} & \centering{Сетка} \tabularnewline \hline
-		
-		
-		Изумруд & 
-			\includegraphics[width=0.35\linewidth]{images/EmeraldField.png}  & \includegraphics[width=0.35\linewidth]{images/EmeraldMesh.png} \tabularnewline \hline
-		
-		Скошенная пирамида &  &  \tabularnewline \hline
-		
-		Песочные часы &  &  \tabularnewline \hline
-		
-		Ванная &  &  \tabularnewline \hline
-		
-		Детализированный изумруд &  &  \tabularnewline \hline
-		
-		Случайная фигура &  &  \tabularnewline \hline
-		
-		
-	\end{tabular}
-	\label{tab:figures}
-\end{table}
+\begin{figure}
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/EmeraldField.png} \\ а)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/EmeraldMesh.png} \\ б)}
+	\end{minipage}
+	\caption{Расчётная область в форме изумруда (а) и сетка к ней (б).}
+	\label{fig:Emerald}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/PyramidField.png} \\ а)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/PyramidMesh.png} \\ б)}
+	\end{minipage}
+	\caption{Расчётная область в форме скошенной пирамиды (а) и сетка к ней (б).}
+	\label{fig:Pyramid}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/HGField.png} \\ а)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/HGMesh.png} \\ б)}
+	\end{minipage}
+	\caption{Расчётная область в форме песочных часов (а) и сетка к ней (б).}
+	\label{fig:HG}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/BathField.png} \\ а)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/BathMesh.png} \\ б)}
+	\end{minipage}
+	\caption{Расчётная область в форме ванной (а) и сетка к ней (б).}
+	\label{fig:Bath}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/DEmeraldField.png} \\ а)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[h]{0.49\linewidth}
+		\center{\includegraphics[width=0.5\linewidth]{images/DEmeraldMesh.png} \\ б)}
+	\end{minipage}
+	\caption{Расчётная область в форме детализированного изумруда (а) и сетка к ней (б).}
+	\label{fig:DEmerald}
+\end{figure}
+
+Таким образом, программа для построения сетки может строить достаточно геометрически сложные фигуры.
 
 \section{Численное интегрирование}
 
+При расчёте элементов локальных матриц жёсткости (\ref{eq_1_11}) и масс (\ref{eq_1_12}) будем использовать численное интегрирование методами Гаусса разных порядков (2, 3, 4, 5). Результаты численного интегрирования на некоторых функциях приведены в таблицах \ref{tab:numIntegr1} - \ref{tab:numIntegr7}. Область интегрирования для всех функций единый: $\Omega_E \in \left[-1; 1\right]_x \cross \left[-1; 1\right]_y \cross \left[-1; 1\right]_z$.
+
+\begin{table}
+	\caption{Тестирование численного интегрирования на функции $u = 2$.}
+	\centering
+	\small
+	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
+		\hline
+		\centering{Аналитический результат} & \centering{Гаусс 2} & \centering{Гаусс 3} & \centering{Гаусс 4} & \centering{Гаусс 5} \tabularnewline \hline
+		
+		\centering{16.0} & \centering{1.6000000e+01}& \centering{1.6000000e+01} & \centering{1.6000000e+01} & \centering{1.6000000e+01} \tabularnewline \hline
+		
+	\end{tabularx}
+	\label{tab:numIntegr1}
+\end{table}
+
+
+\begin{table}
+	\caption{Тестирование численного интегрирования на функции $u = x + y + z$.}
+	\centering
+	\small
+	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
+		\hline
+		\centering{Аналитический результат} & \centering{Гаусс 2} & \centering{Гаусс 3} & \centering{Гаусс 4} & \centering{Гаусс 5} \tabularnewline \hline
+		
+		\centering{0.0} & \centering{0.0000000e+00}& \centering{-2.2204460e-16} & \centering{5.6898930e-16} & \centering{-6.5225603e-16} \tabularnewline \hline
+		
+	\end{tabularx}
+	\label{tab:numIntegr2}
+\end{table}
+
+\begin{table}
+	\caption{Тестирование численного интегрирования на функции $u = x^2 + y^2 + z^2$.}
+	\centering
+	\small
+	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
+		\hline
+		\centering{Аналитический результат} & \centering{Гаусс 2} & \centering{Гаусс 3} & \centering{Гаусс 4} & \centering{Гаусс 5} \tabularnewline \hline
+		
+		\centering{8.0} & \centering{8.0000000e+00}& \centering{8.0000000e+00} & \centering{8.0000000e+00} & \centering{8.0000000e+00} \tabularnewline \hline
+		
+	\end{tabularx}
+	\label{tab:numIntegr3}
+\end{table}
+
+\begin{table}
+	\caption{Тестирование численного интегрирования на функции $u = x \cdot y \cdot z$.}
+	\centering
+	\small
+	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
+		\hline
+		\centering{Аналитический результат} & \centering{Гаусс 2} & \centering{Гаусс 3} & \centering{Гаусс 4} & \centering{Гаусс 5} \tabularnewline \hline
+		
+		\centering{0.0} & \centering{8.0000000e+00}& \centering{0.0000000e+00} & \centering{0.0000000e+00} & \centering{8.6736174e-18} \tabularnewline \hline
+		
+	\end{tabularx}
+	\label{tab:numIntegr4}
+\end{table}
+
+\begin{table}
+	\caption{Тестирование численного интегрирования на функции $u = x^2 \cdot y^2 \cdot z^2$.}
+	\centering
+	\small
+	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
+		\hline
+		\centering{Аналитический результат} & \centering{Гаусс 2} & \centering{Гаусс 3} & \centering{Гаусс 4} & \centering{Гаусс 5} \tabularnewline \hline
+		
+		\centering{$\frac{8}{27}$ $\approx$ 0.29630} & \centering{2.9629630e-01}& \centering{2.9629630e-01} & \centering{2.9629630e-01} & \centering{2.9629630e-01} \tabularnewline \hline
+		
+	\end{tabularx}
+	\label{tab:numIntegr5}
+\end{table}
+
+\begin{table}
+	\caption{Тестирование численного интегрирования на функции $u = \text{cos}(x + y + z)$.}
+	\centering
+	\small
+	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
+		\hline
+		\centering{Аналитический результат} & \centering{Гаусс 2} & \centering{Гаусс 3} & \centering{Гаусс 4} & \centering{Гаусс 5} \tabularnewline \hline
+		
+		\centering{4.7666...} & \centering{4.7063579e+00}& \centering{4.7671091e+00} & \centering{4.7665835e+00} & \centering{4.7665859e+00} \tabularnewline \hline
+		
+	\end{tabularx}
+	\label{tab:numIntegr6}
+\end{table}
+
+\begin{table}
+	\caption{Тестирование численного интегрирования на функции $u = e^{x + y + z}$.}
+	\centering
+	\small
+	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
+		\hline
+		\centering{Аналитический результат} & \centering{Гаусс 2} & \centering{Гаусс 3} & \centering{Гаусс 4} & \centering{Гаусс 5} \tabularnewline \hline
+		
+		\centering{12.9845...} & \centering{1.2857243e+01}& \centering{1.2983458e+01} & \centering{1.2984538e+01} & \centering{1.2984543e+01} \tabularnewline \hline
+		
+	\end{tabularx}
+	\label{tab:numIntegr7}
+\end{table}
 
 \section{Решение СЛАУ}
+
+Через LOS или Pardiso.
 
 \section{Тестирование трёхмерной задачи на полиномиальных вектор-функциях}
 

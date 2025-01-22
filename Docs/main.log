@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.16)  22 JAN 2025 08:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.16)  23 JAN 2025 00:25
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1680,99 +1680,127 @@ File: images/GridCube.png Graphic file (type png)
 <use images/GridCube.png>
 Package pdftex.def Info: images/GridCube.png  used on input line 52.
 (pdftex.def)             Requested size: 338.58632pt x 246.5921pt.
-<images/EmeraldField.png, id=167, 542.025pt x 361.35pt>
+<images/EmeraldField.png, id=168, 362.7954pt x 311.4837pt>
 File: images/EmeraldField.png Graphic file (type png)
 <use images/EmeraldField.png>
-Package pdftex.def Info: images/EmeraldField.png  used on input line 69.
-(pdftex.def)             Requested size: 169.29684pt x 112.86095pt.
-<images/EmeraldMesh.png, id=168, 538.4115pt x 369.2997pt>
+Package pdftex.def Info: images/EmeraldField.png  used on input line 61.
+(pdftex.def)             Requested size: 118.50705pt x 101.74431pt.
+<images/EmeraldMesh.png, id=169, 352.6776pt x 313.6518pt>
 File: images/EmeraldMesh.png Graphic file (type png)
 <use images/EmeraldMesh.png>
-Package pdftex.def Info: images/EmeraldMesh.png  used on input line 69.
-(pdftex.def)             Requested size: 169.29684pt x 116.12152pt.
+Package pdftex.def Info: images/EmeraldMesh.png  used on input line 65.
+(pdftex.def)             Requested size: 118.50705pt x 105.39107pt.
+ [13 <./images/ExampleCube.png> <./images/GridCube.png>]
+<images/PyramidField.png, id=179, 513.117pt x 263.7855pt>
+File: images/PyramidField.png Graphic file (type png)
+<use images/PyramidField.png>
+Package pdftex.def Info: images/PyramidField.png  used on input line 73.
+(pdftex.def)             Requested size: 118.50705pt x 60.92296pt.
+<images/PyramidMesh.png, id=180, 505.1673pt x 232.7094pt>
+File: images/PyramidMesh.png Graphic file (type png)
+<use images/PyramidMesh.png>
+Package pdftex.def Info: images/PyramidMesh.png  used on input line 77.
+(pdftex.def)             Requested size: 118.50705pt x 54.59084pt.
+<images/HGField.png, id=181, 311.4837pt x 359.1819pt>
+File: images/HGField.png Graphic file (type png)
+<use images/HGField.png>
+Package pdftex.def Info: images/HGField.png  used on input line 85.
+(pdftex.def)             Requested size: 118.50705pt x 136.65495pt.
+<images/HGMesh.png, id=182, 262.3401pt x 342.5598pt>
+File: images/HGMesh.png Graphic file (type png)
+<use images/HGMesh.png>
+Package pdftex.def Info: images/HGMesh.png  used on input line 89.
+(pdftex.def)             Requested size: 118.50705pt x 154.74635pt.
+<images/BathField.png, id=183, 463.2507pt x 291.9708pt>
+File: images/BathField.png Graphic file (type png)
+<use images/BathField.png>
+Package pdftex.def Info: images/BathField.png  used on input line 97.
+(pdftex.def)             Requested size: 118.50705pt x 74.68991pt.
+<images/BathMesh.png, id=184, 537.6888pt x 288.3573pt>
+File: images/BathMesh.png Graphic file (type png)
+<use images/BathMesh.png>
+Package pdftex.def Info: images/BathMesh.png  used on input line 101.
+(pdftex.def)             Requested size: 118.50705pt x 63.55319pt.
+<images/DEmeraldField.png, id=185, 515.2851pt x 305.7021pt>
+File: images/DEmeraldField.png Graphic file (type png)
+<use images/DEmeraldField.png>
+Package pdftex.def Info: images/DEmeraldField.png  used on input line 109.
+(pdftex.def)             Requested size: 118.50705pt x 70.30533pt.
+<images/DEmeraldMesh.png, id=186, 546.3612pt x 328.1058pt>
+File: images/DEmeraldMesh.png Graphic file (type png)
+<use images/DEmeraldMesh.png>
+Package pdftex.def Info: images/DEmeraldMesh.png  used on input line 113.
+(pdftex.def)             Requested size: 118.50705pt x 71.16217pt.
+ [14 <./images/EmeraldField.png> <./images/EmeraldMesh.png> <./images/PyramidFi
+eld.png> <./images/PyramidMesh.png> <./images/HGField.png> <./images/HGMesh.png
+> <./images/BathField.png> <./images/BathMesh.png>] [15 <./images/DEmeraldField
+.png> <./images/DEmeraldMesh.png>] [16]
 
-Underfull \hbox (badness 2556) in paragraph at lines 71--71
-[]|\T2A/cmr/m/n/12 Скошенная пи-ра-
- []
+LaTeX Warning: Reference `fig:exampleOfArea' on page 17 undefined on input line
+ 230.
 
 
-Overfull \hbox (3.19858pt too wide) in paragraph at lines 77--77
-[]|\T2A/cmr/m/n/12 Детализированный
- []
+LaTeX Warning: Reference `fig:exampleOfArea' on page 17 undefined on input line
+ 238.
 
+[17] [18] [19] [20] [21]
 
-Underfull \hbox (badness 2556) in paragraph at lines 79--79
-[]|\T2A/cmr/m/n/12 Случайная фи-гу-
- []
+LaTeX Warning: Reference `fig:exampleOfArea_1' on page 22 undefined on input li
+ne 608.
 
-[13 <./images/ExampleCube.png> <./images/GridCube.png>]
+[22] [23]
 
-LaTeX Warning: Reference `fig:exampleOfArea' on page 14 undefined on input line
- 93.
+LaTeX Warning: Reference `fig:exampleOfArea' on page 24 undefined on input line
+ 689.
 
-
-LaTeX Warning: Reference `fig:exampleOfArea' on page 14 undefined on input line
- 101.
-
-[14 <./images/EmeraldField.png> <./images/EmeraldMesh.png>] [15] [16] [17]
-[18] [19]
-
-LaTeX Warning: Reference `fig:exampleOfArea_1' on page 20 undefined on input li
-ne 471.
-
-[20] [21]
-
-LaTeX Warning: Reference `fig:exampleOfArea' on page 22 undefined on input line
- 552.
-
-[22]) (tex/research.tex [23]
+[24]) (tex/research.tex [25]
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 3.
-) (tex/conclusion.tex [24
+) (tex/conclusion.tex [26
 
-]) [25
+]) [27
 
-] [26
+] [28
 
-] [27] (tex/appendix1.tex
+] [29] (tex/appendix1.tex
 (_minted-main/default.pygstyle)
 (_minted-main/8B8A6907F61507BABD705A509AF3308715F3D425C77ED7689E61DA20867FDFA2.
 pygtex
 LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 2.
- [28
+ [30
 
-] [29])
+] [31])
 (_minted-main/594383490E8EE116424BFAD192DCDB80A35E1FC8EE2AD00695134489B97FC02C.
-pygtex [30])
-(_minted-main/572E6CDC3D9D70302DF999C4E9380EAF6F18E3FCDF1BA385A8353E92FB50A0B1.
-pygtex [31])
-(_minted-main/318FC6EE08050C9C1A1DF6FD70338C03204C06BEE4325DDD6FBE78D2389C99D6.
 pygtex [32])
+(_minted-main/572E6CDC3D9D70302DF999C4E9380EAF6F18E3FCDF1BA385A8353E92FB50A0B1.
+pygtex [33])
+(_minted-main/318FC6EE08050C9C1A1DF6FD70338C03204C06BEE4325DDD6FBE78D2389C99D6.
+pygtex [34])
 (_minted-main/F8F6F18A32101999CE25B92D56119879B8FA85A1CC5536AE33801BCE6550137B.
-pygtex [33] [34] [35] [36] [37])
+pygtex [35] [36] [37] [38] [39])
 (_minted-main/81332EE3BB42C6C5475020BF6B7DABB980FC608A2B5B62A611996CE1A3371A16.
-pygtex [38] [39] [40] [41] [42]
+pygtex [40] [41] [42] [43] [44]
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
 302.
 
 (C:\Users\USER\AppData\Local\Programs\MiKTeX\tex/latex/base\ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-[43] [44] [45] [46] [47] [48] [49])
+[45] [46] [47] [48] [49] [50] [51])
 (_minted-main/2756F015632796B314F83985C5286C9DD0B7FE92A0E4D0D333706B1EE4243787.
 pygtex)
 (_minted-main/1BB0CB938DBC1E1AE74FC01A3DA86C71E0E9A387185288A51A916872F4FB3F06.
-pygtex [50])
-(_minted-main/6670BBBF19E5D670BA9F85F18C3C12616575AE6919FDEA3A31CEED707F1C9118.
-pygtex [51])
-(_minted-main/F340FD97A523E3E4DE5BA3A614E922D222E27E7297CF49AA981F0755BEE466FE.
 pygtex [52])
-(_minted-main/4BB4FD73865B86E4840BC7FDF0DDD71A4F5FC87AB42B12128A9B4ADE952A3A91.
+(_minted-main/6670BBBF19E5D670BA9F85F18C3C12616575AE6919FDEA3A31CEED707F1C9118.
 pygtex [53])
+(_minted-main/F340FD97A523E3E4DE5BA3A614E922D222E27E7297CF49AA981F0755BEE466FE.
+pygtex [54])
+(_minted-main/4BB4FD73865B86E4840BC7FDF0DDD71A4F5FC87AB42B12128A9B4ADE952A3A91.
+pygtex [55])
 (_minted-main/75E1992B40326B1D47844B7E1F5DC712465B4F4555298885DD249BCCD71AB9D9.
-pygtex [54] [55] [56])
+pygtex [56] [57] [58])
 (_minted-main/9E870932898F8BDA84D48BAF49D742E1A7AFC92666DC5CDD6D28D97C3B3FA46D.
-pygtex [57])) [58] (main.aux)
+pygtex [59])) [60] (main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -1785,13 +1813,13 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 4B7A2E2E5EF2FCC6AE4AE877C26152B6;4489.
+(rerunfilecheck)             Checksum: A530B50432E5A623EF2D9DC842A17AAF;4489.
  ) 
 Here is how much of TeX's memory you used:
- 44106 strings out of 474436
- 982563 string characters out of 5742426
+ 44186 strings out of 474436
+ 984463 string characters out of 5742426
  2080190 words of memory out of 5000000
- 65474 multiletter control sequences out of 15000+600000
+ 65541 multiletter control sequences out of 15000+600000
  582586 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,19n,110p,1456b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1824,9 +1852,9 @@ MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/USER/AppData/Local/Pro
 grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/USER/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/USER/Ap
 pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (54 pages, 969351 bytes).
+Output written on main.pdf (56 pages, 1382309 bytes).
 PDF statistics:
- 1038 PDF objects out of 1200 (max. 8388607)
- 114 named destinations out of 1000 (max. 500000)
- 173 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1074 PDF objects out of 1200 (max. 8388607)
+ 127 named destinations out of 1000 (max. 500000)
+ 213 words of extra memory for PDF output out of 10000 (max. 10000000)
 
