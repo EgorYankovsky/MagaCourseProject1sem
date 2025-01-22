@@ -99,10 +99,10 @@ void MeshFileStreamer::WriteTxt(const Mesh* mesh) {
         exit(-1);
     }
     fout << "[ Total points ] " << mesh->Points.size() << std::endl;
-    for (auto &pnt : mesh->getPoints()) {
+    for (const auto &pnt : mesh->getPoints())
         fout << std::scientific << std::setprecision(15) << pnt.x << " " << pnt.y << " " << pnt.z << std::endl;
-    }
     fout.close();
+
 
     // Write array of areas.
     fout.open(pathToText + "GeneratedAreas.txt", std::ios::out);
@@ -111,13 +111,12 @@ void MeshFileStreamer::WriteTxt(const Mesh* mesh) {
         exit(-1);
     }
     fout << "[ Total areas ] " << mesh->getAreasAsRibs().size() << std::endl;
-    for (auto& area : mesh->getAreasAsRibs()) {
+    for (const auto& area : mesh->getAreasAsRibs())
         fout << area.subdomainNum_ << " " << area.refs_[0] << " " << area.refs_[1] << " "
             << area.refs_[2] << " " << area.refs_[3] << " " << area.refs_[4] << " "
             << area.refs_[5] << " " << area.refs_[6] << " " << area.refs_[7] << " "
             << area.refs_[8] << " " << area.refs_[9] << " " << area.refs_[10] << " "
             << area.refs_[11] << std::endl;
-    }
     fout.close();
 
     
@@ -128,12 +127,73 @@ void MeshFileStreamer::WriteTxt(const Mesh* mesh) {
         exit(-1);
     }
     fout << "[ Total ribs ] " << mesh->getRibsRefs().size() << std::endl;
-    for (auto& rib : mesh->getRibsRefs()) {
+    for (const auto& rib : mesh->getRibsRefs())
         fout << rib.p1 << " " << rib.p2 << std::endl;
+    fout.close();
+
+
+    // Write array of border ribs.
+    fout.open(pathToText + "GeneratedBorderRibs.txt", std::ios::out);
+    if (!fout.is_open()) {
+        Logger::ConsoleOutput("Error during file writing array of border ribs. File isn't open", NotificationColor::Alert);
+        exit(-1);
     }
+    fout << "[ Total border ribs ] " << mesh->getBorderRibs().size() << std::endl;
+    for (const auto& borderRib : mesh->getBorderRibs())
+        fout << borderRib.type_ << " " << borderRib.formulaNum_ << " " << borderRib.ribRef_ << std::endl;
     fout.close();
 }
 
 void MeshFileStreamer::WriteBin(const Mesh* mesh) {
-    std::ofstream fout(pathToBin, std::ios::out | std::ios::binary);
+    std::ofstream fout(pathToBin + "GeneratedPoints.bin", std::ios::out | std::ios::binary);
+    
+    // Write array of points.
+    if (!fout.is_open()) {
+        Logger::ConsoleOutput("Error during file writing array of points. File isn't open", NotificationColor::Alert);
+        exit(-1);
+    }
+    fout << "[ Total points ] " << mesh->Points.size() << std::endl;
+    for (const auto& pnt : mesh->getPoints())
+        fout << std::scientific << std::setprecision(15) << pnt.x << " " << pnt.y << " " << pnt.z << std::endl;
+    fout.close();
+
+
+    // Write array of areas.
+    fout.open(pathToBin + "GeneratedAreas.bin", std::ios::out);
+    if (!fout.is_open()) {
+        Logger::ConsoleOutput("Error during file writing array of areas. File isn't open", NotificationColor::Alert);
+        exit(-1);
+    }
+    fout << "[ Total areas ] " << mesh->getAreasAsRibs().size() << std::endl;
+    for (const auto& area : mesh->getAreasAsRibs())
+        fout << area.subdomainNum_ << " " << area.refs_[0] << " " << area.refs_[1] << " "
+        << area.refs_[2] << " " << area.refs_[3] << " " << area.refs_[4] << " "
+        << area.refs_[5] << " " << area.refs_[6] << " " << area.refs_[7] << " "
+        << area.refs_[8] << " " << area.refs_[9] << " " << area.refs_[10] << " "
+        << area.refs_[11] << std::endl;
+    fout.close();
+
+
+    // Write array of ribs.
+    fout.open(pathToBin + "GeneratedRibs.bin", std::ios::out);
+    if (!fout.is_open()) {
+        Logger::ConsoleOutput("Error during file writing array of areas. File isn't open", NotificationColor::Alert);
+        exit(-1);
+    }
+    fout << "[ Total ribs ] " << mesh->getRibsRefs().size() << std::endl;
+    for (const auto& rib : mesh->getRibsRefs())
+        fout << rib.p1 << " " << rib.p2 << std::endl;
+    fout.close();
+
+
+    // Write array of border ribs.
+    fout.open(pathToBin + "GeneratedBorderRibs.bin", std::ios::out);
+    if (!fout.is_open()) {
+        Logger::ConsoleOutput("Error during file writing array of border ribs. File isn't open", NotificationColor::Alert);
+        exit(-1);
+    }
+    fout << "[ Total border ribs ] " << mesh->getBorderRibs().size() << std::endl;
+    for (const auto& borderRib : mesh->getBorderRibs())
+        fout << borderRib.type_ << " " << borderRib.formulaNum_ << " " << borderRib.ribRef_ << std::endl;
+    fout.close();
 }

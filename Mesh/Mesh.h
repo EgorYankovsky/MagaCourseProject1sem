@@ -6,6 +6,7 @@
 #include <cassert>
 #include <cmath>
 #include <string>
+#include <algorithm>
 
 class Mesh {
 private:
@@ -32,6 +33,7 @@ private:
     size_t bordersAmount_ = 0;
     std::vector<Border> borders_{};
 
+    std::vector<BorderLine> borderRibs_{};
 
     std::vector<AreaPoints> areasPoints_{};
     std::vector<RibRef> referableRibs_{};
@@ -44,8 +46,10 @@ private:
     std::vector<size_t> numRefsOfLinesAboveY{};
     std::vector<size_t> numRefsOfLinesAboveZ{};
 
+    void organizeBorders();
+
 public:
-    Mesh() { Logger::ConsoleOutput("Mesh declared, but empty.", NotificationColor::Warning); };
+    Mesh() { Logger::ConsoleOutput("Mesh declared, but it's empty.", NotificationColor::Warning); };
     ~Mesh() {};
 
     bool CheckData();
@@ -63,6 +67,7 @@ public:
     inline std::vector<AreaRibs> getAreasAsRibs() const { return areasRibs_; }
     inline std::vector<RibRef> getRibsRefs() const { return referableRibs_; }
     inline std::vector<Border> getBorders() const { return borders_; }
+    inline std::vector<BorderLine> getBorderRibs() const { return borderRibs_; }
 
     __declspec(property(get = getLinesAmountX)) size_t LinesAmountX;
     __declspec(property(get = getLinesAmountY)) size_t LinesAmountY;

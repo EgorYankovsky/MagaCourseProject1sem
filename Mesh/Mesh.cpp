@@ -64,6 +64,21 @@ void Mesh::Generate() {
     generateAreasArray();
 }
 */
+void Mesh::organizeBorders() {
+    size_t bordersIISwifted(0);
+    size_t bordersIIISwifted(0);
+    for (auto& border : borders_) {
+        if (border.type_ == 2) {
+            std::iter_swap(borders_.begin() + bordersIISwifted, &border);
+            bordersIISwifted++;
+        }
+        if (border.type_ == 3) {
+            std::iter_swap(borders_.begin() + bordersIISwifted + bordersIIISwifted, &border);
+            bordersIIISwifted++;
+        }
+    }
+}
+
 bool Mesh::CheckData() {
     if (linesAmountX_ * linesAmountY_ * linesAmountZ_ != points_.size()) return false;
     if (linesAmountX_ - 1 != delimitersX_.size()) return false;
@@ -119,6 +134,7 @@ void Mesh::CommitData(std::vector<std::string>* data) {
     }
     immutableSubdomains_ = subdomains_;
 
+    // Commit unique areas coefficients description.
     for (size_t i(0); i < subdomainsAmount_; ++i) {
         areasInfo_.emplace_back(std::stoul(*currentItem),           // Area num.
                                 std::stod(*(currentItem + 1)),      // Mu_i.
@@ -126,24 +142,28 @@ void Mesh::CommitData(std::vector<std::string>* data) {
         currentItem += 3;
     }
 
+    // Commit delimiters above X description.
     for (size_t i(0); i < linesAmountX_ - 1; ++i) {
         delimitersX_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above X.
                                   std::stod(*(currentItem + 1)));   // Delimiters coefficient above X.
         currentItem += 2;
     }
 
+    // Commit delimiters above Y description.
     for (size_t i(0); i < linesAmountY_ - 1; ++i) {
         delimitersY_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Y.
             std::stod(*(currentItem + 1)));                         // Delimiters coefficient above Y.
         currentItem += 2;
     }
 
+    // Commit delimiters above Z description.
     for (size_t i(0); i < linesAmountZ_ - 1; ++i) {
         delimitersZ_.emplace_back(std::stoul(*currentItem),         // Delimiters amount above Z.
             std::stod(*(currentItem + 1)));                         // Delimiters coefficient above Z.
         currentItem += 2;
     }
 
+    // Commit information about borders.
     bordersAmount_ = std::stoul(*currentItem); currentItem++;
     for (size_t i(0); i < bordersAmount_; ++i) {
         borders_.emplace_back(std::stoul(*currentItem),             // Border type.
@@ -156,5 +176,7 @@ void Mesh::CommitData(std::vector<std::string>* data) {
                               std::stoul(*(currentItem + 7)));      // Z1.
         currentItem += 8;
     }
+
+    organizeBorders();
     immutableBorders_ = borders_;
 }

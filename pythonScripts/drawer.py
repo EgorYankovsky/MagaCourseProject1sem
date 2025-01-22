@@ -16,13 +16,26 @@ class Rib():
 pointsArr = []
 ribsArr = []
 
+_bmax = -1.0 * float(sys.float_info.max)
+_bmin = float(sys.float_info.max)
+
 def readPoints(sourcePath : str):
+    global _bmax, _bmin
     f = open(sourcePath, 'r')
     lines = f.readlines()
     lines.pop(0)
     for line in lines:
         data = line.split(" ")
         pointsArr.append(Point(float(data[0]), float(data[1]), float(data[2])))
+        if float(data[0]) > _bmax: _bmax = float(data[0])
+        if float(data[0]) < _bmin: _bmin = float(data[0])
+        
+        if float(data[1]) > _bmax: _bmax = float(data[1])
+        if float(data[1]) < _bmin: _bmin = float(data[1])
+        
+        if float(data[2]) > _bmax: _bmax = float(data[2])
+        if float(data[2]) < _bmin: _bmin = float(data[2])
+        
         
 def readRibs(sourcePath : str):
     f = open(sourcePath, 'r')
@@ -33,11 +46,15 @@ def readRibs(sourcePath : str):
         ribsArr.append(Rib(int(data[0]), int(data[1])))
     
 def drawScatter():
-    fig = plt.figure()
+    global _bmax, _bmin
+    fig = plt.figure(figsize=(19.80, 10.80))
     ax = fig.add_subplot(projection="3d")
     ax.set_xlabel('X Label')
     ax.set_ylabel('Y Label')
     ax.set_zlabel('Z Label')
+    ax.set_xlim(_bmin, _bmax)
+    ax.set_ylim(_bmin, _bmax)
+    ax.set_zlim(_bmin, _bmax)
     for point in pointsArr:
         ax.scatter(point.x, point.y, point.z, color="black")
     for rib in ribsArr:

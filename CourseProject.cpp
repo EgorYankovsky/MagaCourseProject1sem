@@ -15,6 +15,9 @@ int main() {
     }
     MeshGenerator::Generate3DMesh(myMesh);
     MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
+
+
+
     Drawer::DrawMesh();
     return 0;
 }
@@ -25,9 +28,9 @@ static auto SelectTest() -> std::string {
     std::cout << "(1) Emerald mesh." << std::endl;
     std::cout << "(2) Beveled pyramid mesh." << std::endl;
     std::cout << "(3) Hourglass-shaped mesh." << std::endl;
-    std::cout << "(4) Car mesh." << std::endl;
-    std::cout << "(5) C*ck mesh." << std::endl;
-    std::cout << "(6) Test mesh." << std::endl;
+    std::cout << "(4) Bath mesh." << std::endl;
+    std::cout << "(5) Detailed emerald mesh." << std::endl;
+    std::cout << "(6) Random figure mesh." << std::endl;
     std::cout << "-> ";
     size_t input(0);
     std::cin >> input;

@@ -62,12 +62,10 @@ int MeshGenerator::SelectAreaNum(Mesh& mesh, std::array<size_t, 12> arr) {
     auto lz0 = p1 / sxy;
     auto lz1 = p2 / sxy;
 
-    //std::cout << lx0 << " " << lx1 << " " << ly0 << " " << ly1 << " " << lz0 << " " << lz1 << std::endl;
-
     for (const auto& area : mesh.subdomains_) 
-        if (mesh.numRefsOfLinesAboveX[area[1]] <= lx0 and lx1 <= mesh.numRefsOfLinesAboveX[area[2]] and
-            mesh.numRefsOfLinesAboveY[area[3]] <= ly0 and ly1 <= mesh.numRefsOfLinesAboveY[area[4]] and
-            mesh.numRefsOfLinesAboveZ[area[5]] <= lz0 and lz1 <= mesh.numRefsOfLinesAboveZ[area[6]])
+        if (mesh.numRefsOfLinesAboveX[area[1]] <= lx0 and lx1 <= mesh.numRefsOfLinesAboveX[area[2]] and     // Subareas lays inside area's interval above X axis.
+            mesh.numRefsOfLinesAboveY[area[3]] <= ly0 and ly1 <= mesh.numRefsOfLinesAboveY[area[4]] and     // Subareas lays inside area's interval above Y axis.
+            mesh.numRefsOfLinesAboveZ[area[5]] <= lz0 and lz1 <= mesh.numRefsOfLinesAboveZ[area[6]])        // Subareas lays inside area's interval above Z axis.
             return area[0];
 
     Logger::ConsoleOutput("Error during selection of area num", NotificationColor::Alert);
@@ -153,7 +151,7 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
         size_t shift = mesh.LinesAmountY - 1;
 
         auto iterOnYRefs = mesh.numRefsOfLinesAboveY.begin() + 1;
-        for (const auto info : mesh.delimitersY_) {
+        for (const auto& info : mesh.delimitersY_) {
             auto rightBorderIter = squareToBuild.end() - shift;
             auto amountOfDelimiters = info.first;
             auto coefficientOfDelimiter = info.second;
@@ -217,7 +215,7 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
     size_t shift = mesh.LinesAmountZ - 1;
 
     auto iterOnZRefs = mesh.numRefsOfLinesAboveZ.begin() + 1;
-    for (const auto info : mesh.delimitersZ_) {
+    for (const auto& info : mesh.delimitersZ_) {
         auto rightBorderIter = areaToBuild.end() - shift;
         auto amountOfDelimiters = info.first;
         auto coefficientOfDelimiter = info.second;
@@ -278,6 +276,15 @@ void MeshGenerator::GenerateListOfPoints(Mesh& mesh) {
     figure = areaToBuild;
     mesh.linesAmountZ_ = figure.size();
 
+    // Convert borders array.
+    for (auto& border : mesh.borders_) {
+        border.refs_[0] = mesh.numRefsOfLinesAboveX[border.refs_[0]];
+        border.refs_[1] = mesh.numRefsOfLinesAboveX[border.refs_[1]];
+        border.refs_[2] = mesh.numRefsOfLinesAboveY[border.refs_[2]];
+        border.refs_[3] = mesh.numRefsOfLinesAboveY[border.refs_[3]];
+        border.refs_[4] = mesh.numRefsOfLinesAboveZ[border.refs_[4]];
+        border.refs_[5] = mesh.numRefsOfLinesAboveZ[border.refs_[5]];
+    }
 
     // Convert to line-format.
     mesh.linesAmountZ_ = figure.size();
@@ -341,5 +348,30 @@ void MeshGenerator::GenerateListOfRibs(Mesh& mesh) {
 }
 
 void MeshGenerator::GenerateListOfBorders(Mesh& mesh) {
-    Logger::ConsoleOutput("Couldn't generate list of borders", NotificationColor::Warning);
+    size_t index(0);
+    for (auto& rib : mesh.referableRibs_) {
+        auto sxy = mesh.LinesAmountX * mesh.LinesAmountY;
+
+        auto p1 = rib.p1;
+        auto p2 = rib.p2;
+
+        auto lx0 = p1 % mesh.LinesAmountX;
+        auto lx1 = p2 % mesh.LinesAmountX;
+
+        auto ly0 = (p1 % sxy) / mesh.LinesAmountX;
+        auto ly1 = (p2 % sxy) / mesh.LinesAmountX;
+
+        auto lz0 = p1 / sxy;
+        auto lz1 = p2 / sxy;
+
+        
+        for (const auto& borderSquare : mesh.borders_)
+            if (borderSquare.refs_[0] <= lx0 and lx1 <= borderSquare.refs_[1] and   // Rib lays inside border's interval above X axis.
+                borderSquare.refs_[2] <= ly0 and ly1 <= borderSquare.refs_[3] and   // Rib lays inside border's interval above Y axis.
+                borderSquare.refs_[4] <= lz0 and lz1 <= borderSquare.refs_[5]) {    // Rib lays inside border's interval above Z axis.
+                mesh.borderRibs_.emplace_back(borderSquare.type_, borderSquare.formulaNum_, index);
+                break;
+            }
+        index++;
+    }
 }

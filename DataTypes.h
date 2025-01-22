@@ -46,6 +46,18 @@ struct AreaInfo {
     AreaInfo(size_t subdomainNum, double_t mu, double_t sigma) : subdomainNum_(subdomainNum), mu_(mu), sigma_(sigma) {};
 };
 
+struct BorderLine {
+    size_t type_ = 0;
+    size_t formulaNum_ = 0;
+    size_t ribRef_ = NAN;
+    //Point p0_;
+    //Point p1_;
+    BorderLine(size_t type, size_t formulaNum, size_t ribRef) :
+        type_(type),
+        formulaNum_(formulaNum),
+        ribRef_(ribRef) {}
+};
+
 struct Border {
     size_t type_ = 0;
     size_t formulaNum_ = 0;

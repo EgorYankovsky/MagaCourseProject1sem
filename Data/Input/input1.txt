@@ -3,8 +3,8 @@
 [field description of points]
 -0.01 -0.01 0.0     0.01 -0.01 0.0
 -0.01 0.01 0.0	    0.01 0.01 0.0
--1.0 -1.0 0.8	    1.0 -1.0 0.8
--1.0 1.0 0.8	    1.0 1.0 0.8
+-0.5 -0.5 0.8	    0.5 -0.5 0.8
+-0.5 0.5 0.8	    0.5 0.5 0.8
 -0.3 -0.3 1.0	    0.3 -0.3 1.0
 -0.3 0.3 1.0	    0.3 0.3 1.0
 
@@ -18,7 +18,7 @@
 
 [delimiters above X description] 2 1.0 
 [delimiters above Y description] 2 1.0
-[delimiters above Z description] 1 1.0 1 1.0
+[delimiters above Z description] 2 1.0 2 1.0
 
 [bordersAmount] 6
 

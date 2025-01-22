@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\Mesh">
+      <UniqueIdentifier>{f9893732-8e24-4f23-8f33-5b05ef747bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Mesh">
+      <UniqueIdentifier>{1e34c619-5409-4312-845e-475cf60b4f3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data\Input\input.txt">
@@ -44,20 +50,20 @@
     <ClCompile Include="Drawer\Drawer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh\Mesh.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Logger\Logger.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Integration\Integration.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh\Mesh.cpp">
+      <Filter>Исходные файлы\Mesh</Filter>
+    </ClCompile>
     <ClCompile Include="Mesh\MeshFileStreamer.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Mesh\MeshGenerator.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,20 +79,20 @@
     <ClInclude Include="MainHeader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh\MeshFileStreamer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh\MeshHeader.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh\Mesh.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="DataTypes.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh\MeshHeader.h">
+      <Filter>Файлы заголовков\Mesh</Filter>
+    </ClInclude>
     <ClInclude Include="Mesh\MeshGenerator.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh\MeshFileStreamer.h">
+      <Filter>Файлы заголовков\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh\Mesh.h">
+      <Filter>Файлы заголовков\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
