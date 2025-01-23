@@ -25,10 +25,10 @@ void Logger::ConsoleOutput(std::string textMessage, NotificationColor clr) {
         std::cout << textMessage << std::endl;
 #endif
         break;
-    case NotificationColor::Warning:
     case NotificationColor::Alert:
+        std::cout << '\a' << std::endl;
+    case NotificationColor::Warning:
         auto stringSize = textMessage.size();
-        std::cout << std::endl;
         for (size_t i(0); i < stringSize + 4; ++i) std::cout << "*";
         std::cout << std::endl;
         std::cout << "* " << textMessage << " *" << std::endl;

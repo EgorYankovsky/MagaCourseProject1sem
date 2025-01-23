@@ -138,22 +138,37 @@
   <ItemGroup>
     <ClCompile Include="CourseProject.cpp" />
     <ClCompile Include="Drawer\Drawer.cpp" />
+    <ClCompile Include="FEM.cpp" />
+    <ClCompile Include="GlobalMatrix.cpp" />
+    <ClCompile Include="GlobalVector.cpp" />
     <ClCompile Include="Integration\Integration.cpp" />
+    <ClCompile Include="LocalMatrix.cpp" />
+    <ClCompile Include="LocalVector.cpp" />
     <ClCompile Include="Logger\Logger.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Mesh\Mesh.cpp" />
     <ClCompile Include="Mesh\MeshFileStreamer.cpp" />
     <ClCompile Include="Mesh\MeshGenerator.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="Drawer\Drawer.h" />
+    <ClInclude Include="FEM.h" />
+    <ClInclude Include="GlobalMatrix.h" />
+    <ClInclude Include="GlobalVector.h" />
     <ClInclude Include="Integration\Integration.h" />
+    <ClInclude Include="LocalMatrix.h" />
+    <ClInclude Include="LocalVector.h" />
     <ClInclude Include="Logger\Logger.h" />
     <ClInclude Include="MainHeader.h" />
+    <ClInclude Include="MathematicalHeader.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Mesh\Mesh.h" />
     <ClInclude Include="Mesh\MeshFileStreamer.h" />
     <ClInclude Include="Mesh\MeshGenerator.h" />
     <ClInclude Include="Mesh\MeshHeader.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

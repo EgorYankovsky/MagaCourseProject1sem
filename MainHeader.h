@@ -7,6 +7,7 @@
 #include <iomanip>
 
 #include "Mesh\MeshHeader.h"
+#include "FEM.h"
 
 const std::string standartInputPath = "Data\\Input\\input.txt";
 const std::string testInputPath = "Data\\Input\\testInput.txt";

@@ -1,21 +1,10 @@
 ﻿#include "MainHeader.h"
 
 #include "Drawer\\Drawer.h"
-#include "Integration\\Integration.h"
 
 static auto SelectTest() -> std::string;
 
-double f(double x, double y, double z) { return exp(x + y + z); }
-
 int main() {
-    
-    std::cout << std::scientific << std::setprecision(7) << 
-        Integration::Gauss2(f, -1, 1, -1, 1, -1, 1) << std::endl <<
-        Integration::Gauss3(f, -1, 1, -1, 1, -1, 1) << std::endl << 
-        Integration::Gauss4(f, -1, 1, -1, 1, -1, 1) << std::endl << 
-        Integration::Gauss5(f, -1, 1, -1, 1, -1, 1) << std::endl;
-
-    return 0;
     auto inputPath = SelectTest();
     Mesh myMesh;
     MeshFileStreamer::Read(myMesh, inputPath);
@@ -26,9 +15,15 @@ int main() {
     MeshGenerator::Generate3DMesh(myMesh);
     MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
 
+    Drawer::DrawMesh(PictureOutput::SaveAsFile);
+
+    FEM myFEM3D;
+    myFEM3D.GetMeshData(&myMesh);
+    myFEM3D.Type = EquationType::Elliptical;
+    myFEM3D.StartSolution();
+    
 
 
-    Drawer::DrawMesh();
     return 0;
 }
 

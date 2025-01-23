@@ -45,7 +45,7 @@ def readRibs(sourcePath : str):
         data = line.split(" ")
         ribsArr.append(Rib(int(data[0]), int(data[1])))
     
-def drawScatter():
+def drawScatter(output_status : int):
     global _bmax, _bmin
     fig = plt.figure(figsize=(19.80, 10.80))
     ax = fig.add_subplot(projection="3d")
@@ -63,10 +63,18 @@ def drawScatter():
         y = [pointsArr[rib.r1].y, pointsArr[rib.r2].y] 
         z = [pointsArr[rib.r1].z, pointsArr[rib.r2].z]
         ax.plot(x, y, z, color='black')
-    plt.show()
+    if output_status == 0:
+        plt.show()
+    elif output_status == 1:
+        plt.savefig("pythonScripts\\Pictures\\mesh.png")
+    else:
+        print("Unexpected output status")
+        sys.exit(-1)
+
 
 if __name__ == "__main__":
     args = sys.argv
     readPoints(os.path.abspath(args[1]))
     readRibs(os.path.abspath(args[2]))
-    drawScatter()
+    picture_output = int(args[3])
+    drawScatter(picture_output)
