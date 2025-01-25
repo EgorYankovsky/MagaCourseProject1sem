@@ -25,7 +25,10 @@ private:
 
 public:
     void GeneratePortrait(std::vector<std::array<size_t, 13>> areas, size_t ribsAmount);
-    void Fill();
+    void Fill(std::vector<std::array<size_t, 13>> areas, std::vector<std::array<double, 3>> points,
+        std::vector<std::pair<size_t, size_t>> generatedRibs, std::vector<std::pair<size_t, std::pair<double, double>>> areasInfo);
+
+    void CommitBoundaryConditions(std::vector<std::array<size_t, 3>> borderRibs);
 
     __declspec(property(get = isPortraitGenerated)) bool IsPortraitGenerated;
     __declspec(property(get = getSize)) size_t Size;

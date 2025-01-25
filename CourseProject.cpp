@@ -1,8 +1,12 @@
 ﻿#include "MainHeader.h"
 
+#include <functional>
+
 #include "Drawer\\Drawer.h"
 
 static auto SelectTest() -> std::string;
+
+int subtract(int a, int b) { return a - b; }
 
 int main() {
     auto inputPath = SelectTest();

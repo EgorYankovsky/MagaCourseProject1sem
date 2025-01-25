@@ -98,6 +98,9 @@
     <ClCompile Include="LocalVector.cpp">
       <Filter>Исходные файлы\Mathematical objects</Filter>
     </ClCompile>
+    <ClCompile Include="JacobiMatrix.cpp">
+      <Filter>Исходные файлы\Mathematical objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer\Drawer.h">
@@ -149,6 +152,9 @@
       <Filter>Файлы заголовков\Mathematical objects</Filter>
     </ClInclude>
     <ClInclude Include="MathematicalHeader.h">
+      <Filter>Файлы заголовков\Mathematical objects</Filter>
+    </ClInclude>
+    <ClInclude Include="JacobiMatrix.h">
       <Filter>Файлы заголовков\Mathematical objects</Filter>
     </ClInclude>
   </ItemGroup>

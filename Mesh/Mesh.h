@@ -46,6 +46,7 @@ private:
     std::vector<size_t> numRefsOfLinesAboveY{};
     std::vector<size_t> numRefsOfLinesAboveZ{};
 
+
     void organizeBorders();
 
 public:
@@ -54,7 +55,6 @@ public:
 
     bool CheckData();
     void CommitData(std::vector<std::string>* data);
-
 
     inline bool isGenerated() const { return isGenerated_; }
     inline bool isDeclarated() const { return isDeclarated_; }
@@ -68,6 +68,7 @@ public:
     inline std::vector<RibRef> getRibsRefs() const { return referableRibs_; }
     inline std::vector<Border> getBorders() const { return borders_; }
     inline std::vector<BorderLine> getBorderRibs() const { return borderRibs_; }
+    inline std::vector<AreaInfo> getAreaInfo() const { return areasInfo_; }
 
     __declspec(property(get = getLinesAmountX)) size_t LinesAmountX;
     __declspec(property(get = getLinesAmountY)) size_t LinesAmountY;
@@ -75,6 +76,7 @@ public:
     __declspec(property(get = isGeneraed)) bool IsGenerated;
     __declspec(property(get = isDeclarated)) bool IsDeclarated;
     __declspec(property(get = getPoints)) std::vector<Point> Points;
+    __declspec(property(get = getAreaInfo)) std::vector<AreaInfo> AreasInfo;
 
     friend class MeshGenerator;
 };

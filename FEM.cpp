@@ -6,6 +6,7 @@ void FEM::SolveElliptical() {
     x = new GlobalVector(_generatedRibs.size());
 
     A->GeneratePortrait(_areas, _generatedRibs.size());
+    A->Fill(_areas, _points, _generatedRibs, _areasInfo);
 }
 
 void FEM::SolveParabolical() {
@@ -24,7 +25,7 @@ void FEM::ReadMeshData(InputExtension ie) {
 }
 
 void FEM::GetMeshData(const Mesh* mesh) {
-    for (const auto& point : mesh->getPoints()) {
+    for (const auto& point : mesh->Points) {
         std::array<double, 3> _point = { point.x, point.y, point.z };
         _points.push_back(_point);
     }
@@ -45,6 +46,11 @@ void FEM::GetMeshData(const Mesh* mesh) {
     for (const auto& borderRib : mesh->getBorderRibs()) {
         std::array<size_t, 3> _borderRib{ borderRib.type_, borderRib.formulaNum_, borderRib.ribRef_ };
         _borderRibs.push_back(_borderRib);
+    }
+
+    for (const auto& areasInfos : mesh->AreasInfo) {
+        std::pair<size_t, std::pair<double, double>> _area{ areasInfos.subdomainNum_, {areasInfos.mu_, areasInfos.sigma_} };
+        _areasInfo.push_back(_area);
     }
 
     _isDataCommited = true;
