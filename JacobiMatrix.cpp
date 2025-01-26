@@ -1,5 +1,9 @@
 #include "JacobiMatrix.h"
 
+std::array<double, 8> JacobiMatrix::_x = {};
+std::array<double, 8> JacobiMatrix::_y = {};
+std::array<double, 8> JacobiMatrix::_z = {};
+
 double JacobiMatrix::dxde(double eps, double eta, double zeta) {
     return 0.5 * (W_(eta) * W_(zeta) * (_x[1] - _x[0]) +
                    W(eta) * W_(zeta) * (_x[3] - _x[2]) +
@@ -63,19 +67,28 @@ inline double JacobiMatrix::dzdc(double eps, double eta, double zeta) {
                    W(eps) *  W(eta) * (_z[7] - _z[3]));
 }
 
-JacobiMatrix::~JacobiMatrix() {}
-
-std::function<double(double, double, double)> const JacobiMatrix::J(size_t i, size_t j) {
-    std::function<double(double, double, double)> f;
-    f = dxde;
-    
-    switch (i, j)
-    {
-    case (0, 0): //f = dxde;
-    default:
-        break;
-    }
-    return f;
+void JacobiMatrix::SetValues(std::array<double, 8> x, std::array<double, 8> y, std::array<double, 8> z) {
+    _x = x;
+    _y = y;
+    _z = z;
 }
 
+std::function<double(double, double, double)> const JacobiMatrix::GetValueAt(size_t i, size_t j) {
+    if (i == 0 and j == 0) return dxde;
+    if (i == 0 and j == 1) return dyde;
+    if (i == 0 and j == 2) return dzde;
 
+    if (i == 1 and j == 0) return dxdn;
+    if (i == 1 and j == 1) return dydn;
+    if (i == 1 and j == 2) return dzdn;
+
+    if (i == 2 and j == 0) return dxdc;
+    if (i == 2 and j == 1) return dydc;
+    if (i == 2 and j == 2) return dzdc;
+}
+
+std::function<double(double, double, double)> const JacobiMatrix::GetValueAtTransposed(size_t i, size_t j) { return GetValueAt(j, i); }
+
+std::function<double(double, double, double)> const JacobiMatrix::GetDeterminant() {
+    return dxde;
+}

@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CourseProject.cpp" />
+    <ClCompile Include="DerivativeFunction.cpp" />
     <ClCompile Include="Drawer\Drawer.cpp" />
     <ClCompile Include="FEM.cpp" />
     <ClCompile Include="GlobalMatrix.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTypes.h" />
+    <ClInclude Include="DerivativeFunction.h" />
     <ClInclude Include="Drawer\Drawer.h" />
     <ClInclude Include="FEM.h" />
     <ClInclude Include="GlobalMatrix.h" />

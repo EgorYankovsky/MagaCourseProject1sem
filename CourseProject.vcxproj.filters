@@ -101,6 +101,9 @@
     <ClCompile Include="JacobiMatrix.cpp">
       <Filter>Исходные файлы\Mathematical objects</Filter>
     </ClCompile>
+    <ClCompile Include="DerivativeFunction.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawer\Drawer.h">
@@ -156,6 +159,9 @@
     </ClInclude>
     <ClInclude Include="JacobiMatrix.h">
       <Filter>Файлы заголовков\Mathematical objects</Filter>
+    </ClInclude>
+    <ClInclude Include="DerivativeFunction.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

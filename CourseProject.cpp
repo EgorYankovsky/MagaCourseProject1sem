@@ -1,14 +1,30 @@
 ﻿#include "MainHeader.h"
 
-#include <functional>
-
 #include "Drawer\\Drawer.h"
+#include "JacobiMatrix.h"
 
 static auto SelectTest() -> std::string;
 
-int subtract(int a, int b) { return a - b; }
-
 int main() {
+    std::array<double, 8> x{ 0, 1, 0, 1, 0, 1, 0, 1 };
+    std::array<double, 8> y{ 0, 0, 1, 1, 0, 0, 1, 1 };
+    std::array<double, 8> z{ 0, 0, 0, 0, 1, 1, 1, 1 };
+    JacobiMatrix::SetValues(x, y, z);
+
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j)
+            std::cout << std::scientific << std::setprecision(3) << (JacobiMatrix::GetValueAt(i, j))(0.85, 0.65, 0.5) << " ";
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j)
+            std::cout << std::scientific << std::setprecision(3) << (JacobiMatrix::GetValueAtTransposed(i, j))(0.85, 0.65, 0.5) << " ";
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+    std::cout << (JacobiMatrix::GetDeterminant())(0.85, 0.65, 0.5) << std::endl;
+    return 0;
     auto inputPath = SelectTest();
     Mesh myMesh;
     MeshFileStreamer::Read(myMesh, inputPath);
