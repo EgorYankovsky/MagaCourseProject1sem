@@ -1,8 +1,11 @@
 #pragma once
 
 #include <array>
+#include <functional>
+//typedef double(*function)(double, double, double);
 
-typedef double(*function)(double, double, double);
+typedef std::function<double(double, double, double)> function;
+
 
 class Integration {
 private:
@@ -20,9 +23,9 @@ private:
     static const std::array<double, 5> tau5;
 public:
     Integration() = delete;
-    static double Gauss2(function f, double x0, double x1, double y0, double y1, double z0, double z1);
-    static double Gauss3(function f, double x0, double x1, double y0, double y1, double z0, double z1);
-    static double Gauss4(function f, double x0, double x1, double y0, double y1, double z0, double z1);
-    static double Gauss5(function f, double x0, double x1, double y0, double y1, double z0, double z1);
+    static double Gauss2(function f);
+    static double Gauss3(function f);
+    static double Gauss4(function f);
+    static double Gauss5(function f);
 };
 

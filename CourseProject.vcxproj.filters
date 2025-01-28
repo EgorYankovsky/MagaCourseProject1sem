@@ -101,7 +101,7 @@
     <ClCompile Include="JacobiMatrix.cpp">
       <Filter>Исходные файлы\Mathematical objects</Filter>
     </ClCompile>
-    <ClCompile Include="DerivativeFunction.cpp">
+    <ClCompile Include="BasisFunction.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -160,7 +160,7 @@
     <ClInclude Include="JacobiMatrix.h">
       <Filter>Файлы заголовков\Mathematical objects</Filter>
     </ClInclude>
-    <ClInclude Include="DerivativeFunction.h">
+    <ClInclude Include="BasisFunction.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

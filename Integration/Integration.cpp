@@ -33,7 +33,7 @@ const std::array<double, 5> Integration::tau5{ 0.236'926'885'1,
                                                0.478'628'670'5,
                                                0.236'926'885'1 };
 
-double Integration::Gauss2(function f, double x0, double x1, double y0, double y1, double z0, double z1) {
+double Integration::Gauss2(function f) {
     double ans(0.0);
     for (size_t k(0); k < 2; ++k) 
         for (size_t j(0); j < 2; ++j) 
@@ -42,7 +42,7 @@ double Integration::Gauss2(function f, double x0, double x1, double y0, double y
     return ans;
 }
 
-double Integration::Gauss3(function f, double x0, double x1, double y0, double y1, double z0, double z1)
+double Integration::Gauss3(function f)
 {
     double ans(0.0);
     for (size_t k(0); k < 3; ++k)
@@ -52,7 +52,7 @@ double Integration::Gauss3(function f, double x0, double x1, double y0, double y
     return ans;
 }
 
-double Integration::Gauss4(function f, double x0, double x1, double y0, double y1, double z0, double z1)
+double Integration::Gauss4(function f)
 {
     double ans(0.0);
     for (size_t k(0); k < 4; ++k)
@@ -62,7 +62,7 @@ double Integration::Gauss4(function f, double x0, double x1, double y0, double y
     return ans;
 }
 
-double Integration::Gauss5(function f, double x0, double x1, double y0, double y1, double z0, double z1)
+double Integration::Gauss5(function f)
 {
     double ans(0.0);
     for (size_t k(0); k < 5; ++k)

@@ -137,8 +137,8 @@
     <Text Include="Data\Input\testInput.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasisFunction.cpp" />
     <ClCompile Include="CourseProject.cpp" />
-    <ClCompile Include="DerivativeFunction.cpp" />
     <ClCompile Include="Drawer\Drawer.cpp" />
     <ClCompile Include="FEM.cpp" />
     <ClCompile Include="GlobalMatrix.cpp" />
@@ -155,8 +155,8 @@
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasisFunction.h" />
     <ClInclude Include="DataTypes.h" />
-    <ClInclude Include="DerivativeFunction.h" />
     <ClInclude Include="Drawer\Drawer.h" />
     <ClInclude Include="FEM.h" />
     <ClInclude Include="GlobalMatrix.h" />
