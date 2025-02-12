@@ -24,17 +24,15 @@ void LocalMatrix::generate() {
 		generateM();
 		break;
 	case LMType::NotStated:
-		break;
 	default:
 		break;
 	}
 }
 
 void LocalMatrix::generateG() {
+	J::SetValues(_x, _y, _z);
 	for (size_t i(0); i < _localMatrixSize; ++i) {
 		for (size_t j(0); j < _localMatrixSize; ++j) {
-
-			J::SetValues(_x, _y, _z);
 
 			auto rotPhi_i = BasisFunction::getRotAt(i);
 			auto rotPhi_j = BasisFunction::getRotAt(j);
@@ -51,12 +49,12 @@ void LocalMatrix::generateG() {
 				J::GetValueAtTransposed(2, 0) * rotPhi_j[0] + J::GetValueAtTransposed(2, 1) * rotPhi_j[1] + J::GetValueAtTransposed(2, 2) * rotPhi_j[2],
 			};
 			
-			for (size_t ii(0); ii < 3; ++ii) {
-				for (size_t jj(0); jj < 3; ++jj) {
-					v1[ii] = v1[ii] + J::GetValueAtTransposed(ii, jj) * rotPhi_i[jj];
-					v2[ii] = v2[ii] + J::GetValueAtTransposed(ii, jj) * rotPhi_j[jj];
-				}
-			}
+			//for (size_t ii(0); ii < 3; ++ii) {
+			//	for (size_t jj(0); jj < 3; ++jj) {
+			//		v1[ii] = v1[ii] + J::GetValueAtTransposed(ii, jj) * rotPhi_i[jj];
+			//		v2[ii] = v2[ii] + J::GetValueAtTransposed(ii, jj) * rotPhi_j[jj];
+			//	}
+			//}
 
 			for (size_t k(0); k < 3; ++k) _values[i][j] += Integration::Gauss5((v1[k] * v2[k]) / J::GetDeterminant());
 			_values[i][j] /= _koef;
@@ -65,10 +63,10 @@ void LocalMatrix::generateG() {
 }
 
 void LocalMatrix::generateM() {
+	J::SetValues(_x, _y, _z);
 	for (size_t i(0); i < _localMatrixSize; ++i) {
 		for (size_t j(0); j < _localMatrixSize; ++j) {
 			for (size_t k(0); k < 3; ++k) {
-				J::SetValues(_x, _y, _z);
 				_values[i][j] += Integration::Gauss5(J::GetValueAtInverse(k, i / 4) * BasisFunction::getAt(i) *
 													 J::GetValueAtInverse(k, j / 4) * BasisFunction::getAt(j) *
 													 J::GetDeterminant());

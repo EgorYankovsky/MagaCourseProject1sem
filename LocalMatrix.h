@@ -21,11 +21,12 @@ private:
     std::array<double, 8> _x{};
     std::array<double, 8> _y{};
     std::array<double, 8> _z{};
+
+    std::array<std::array<double, 12>, 12> _values{};
+
     void generate();
     void generateG();
     void generateM();
-
-    std::array<std::array<double, 12>, 12> _values{};
 
 public:
     LocalMatrix() { _koef = 0.0; }

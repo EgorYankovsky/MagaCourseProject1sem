@@ -141,6 +141,7 @@
     <ClCompile Include="CourseProject.cpp" />
     <ClCompile Include="Drawer\Drawer.cpp" />
     <ClCompile Include="FEM.cpp" />
+    <ClCompile Include="Function.cpp" />
     <ClCompile Include="GlobalMatrix.cpp" />
     <ClCompile Include="GlobalVector.cpp" />
     <ClCompile Include="Integration\Integration.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="Drawer\Drawer.h" />
     <ClInclude Include="FEM.h" />
+    <ClInclude Include="Function.h" />
     <ClInclude Include="GlobalMatrix.h" />
     <ClInclude Include="GlobalVector.h" />
     <ClInclude Include="Integration\Integration.h" />

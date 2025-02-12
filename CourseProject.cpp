@@ -3,14 +3,23 @@
 #include "Drawer\\Drawer.h"
 
 #include "LocalMatrix.h"
+#include "LocalVector.h"
 
 static auto SelectTest() -> std::string;
 
 int main() {
     
-    std::array<double, 8> x{ -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5 };
-    std::array<double, 8> y{ -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5 };
-    std::array<double, 8> z{ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 };
+    //std::array<double, 8> x{ -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5 };
+    //std::array<double, 8> y{ -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5 };
+    //std::array<double, 8> z{ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 };
+
+    std::array<double, 8> x{ -1.0,  1.0, -1.0,  1.0, -1.0,  1.0, -1.0, 1.0 };
+    std::array<double, 8> y{ -1.0, -1.0,  1.0,  1.0, -1.0, -1.0,  1.0, 1.0 };
+    std::array<double, 8> z{ -1.0, -1.0, -1.0, -1.0,  1.0,  1.0,  1.0, 1.0 };
+
+    
+    //LocalVector lv(x, y, z);
+
     //JacobiMatrix::SetValues(x, y, z);
 
     // For matrix of stiffness.
@@ -59,13 +68,41 @@ int main() {
     //std::array<double, 8> y{ 0, 0, 1, 1, 0, 0, 1, 1 };
     //std::array<double, 8> z{ 0, 0, 0, 0, 1, 1, 1, 1 };
 
+    
+    JacobiMatrix::SetValues(x, y, z);
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j) {
+            std::cout << JacobiMatrix::GetValueAt(i, j)(0.0, 0.0, 0.0) << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j) {
+            std::cout << JacobiMatrix::GetValueAtTransposed(i, j)(0.0, 0.0, 0.0) << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j) {
+            std::cout << JacobiMatrix::GetValueAtInverse(i, j)(0.0, 0.0, 0.0) << " ";
+        }
+        std::cout << std::endl;
+    }
+    
+    //return 0;
+    
+
     LocalMatrix LM(1.0, x, y, z, LMType::Stiffness);
 
     for (size_t i(0); i < 12; ++i) {
         for (size_t j(0); j < 12; ++j) {
             std::cout << std::scientific << std::setprecision(6) << LM(i, j) << " ";
+            if (j % 4 == 3) std::cout << "\t";
         }
         std::cout << std::endl;
+        if (i % 4 == 3) std::cout << std::endl;
     }
 
     return 0;

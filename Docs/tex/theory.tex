@@ -79,21 +79,29 @@
 \end{equation}
  - функциональная матрица преобразования координат, переводящего кубик $\Omega^E$ в шестигранник $\Omega_m$.
 
-\section{Построение матриц масс и жёсткости для трёхмерной задачи}
+\section{Построение матриц масс, жёсткости и вектора правой части на шестигранниках}
 
-Матрица жёсткости:
+В силу сложной геометрии выпуклых шестигранников, расчёт локальных матриц удобнее проводить на отображении конечного элемента $\Omega_m$ в мастер-элемент $\Omega_E$, представляющий из себя куб размером $\Omega_E = [-1, 1]_x \times [-1, 1]_y \times [-1, 1]_z$. Тогда матрица жёсткости будет рассчитываться по формуле (\ref{eq_1_11}):
 
 \begin{equation} \label{eq_1_11}
 \begin{gathered}
 	\hat{\text{G}}_{ij} = \int \limits_{\Omega_e} \frac{1}{\mu_0} \text{rot}  \hat{\text{$\psi$}}_i \cdot \text{rot} \hat{\text{$\psi$}}_j d \Omega = \\ = \int \limits_{-1}^1 \int \limits_{-1}^1 \int \limits_{-1}^1 \frac{1}{\mu_0} \frac{1}{|J|} \left( \textbf{J}^{\text{T}} \text{rot} \hat{\varphi}_i \right) \cdot \left( \textbf{J}^{\text{T}} \text{rot} \hat{\varphi}_j \right) \, d \xi d \eta d \zeta
 \end{gathered}
 \end{equation}
-
-Матрица масс:
+матрица масс, в свою очередь, по формуле (\ref{eq_1_12}):
 
 \begin{equation} \label{eq_1_12}
 	\begin{gathered}
 		\hat{\text{M}}_{ij} = \int \limits_{\Omega_e} \gamma  \hat{\text{$\psi$}}_i \cdot \hat{\text{$\psi$}}_j d \Omega = \int \limits_{-1}^1 \int \limits_{-1}^1 \int \limits_{-1}^1 \gamma  \left( \textbf{J}^{\text{-1}} \hat{\varphi}_i \right) \cdot \left( \textbf{J}^{\text{-1}} \hat{\varphi}_j \right) |J| \, d \xi d \eta d \zeta
 	\end{gathered}
 \end{equation}
+
+При расчёте локального вектора правой части будем использовать формулу:
+
+\begin{equation} \label{eq_1_13}
+	\begin{gathered}
+		\hat{\textbf{b}}^{\textbf{J}^{\textbf{CT}}} = \hat{\textbf{M}} \, \hat{\textbf{f}}.
+	\end{gathered}
+\end{equation}
+она универсальна и применима для любой геометрии конечного элемента и любыми базисными функциями любого порядка на нём.
 % Далее глава пркатической части.
