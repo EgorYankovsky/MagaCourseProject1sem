@@ -7,6 +7,9 @@ void FEM::SolveElliptical() {
 
     A->GeneratePortrait(_areas, _generatedRibs.size());
     A->Fill(_areas, _points, _generatedRibs, _areasInfo);
+    b->Fill(_areas, _points, _generatedRibs);
+    //A->CommitBoundaryConditions();
+    //b->CommitBoundaryConditions();
 }
 
 void FEM::SolveParabolical() {
@@ -43,9 +46,14 @@ void FEM::GetMeshData(const Mesh* mesh) {
         _generatedRibs.push_back(_rib);
     }
 
-    for (const auto& borderRib : mesh->getBorderRibs()) {
-        std::array<size_t, 3> _borderRib{ borderRib.type_, borderRib.formulaNum_, borderRib.ribRef_ };
-        _borderRibs.push_back(_borderRib);
+    //for (const auto& borderRib : mesh->getBorderRibs()) {
+    //    std::array<size_t, 3> _borderRib{ borderRib.type_, borderRib.formulaNum_, borderRib.ribRef_ };
+    //    _borderRibs.push_back(_borderRib);
+    //}
+
+    for (const auto& border : mesh->getNewBorderRibs()) {
+        std::array<size_t, 6> rwe{border[0], border[1], border[2], border[3], border[4], border[5]};
+        _newBorderRibs.push_back(rwe);
     }
 
     for (const auto& areasInfos : mesh->AreasInfo) {

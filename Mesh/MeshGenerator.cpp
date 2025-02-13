@@ -348,8 +348,62 @@ void MeshGenerator::GenerateListOfRibs(Mesh& mesh) {
 }
 
 void MeshGenerator::GenerateListOfBorders(Mesh& mesh) {
-    size_t index(0);
-    for (auto& rib : mesh.referableRibs_) {
+    
+    Logger::ConsoleOutput("Borders generates just for 1st type and formula num 1!", NotificationColor::Warning);
+
+    auto nx = mesh.getLinesAmountX();
+    auto ny = mesh.getLinesAmountY();
+    auto nz = mesh.getLinesAmountZ();
+    auto nxny = nx * ny;
+    auto rxy = (nx - 1) * ny + (ny - 1) * nx;
+
+
+    // XY0
+    for (size_t i = 0; i < ny - 1; i++)
+        for (size_t j = 0; j < nx - 1; j++)
+            mesh.newBorders_.push_back(std::array<size_t, 6> {1, 1, i * (2 * nx - 1) + j,
+                                                                    i * (2 * nx - 1) + j + nx - 1,
+                                                                    i * (2 * nx - 1) + j + nx,
+                                                                    i * (2 * nx - 1) + j + nx + nx - 1});
+    // X0Z
+    for (size_t i = 0; i < nz - 1; i++)
+        for (size_t j = 0; j < nx - 1; j++)
+            mesh.newBorders_.push_back(std::array<size_t, 6> {1, 1, i * (rxy + nxny) + j,
+                                                                    i * (rxy + nxny) + j + rxy,
+                                                                    i * (rxy + nxny) + j + rxy + 1,
+                                                                    i * (rxy + nxny) + j + rxy + nxny});
+    // 0YZ
+    for (size_t i = 0; i < nz - 1; i++)
+        for (size_t j = 0; j < ny - 1; j++)
+            mesh.newBorders_.push_back(std::array<size_t, 6> {1, 1, nx - 1 + i * (rxy + nxny) + j * (2 * nx - 1),
+                                                                    rxy + i * (rxy + nxny) + j * nx,
+                                                                    rxy + nx + i * (rxy + nxny) + j * nx,
+                                                                    rxy + nxny + nx - 1 + i * (rxy + nxny) + j * (2 * nx - 1)});
+    // XY1
+    for (size_t i = 0; i < ny - 1; i++)
+        for (size_t j = 0; j < nx - 1; j++)
+            mesh.newBorders_.push_back(std::array<size_t, 6> {1, 1, (nz - 1)* (rxy + nxny) + j + i * (2 * nx - 1),
+                                                                    (nz - 1)* (rxy + nxny) + nx - 1 + j + i * (2 * nx - 1),
+                                                                    (nz - 1)* (rxy + nxny) + nx + j + i * (2 * nx - 1),
+                                                                    (nz - 1)* (rxy + nxny) + nx + nx - 1 + j + i * (2 * nx - 1)});
+    // X1Z
+    for (size_t i = 0; i < nz - 1; i++)
+        for (size_t j = 0; j < nx - 1; j++)
+            mesh.newBorders_.push_back(std::array<size_t, 6> {1, 1, (ny - 1)* nx + (ny - 1) * (nx - 1) + j + i * (rxy + nxny),
+                                                                    (ny - 1)* nx + (ny - 1) * (nx - 1) + nxny - 1 + j + i * (rxy + nxny),
+                                                                    (ny - 1)* nx + (ny - 1) * (nx - 1) + nxny + j + i * (rxy + nxny),
+                                                                    (ny - 1)* nx + (ny - 1) * (nx - 1) + nxny + j + rxy + i * (rxy + nxny)});
+    // 1YZ
+    for (size_t i = 0; i < nz - 1; i++)
+        for (size_t j = 0; j < ny - 1; j++)
+            mesh.newBorders_.push_back(std::array<size_t, 6> {1, 1, nx - 1 + i * (rxy + nxny) + j * (2 * nx - 1) + nx - 1,
+                                                                    rxy + i * (rxy + nxny) + j * nx + nx - 1,
+                                                                    rxy + nx + i * (rxy + nxny) + j * nx + nx - 1,
+                                                                    rxy + nxny + nx - 1 + i * (rxy + nxny) + j * (2 * nx - 1) + nx - 1});
+
+
+    /*size_t index(0);
+    for (const auto& rib : mesh.referableRibs_) {
         auto sxy = mesh.LinesAmountX * mesh.LinesAmountY;
 
         auto p1 = rib.p1;
@@ -374,4 +428,5 @@ void MeshGenerator::GenerateListOfBorders(Mesh& mesh) {
             }
         index++;
     }
+    */
 }

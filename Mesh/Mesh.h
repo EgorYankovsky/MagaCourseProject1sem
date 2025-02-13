@@ -35,6 +35,8 @@ private:
 
     std::vector<BorderLine> borderRibs_{};
 
+    std::vector<std::array<size_t, 6>> newBorders_{};
+
     std::vector<AreaPoints> areasPoints_{};
     std::vector<RibRef> referableRibs_{};
 
@@ -68,6 +70,7 @@ public:
     inline std::vector<RibRef> getRibsRefs() const { return referableRibs_; }
     inline std::vector<Border> getBorders() const { return borders_; }
     inline std::vector<BorderLine> getBorderRibs() const { return borderRibs_; }
+    inline std::vector<std::array<size_t, 6>> getNewBorderRibs() const { return newBorders_; }
     inline std::vector<AreaInfo> getAreaInfo() const { return areasInfo_; }
 
     __declspec(property(get = getLinesAmountX)) size_t LinesAmountX;

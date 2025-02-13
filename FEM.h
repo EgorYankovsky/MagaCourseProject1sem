@@ -32,6 +32,7 @@ class FEM {
     // Based.
     std::vector<std::array<size_t, 13>> _areas{};
     std::vector<std::array<size_t, 3>> _borderRibs{};
+    std::vector<std::array<size_t, 6>> _newBorderRibs{};
     std::vector<std::array<double, 3>> _points{};
     std::vector<std::pair<size_t, size_t>> _generatedRibs{};
     std::vector<std::pair<size_t, std::pair<double, double>>> _areasInfo{};

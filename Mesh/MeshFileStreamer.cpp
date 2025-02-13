@@ -138,9 +138,9 @@ void MeshFileStreamer::WriteTxt(const Mesh* mesh) {
         Logger::ConsoleOutput("Error during file writing array of border ribs. File isn't open", NotificationColor::Alert);
         exit(-1);
     }
-    fout << "[ Total border ribs ] " << mesh->getBorderRibs().size() << std::endl;
-    for (const auto& borderRib : mesh->getBorderRibs())
-        fout << borderRib.type_ << " " << borderRib.formulaNum_ << " " << borderRib.ribRef_ << std::endl;
+    fout << "[ Total border ribs ] " << mesh->getNewBorderRibs().size() << std::endl;
+    for (const auto& borderRib : mesh->getNewBorderRibs())
+        fout << borderRib[0] << " " << borderRib[1] << " " << borderRib[2] << " " << borderRib[3] << " " << borderRib[4] << " " << borderRib[5] << std::endl;
     fout.close();
 }
 
