@@ -3,12 +3,10 @@
 #include <vector>
 #include <array>
 
-#include "MathematicalHeader.h"
-#include "Logger/Logger.h"
-#include "Mesh/Mesh.h"
-#include "LOS.h"
-#include "LULOS.h"
-#include "Pardiso.h"
+#include "../Mathematical_objects/MathematicalHeader.h"
+#include "../Logger/Logger.h"
+#include "../Mesh/Mesh.h"
+#include "../Solvers/MainSolverHeader.h"
 
 typedef std::array<double, 3> vector;
 

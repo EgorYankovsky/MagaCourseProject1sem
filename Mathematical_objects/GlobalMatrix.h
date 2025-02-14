@@ -1,12 +1,13 @@
 #pragma once
 
+#include "..\Logger\Logger.h"
+#include "Matrix.h"
+#include "LocalMatrix.h"
+
 #include <vector>
 #include <array>
 #include <algorithm>
 
-#include "Logger/Logger.h"
-#include "Matrix.h"
-#include "LocalMatrix.h"
 
 class GlobalMatrix : public Matrix {
 private:

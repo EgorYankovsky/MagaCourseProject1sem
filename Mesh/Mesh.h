@@ -1,12 +1,12 @@
 #pragma once
 
-#include "..\\DataTypes.h"
-#include "..\\Logger\\Logger.h"
-
 #include <cassert>
 #include <cmath>
 #include <string>
 #include <algorithm>
+
+#include "../DataTypes.h"
+#include "../Logger/Logger.h"
 
 class Mesh {
 private:

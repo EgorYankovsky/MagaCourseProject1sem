@@ -6,8 +6,10 @@
 #include <vector>
 #include <iomanip>
 
-#include "Mesh\MeshHeader.h"
-#include "FEM.h"
+#include "Mesh/MeshHeader.h"
+#include "FEM/FEM.h"
+#include "Solvers/MainSolverHeader.h"
+#include "Drawer/Drawer.h"
 
 const std::string standartInputPath = "Data\\Input\\input.txt";
 const std::string testInputPath = "Data\\Input\\testInput.txt";

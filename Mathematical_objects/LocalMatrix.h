@@ -2,8 +2,8 @@
 
 #include "Matrix.h"
 #include "JacobiMatrix.h"
-#include "Integration/Integration.h"
-#include "BasisFunction.h"
+#include "..\Integration\Integration.h"
+#include "..\Functions\BasisFunction.h"
 
 typedef JacobiMatrix J;
 

@@ -25,11 +25,41 @@
     <Filter Include="Исходные файлы\FEM">
       <UniqueIdentifier>{de53409f-9292-4c28-9190-54982f5b2784}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\Mathematical objects">
-      <UniqueIdentifier>{0026f72f-b35c-43ee-b21b-d100169be0e1}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\Drawer">
+      <UniqueIdentifier>{461d0a07-968e-4ff6-a908-cad7a9665155}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Mathematical objects">
-      <UniqueIdentifier>{7641865f-4cc8-4b49-a720-f5cb89022fe8}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\Drawer">
+      <UniqueIdentifier>{0dcd6cf6-8693-4456-85e0-7569fd973747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Functions">
+      <UniqueIdentifier>{5eb47d78-37f0-42d3-be9e-780d1bc98a24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Functions">
+      <UniqueIdentifier>{b43d1167-5580-40e1-bc0f-c2cda1412efb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Integration">
+      <UniqueIdentifier>{404e35e9-a3c8-4209-bfe0-8d3daf376c13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Integration">
+      <UniqueIdentifier>{5712dae0-1538-403a-a50f-3ebe785c3d09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Logger">
+      <UniqueIdentifier>{a7b90fd1-c2b5-4f11-8fda-09a9017e523f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Logger">
+      <UniqueIdentifier>{010cc978-c472-472e-bc2e-1c5f273e5993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Mathematical_objects">
+      <UniqueIdentifier>{10e6b052-9509-4c90-9477-df79177d38b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Mathematical_objects">
+      <UniqueIdentifier>{0ab48404-3777-4f48-94a1-e24ee7690f00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Solvers">
+      <UniqueIdentifier>{017c0400-bcec-4e3b-967b-b82368ce8b78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Solvers">
+      <UniqueIdentifier>{4737e54d-0914-4ae9-98f9-82b24542f769}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,13 +90,43 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Drawer\Drawer.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Logger\Logger.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="FEM\FEM.cpp">
+      <Filter>Исходные файлы\FEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions\BasisFunction.cpp">
+      <Filter>Исходные файлы\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions\Function.cpp">
+      <Filter>Исходные файлы\Functions</Filter>
     </ClCompile>
     <ClCompile Include="Integration\Integration.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger\Logger.cpp">
+      <Filter>Исходные файлы\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematical_objects\GlobalMatrix.cpp">
+      <Filter>Исходные файлы\Mathematical_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematical_objects\GlobalVector.cpp">
+      <Filter>Исходные файлы\Mathematical_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematical_objects\JacobiMatrix.cpp">
+      <Filter>Исходные файлы\Mathematical_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematical_objects\LocalMatrix.cpp">
+      <Filter>Исходные файлы\Mathematical_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematical_objects\LocalVector.cpp">
+      <Filter>Исходные файлы\Mathematical_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematical_objects\Matrix.cpp">
+      <Filter>Исходные файлы\Mathematical_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematical_objects\Vector.cpp">
+      <Filter>Исходные файлы\Mathematical_objects</Filter>
     </ClCompile>
     <ClCompile Include="Mesh\Mesh.cpp">
       <Filter>Исходные файлы\Mesh</Filter>
@@ -77,121 +137,91 @@
     <ClCompile Include="Mesh\MeshGenerator.cpp">
       <Filter>Исходные файлы\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="FEM.cpp">
-      <Filter>Исходные файлы\FEM</Filter>
+    <ClCompile Include="Solvers\LOS.cpp">
+      <Filter>Исходные файлы\Solvers</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix.cpp">
-      <Filter>Исходные файлы\Mathematical objects</Filter>
+    <ClCompile Include="Solvers\LULOS.cpp">
+      <Filter>Исходные файлы\Solvers</Filter>
     </ClCompile>
-    <ClCompile Include="Vector.cpp">
-      <Filter>Исходные файлы\Mathematical objects</Filter>
+    <ClCompile Include="Solvers\Pardiso.cpp">
+      <Filter>Исходные файлы\Solvers</Filter>
     </ClCompile>
-    <ClCompile Include="GlobalMatrix.cpp">
-      <Filter>Исходные файлы\Mathematical objects</Filter>
-    </ClCompile>
-    <ClCompile Include="LocalMatrix.cpp">
-      <Filter>Исходные файлы\Mathematical objects</Filter>
-    </ClCompile>
-    <ClCompile Include="GlobalVector.cpp">
-      <Filter>Исходные файлы\Mathematical objects</Filter>
-    </ClCompile>
-    <ClCompile Include="LocalVector.cpp">
-      <Filter>Исходные файлы\Mathematical objects</Filter>
-    </ClCompile>
-    <ClCompile Include="JacobiMatrix.cpp">
-      <Filter>Исходные файлы\Mathematical objects</Filter>
-    </ClCompile>
-    <ClCompile Include="BasisFunction.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Function.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Solver.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="LOS.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="LULOS.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Pardiso.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Solvers\Solver.cpp">
+      <Filter>Исходные файлы\Solvers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Drawer\Drawer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Integration\Integration.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger\Logger.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="MainHeader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="DataTypes.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Drawer\Drawer.h">
+      <Filter>Файлы заголовков\Drawer</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh\MeshHeader.h">
-      <Filter>Файлы заголовков\Mesh</Filter>
+    <ClInclude Include="FEM\FEM.h">
+      <Filter>Файлы заголовков\FEM</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh\MeshGenerator.h">
+    <ClInclude Include="Functions\BasisFunction.h">
+      <Filter>Файлы заголовков\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\Function.h">
+      <Filter>Файлы заголовков\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Integration\Integration.h">
+      <Filter>Файлы заголовков\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger\Logger.h">
+      <Filter>Файлы заголовков\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematical_objects\GlobalMatrix.h">
+      <Filter>Файлы заголовков\Mathematical_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematical_objects\GlobalVector.h">
+      <Filter>Файлы заголовков\Mathematical_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematical_objects\JacobiMatrix.h">
+      <Filter>Файлы заголовков\Mathematical_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematical_objects\LocalMatrix.h">
+      <Filter>Файлы заголовков\Mathematical_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematical_objects\LocalVector.h">
+      <Filter>Файлы заголовков\Mathematical_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematical_objects\MathematicalHeader.h">
+      <Filter>Файлы заголовков\Mathematical_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematical_objects\Matrix.h">
+      <Filter>Файлы заголовков\Mathematical_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematical_objects\Vector.h">
+      <Filter>Файлы заголовков\Mathematical_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh\Mesh.h">
       <Filter>Файлы заголовков\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Mesh\MeshFileStreamer.h">
       <Filter>Файлы заголовков\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh\Mesh.h">
+    <ClInclude Include="Mesh\MeshGenerator.h">
       <Filter>Файлы заголовков\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="FEM.h">
-      <Filter>Файлы заголовков\FEM</Filter>
+    <ClInclude Include="Mesh\MeshHeader.h">
+      <Filter>Файлы заголовков\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.h">
-      <Filter>Файлы заголовков\Mathematical objects</Filter>
+    <ClInclude Include="Solvers\LOS.h">
+      <Filter>Файлы заголовков\Solvers</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>Файлы заголовков\Mathematical objects</Filter>
+    <ClInclude Include="Solvers\LULOS.h">
+      <Filter>Файлы заголовков\Solvers</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalMatrix.h">
-      <Filter>Файлы заголовков\Mathematical objects</Filter>
+    <ClInclude Include="Solvers\Pardiso.h">
+      <Filter>Файлы заголовков\Solvers</Filter>
     </ClInclude>
-    <ClInclude Include="LocalMatrix.h">
-      <Filter>Файлы заголовков\Mathematical objects</Filter>
+    <ClInclude Include="Solvers\Solver.h">
+      <Filter>Файлы заголовков\Solvers</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalVector.h">
-      <Filter>Файлы заголовков\Mathematical objects</Filter>
-    </ClInclude>
-    <ClInclude Include="LocalVector.h">
-      <Filter>Файлы заголовков\Mathematical objects</Filter>
-    </ClInclude>
-    <ClInclude Include="MathematicalHeader.h">
-      <Filter>Файлы заголовков\Mathematical objects</Filter>
-    </ClInclude>
-    <ClInclude Include="JacobiMatrix.h">
-      <Filter>Файлы заголовков\Mathematical objects</Filter>
-    </ClInclude>
-    <ClInclude Include="BasisFunction.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Function.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Solver.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="LOS.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="LULOS.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Pardiso.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Solvers\MainSolverHeader.h">
+      <Filter>Файлы заголовков\Solvers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

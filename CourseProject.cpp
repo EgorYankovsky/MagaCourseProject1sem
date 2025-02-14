@@ -1,7 +1,5 @@
 ﻿#include "MainHeader.h"
 
-#include "Drawer\\Drawer.h"
-
 //#include "LocalMatrix.h"
 //#include "LocalVector.h"
 
@@ -75,7 +73,8 @@ int main() {
     myFEM3D.GetMeshData(&myMesh);
     myFEM3D.Type = EquationType::Elliptical;
     myFEM3D.BuildMatrixAndVector();
-    myFEM3D.SetSolver(new LOS());
+    Solver* s = new LOS();
+    myFEM3D.SetSolver(s);
 
     return 0;
 }

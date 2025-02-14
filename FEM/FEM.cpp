@@ -90,6 +90,9 @@ vector FEM::GetSolutionAtPoint(double x, double y, double z)
     return vector();
 }
 
+void FEM::SetSolver(Solver* s) {
+}
+
 FEM::FEM() {
     Logger::ConsoleOutput("FEM declared, but it's empty", NotificationColor::Warning);
 }

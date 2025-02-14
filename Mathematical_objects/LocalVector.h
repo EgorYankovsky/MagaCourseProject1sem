@@ -2,7 +2,7 @@
 
 #include "Vector.h"
 #include "LocalMatrix.h"
-#include "Function.h"
+#include "..\Functions\Function.h"
 
 class LocalVector : public Vector {
 public:
