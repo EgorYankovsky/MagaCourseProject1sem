@@ -64,7 +64,7 @@ void FEM::GetMeshData(const Mesh* mesh) {
     _isDataCommited = true;
 }
 
-void FEM::StartSolution() {
+void FEM::BuildMatrixAndVector() {
     switch (Type) {
     case EquationType::Hyperbolical:
         SolveHyperbolical();

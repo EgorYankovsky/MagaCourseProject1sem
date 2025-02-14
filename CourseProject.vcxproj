@@ -149,10 +149,14 @@
     <ClCompile Include="LocalMatrix.cpp" />
     <ClCompile Include="LocalVector.cpp" />
     <ClCompile Include="Logger\Logger.cpp" />
+    <ClCompile Include="LOS.cpp" />
+    <ClCompile Include="LULOS.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Mesh\Mesh.cpp" />
     <ClCompile Include="Mesh\MeshFileStreamer.cpp" />
     <ClCompile Include="Mesh\MeshGenerator.cpp" />
+    <ClCompile Include="Pardiso.cpp" />
+    <ClCompile Include="Solver.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +172,8 @@
     <ClInclude Include="LocalMatrix.h" />
     <ClInclude Include="LocalVector.h" />
     <ClInclude Include="Logger\Logger.h" />
+    <ClInclude Include="LOS.h" />
+    <ClInclude Include="LULOS.h" />
     <ClInclude Include="MainHeader.h" />
     <ClInclude Include="MathematicalHeader.h" />
     <ClInclude Include="Matrix.h" />
@@ -175,6 +181,8 @@
     <ClInclude Include="Mesh\MeshFileStreamer.h" />
     <ClInclude Include="Mesh\MeshGenerator.h" />
     <ClInclude Include="Mesh\MeshHeader.h" />
+    <ClInclude Include="Pardiso.h" />
+    <ClInclude Include="Solver.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

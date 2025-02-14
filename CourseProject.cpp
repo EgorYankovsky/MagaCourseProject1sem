@@ -2,8 +2,10 @@
 
 #include "Drawer\\Drawer.h"
 
-#include "LocalMatrix.h"
-#include "LocalVector.h"
+//#include "LocalMatrix.h"
+//#include "LocalVector.h"
+
+
 
 static auto SelectTest() -> std::string;
 
@@ -69,9 +71,12 @@ int main() {
     Drawer::DrawMesh(PictureOutput::SaveAsFile);
 
     FEM myFEM3D;
+    
     myFEM3D.GetMeshData(&myMesh);
     myFEM3D.Type = EquationType::Elliptical;
-    myFEM3D.StartSolution();
+    myFEM3D.BuildMatrixAndVector();
+    myFEM3D.SetSolver(new LOS());
+
     return 0;
 }
 

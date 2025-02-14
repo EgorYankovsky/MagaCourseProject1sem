@@ -6,6 +6,9 @@
 #include "MathematicalHeader.h"
 #include "Logger/Logger.h"
 #include "Mesh/Mesh.h"
+#include "LOS.h"
+#include "LULOS.h"
+#include "Pardiso.h"
 
 typedef std::array<double, 3> vector;
 
@@ -46,12 +49,15 @@ class FEM {
     GlobalVector* b;
     GlobalVector* x;
 
+    Solver* _s;
+
 public:
 
     void ReadMeshData(InputExtension ie);
     void GetMeshData(const Mesh* mesh);
-    void StartSolution();
+    void BuildMatrixAndVector();
     vector GetSolutionAtPoint(double x, double y, double z);
+    void SetSolver(Solver* s);
 
     EquationType Type = EquationType::NotStated;
 
