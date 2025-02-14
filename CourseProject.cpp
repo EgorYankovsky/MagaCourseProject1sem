@@ -72,9 +72,6 @@ int main() {
     myFEM3D.GetMeshData(&myMesh);
     myFEM3D.Type = EquationType::Elliptical;
     myFEM3D.StartSolution();
-    
-
-
     return 0;
 }
 

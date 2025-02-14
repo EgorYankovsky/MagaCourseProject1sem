@@ -115,7 +115,7 @@ void GlobalMatrix::Fill(std::vector<std::array<size_t, 13>> areas, std::vector<s
     }
 }
 
-void GlobalMatrix::CommitBoundaryConditions(std::vector<std::array<size_t, 3>> borderRibs) {
+void GlobalMatrix::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> borderRibs) {
     for (const auto& rib : borderRibs) {
         switch (rib[0]) {
         case 2:
@@ -124,7 +124,13 @@ void GlobalMatrix::CommitBoundaryConditions(std::vector<std::array<size_t, 3>> b
             exit(-1);
             break;
         case 1:
-
+            for (size_t i(2); i < 6; ++i) {
+                for (size_t j(_ig[rib[i]]); j < _ig[rib[i] + 1]; ++j) _al[j] = 0;
+                _di[rib[i]] = 1.0;
+                for (size_t j = 0; j < _jg.size(); ++j)
+                    if (_jg[j] == rib[i]) _au[j] = 0;
+            }
+            break;
         default:
             break;
         }

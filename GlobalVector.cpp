@@ -64,16 +64,39 @@ void GlobalVector::Fill(std::vector<std::array<size_t, 13>> areas, std::vector<s
     }
 }
 
-void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 3>> borderRibs) {
-    for (const auto& rib : borderRibs) {
-        switch (rib[0]) {
+void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> borderRibs, std::vector<std::array<double, 3>> points, std::vector<std::pair<size_t, size_t>> generatedRibs) {
+    for (const auto& square : borderRibs) {
+        size_t r0 = square[2];
+        size_t r1 = square[3];
+        std::array<double, 3> _x = { points[generatedRibs[r0].first][0], points[generatedRibs[r0].second][0], points[generatedRibs[r1].second][0] };
+        std::array<double, 3> _y = { points[generatedRibs[r0].first][1], points[generatedRibs[r0].second][1], points[generatedRibs[r1].second][1] };
+        std::array<double, 3> _z = { points[generatedRibs[r0].first][2], points[generatedRibs[r0].second][2], points[generatedRibs[r1].second][2] };
+
+        auto getNormal = [_x, _y, _z]() -> vector {
+            auto v = vector{ (_y[1] - _y[0]) * (_z[2] - _z[0]) - (_z[1] - _z[0]) * (_y[2] - _y[0]),
+                     -1.0 * ((_x[1] - _x[0]) * (_z[2] - _z[0]) - (_z[1] - _z[0]) * (_x[2] - _x[0])),
+                             (_x[1] - _x[0]) * (_y[2] - _y[0]) - (_y[1] - _y[0]) * (_x[2] - _x[0]) };
+            double len = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+            return vector{ v[0] / len, v[1] / len, v[2] / len };
+            };
+
+        auto normal = getNormal();
+        switch (square[0]) {
         case 2:
         case 3:
             Logger::ConsoleOutput("Can't commit boundary conditions of 2nd or 3rd type.", NotificationColor::Alert);
             exit(-1);
             break;
         case 1:
-
+            for (size_t ii(2); ii < 6; ++ii) {
+                std::array<double, 3> middlePoint{ 0.5 * (points[generatedRibs[square[ii]].first][0] + points[generatedRibs[square[ii]].second][0]),
+                                                   0.5 * (points[generatedRibs[square[ii]].first][1] + points[generatedRibs[square[ii]].second][1]), 
+                                                   0.5 * (points[generatedRibs[square[ii]].first][2] + points[generatedRibs[square[ii]].second][2]), };
+                auto fVector = Function::TestF1(middlePoint[0], middlePoint[1], middlePoint[2], 0.0);
+                auto fValue = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
+                _values[square[ii]] = fValue;
+            }
+            break;
         default:
             break;
         }

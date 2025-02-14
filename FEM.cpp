@@ -8,8 +8,8 @@ void FEM::SolveElliptical() {
     A->GeneratePortrait(_areas, _generatedRibs.size());
     A->Fill(_areas, _points, _generatedRibs, _areasInfo);
     b->Fill(_areas, _points, _generatedRibs);
-    //A->CommitBoundaryConditions();
-    //b->CommitBoundaryConditions();
+    A->CommitBoundaryConditions(_newBorderRibs);
+    b->CommitBoundaryConditions(_newBorderRibs, _points, _generatedRibs);
 }
 
 void FEM::SolveParabolical() {

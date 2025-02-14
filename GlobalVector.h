@@ -26,7 +26,7 @@ public:
 
     void Fill(std::vector<std::array<size_t, 13>> areas, std::vector<std::array<double, 3>> points,
         std::vector<std::pair<size_t, size_t>> generatedRibs);
-    void CommitBoundaryConditions(std::vector<std::array<size_t, 3>> borderRibs);
+    void CommitBoundaryConditions(std::vector<std::array<size_t, 6>> borderRibs, std::vector<std::array<double, 3>> points, std::vector<std::pair<size_t, size_t>> generatedRibs);
 
 };
 
