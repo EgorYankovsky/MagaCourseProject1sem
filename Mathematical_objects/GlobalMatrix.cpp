@@ -162,3 +162,16 @@ GlobalMatrix::GlobalMatrix() {
 
 GlobalMatrix::~GlobalMatrix() {
 }
+
+GlobalVector operator*(const GlobalMatrix A, const GlobalVector b) {
+    if (A.Size != b.Size) Logger::ConsoleOutput("Matrix and vector have different sizes during multiplication", NotificationColor::Alert);
+    GlobalVector ans(b.Size);
+    for (size_t i(0); i < b.Size; ++i) {
+        for (size_t j(0); j < A._ig[i + 1] - A._ig[i]; ++j) {
+            ans(i) += A._al[A._ig[i] + j] * b(A._jg[A._ig[i] + j]);
+            ans(A._jg[A._ig[i] + j]) += A._au[A._ig[i] + j] * b(i);
+        }
+        ans(i) += A._di[i] * b(i);
+    }
+    return ans;
+}

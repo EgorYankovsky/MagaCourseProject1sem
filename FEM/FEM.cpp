@@ -91,6 +91,11 @@ vector FEM::GetSolutionAtPoint(double x, double y, double z)
 }
 
 void FEM::SetSolver(Solver* s) {
+    _s = s;
+}
+
+void FEM::Solve() {
+    x = _s->Solve(*A, *b);
 }
 
 FEM::FEM() {

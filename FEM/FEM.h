@@ -56,6 +56,7 @@ public:
     void BuildMatrixAndVector();
     vector GetSolutionAtPoint(double x, double y, double z);
     void SetSolver(Solver* s);
+    void Solve();
 
     EquationType Type = EquationType::NotStated;
 

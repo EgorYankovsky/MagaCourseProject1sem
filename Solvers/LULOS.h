@@ -7,6 +7,6 @@ public:
     LULOS() : Solver() {};
     LULOS(double eps, size_t maxIters) : Solver(eps, maxIters) {};
     ~LULOS() {};
-    void Solve() override {};
+    GlobalVector* Solve(const GlobalMatrix& A, const GlobalVector& b) override;
 };
 

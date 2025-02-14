@@ -7,6 +7,6 @@ public:
     LOS() : Solver() {};
     LOS(double eps, size_t maxIters) : Solver(eps, maxIters) {};
     ~LOS() {};
-    void Solve() override {};
+    GlobalVector* Solve(const GlobalMatrix& A, const GlobalVector& b) override;
 };
 

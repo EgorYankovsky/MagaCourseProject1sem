@@ -102,3 +102,36 @@ void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> b
         }
     }
 }
+
+double GlobalVector::Norma() const {
+    double sum(0.0);
+    for (const auto& value : _values) sum += value * value;
+    return sqrt(sum);
+}
+
+double operator*(const GlobalVector v1, const GlobalVector v2) {
+    if (v1.Size != v2.Size) Logger::ConsoleOutput("During vector multiplication vectors have different size", NotificationColor::Alert);
+    double sum(0.0);
+    for (size_t i(0); i < v1.Size; ++i) sum += v1(i) * v2(i);
+    return sum;
+}
+
+GlobalVector operator*(const double a, const GlobalVector v) {
+    GlobalVector result(v.Size);
+    for (size_t i(0); i < v.Size; ++i) result(i) = a * v(i);
+    return result;
+}
+
+GlobalVector operator+(const GlobalVector v1, const GlobalVector v2) {
+    if (v1.Size != v2.Size) Logger::ConsoleOutput("During vector multiplication vectors have different size", NotificationColor::Alert);
+    GlobalVector result(v1.Size);
+    for (size_t i(0); i < v1.Size; ++i) result(i) = v1(i) + v2(i);
+    return result;
+}
+
+GlobalVector operator-(const GlobalVector v1, const GlobalVector v2) {
+    if (v1.Size != v2.Size) Logger::ConsoleOutput("During vector multiplication vectors have different size", NotificationColor::Alert);
+    GlobalVector result(v1.Size);
+    for (size_t i(0); i < v1.Size; ++i) result(i) = v1(i) - v2(i);
+    return result;
+}

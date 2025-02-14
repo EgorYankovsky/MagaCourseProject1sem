@@ -1,10 +1,5 @@
 ﻿#include "MainHeader.h"
 
-//#include "LocalMatrix.h"
-//#include "LocalVector.h"
-
-
-
 static auto SelectTest() -> std::string;
 
 int main() {
@@ -73,8 +68,8 @@ int main() {
     myFEM3D.GetMeshData(&myMesh);
     myFEM3D.Type = EquationType::Elliptical;
     myFEM3D.BuildMatrixAndVector();
-    Solver* s = new LOS();
-    myFEM3D.SetSolver(s);
+    myFEM3D.SetSolver(new LOS());
+    myFEM3D.Solve();
 
     return 0;
 }

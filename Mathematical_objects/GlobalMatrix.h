@@ -3,6 +3,7 @@
 #include "..\Logger\Logger.h"
 #include "Matrix.h"
 #include "LocalMatrix.h"
+#include "GlobalVector.h"
 
 #include <vector>
 #include <array>
@@ -30,7 +31,7 @@ private:
     
 
 public:
-    inline size_t getSize() const override { return _ig.size(); }
+    inline size_t getSize() const override { return _di.size(); }
 
     void GeneratePortrait(std::vector<std::array<size_t, 13>> areas, size_t ribsAmount);
     void Fill(std::vector<std::array<size_t, 13>> areas, std::vector<std::array<double, 3>> points,
@@ -48,4 +49,6 @@ public:
 
     GlobalMatrix();
     ~GlobalMatrix();
+
+    friend GlobalVector operator*(const GlobalMatrix A, const GlobalVector b);
 };
