@@ -5,6 +5,10 @@ void GlobalMatrix::addLocalMatrixValues(const std::array<size_t, 12> localRibs, 
         0, 3, 8, 11,
         1, 2, 9, 10,
         4, 5, 6, 7 };
+    //const std::array<size_t, 12> switchV{
+    //    0, 4, 5, 1,
+    //    8, 9, 10, 11,
+    //    2, 6, 7, 3 };
     int ii(0);
     for (const auto& i : localRibs) {
         int jj(0);

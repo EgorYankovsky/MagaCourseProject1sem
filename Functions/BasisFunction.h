@@ -106,5 +106,6 @@ public:
         default: throw std::exception("Out of index value");
         }
     }
-};
 
+    static std::array<double, 3> getVectorF(double t0, double t1, double t2, double time, std::array<double, 12> w);
+};

@@ -1,6 +1,6 @@
 #include "LOS.h"
 
-GlobalVector* LOS::Solve(const GlobalMatrix& A, const GlobalVector& b) {
+GlobalVector LOS::Solve(const GlobalMatrix& A, const GlobalVector& b) const {
     GlobalVector x(b.Size);
     GlobalVector _x(b.Size);
 
@@ -21,8 +21,7 @@ GlobalVector* LOS::Solve(const GlobalMatrix& A, const GlobalVector& b) {
     p = A * r;
 
     size_t iter(0);
-    do
-    {
+    do {
         _x = x;
         _z = z;
         _r = r;
@@ -40,6 +39,5 @@ GlobalVector* LOS::Solve(const GlobalMatrix& A, const GlobalVector& b) {
         if (iter % 4 == 0) std::cout << iter << ". " << std::scientific << r.Norma() / b.Norma() << std::endl;
         ++iter;
     } while (iter < _maxIters and r.Norma() / b.Norma() >= _eps);
-
-    return &x;
+    return x;
 }

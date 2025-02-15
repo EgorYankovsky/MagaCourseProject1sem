@@ -5,6 +5,10 @@ void GlobalVector::addLocalVectorValues(const std::array<size_t, 12> localRibs, 
         0, 3, 8, 11,
         1, 2, 9, 10,
         4, 5, 6, 7 };
+    //const std::array<size_t, 12> switchV{
+    //    0, 4, 5, 1,
+    //    8, 9, 10, 11,
+    //    2, 6, 7, 3 };
     for (size_t i(0); i < b.getSize(); ++i)
         _values[localRibs[i]] += b(switchV[i]);
 }
@@ -92,7 +96,7 @@ void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> b
                 std::array<double, 3> middlePoint{ 0.5 * (points[generatedRibs[square[ii]].first][0] + points[generatedRibs[square[ii]].second][0]),
                                                    0.5 * (points[generatedRibs[square[ii]].first][1] + points[generatedRibs[square[ii]].second][1]), 
                                                    0.5 * (points[generatedRibs[square[ii]].first][2] + points[generatedRibs[square[ii]].second][2]), };
-                auto fVector = Function::TestF1(middlePoint[0], middlePoint[1], middlePoint[2], 0.0);
+                auto fVector = Function::TestA(middlePoint[0], middlePoint[1], middlePoint[2], 0.0);
                 auto fValue = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
                 _values[square[ii]] = fValue;
             }

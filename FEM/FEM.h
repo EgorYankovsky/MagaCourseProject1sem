@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <array>
+#include <fstream>
 
 #include "../Mathematical_objects/MathematicalHeader.h"
 #include "../Logger/Logger.h"
@@ -45,7 +46,7 @@ class FEM {
 
     GlobalMatrix* A;
     GlobalVector* b;
-    GlobalVector* x;
+    GlobalVector x;
 
     Solver* _s;
 
@@ -57,6 +58,8 @@ public:
     vector GetSolutionAtPoint(double x, double y, double z);
     void SetSolver(Solver* s);
     void Solve();
+
+    void WriteAnswer();
 
     EquationType Type = EquationType::NotStated;
 

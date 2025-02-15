@@ -3,7 +3,7 @@
 void FEM::SolveElliptical() {
     A = new GlobalMatrix();
     b = new GlobalVector(_generatedRibs.size());
-    x = new GlobalVector(_generatedRibs.size());
+    x = GlobalVector(_generatedRibs.size());
 
     A->GeneratePortrait(_areas, _generatedRibs.size());
     A->Fill(_areas, _points, _generatedRibs, _areasInfo);
@@ -96,6 +96,12 @@ void FEM::SetSolver(Solver* s) {
 
 void FEM::Solve() {
     x = _s->Solve(*A, *b);
+}
+
+void FEM::WriteAnswer() {
+    std::ofstream fout("Data/Output/solution.txt");
+    for (size_t i(0); i < x.getSize(); ++i) fout << i << ". " << std::setprecision(15) << std::scientific << x(i) << std::endl;
+    fout.close();
 }
 
 FEM::FEM() {

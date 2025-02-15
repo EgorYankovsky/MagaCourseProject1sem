@@ -70,7 +70,7 @@ int main() {
     myFEM3D.BuildMatrixAndVector();
     myFEM3D.SetSolver(new LOS());
     myFEM3D.Solve();
-
+    myFEM3D.WriteAnswer();
     return 0;
 }
 
