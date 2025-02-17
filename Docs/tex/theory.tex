@@ -2,7 +2,7 @@
 
 \section{Векторные дифференциальные уравнения второго порядка с разрывными решениями}
 
-Математическая модель, служащая для описания электромагнитного поля в средах с изменяющимся коэффициентом магнитной проницаемости и в ситуациях, когда нельзя пренебрегать влиянием токов смещения, выглядит следующим образом (\ref{eq_1_1}):
+Математическая модель, служащая для описания электромагнитного поля в средах с изменяющимся коэффициентом магнитной проницаемости и в ситуациях, когда нельзя пренебрегать влиянием токов смещения, выглядит следующим образом:
 
 \begin{equation} \label{eq_1_1}
 	\text{rot} \left( \frac{1}{\mu} \text{rot} \overrightarrow{\textbf{A}} \right) + \sigma \frac{\partial \overrightarrow{\textbf{A}}}{\partial t} + \epsilon \frac{\partial^2 \overrightarrow{\textbf{A}}}{\partial t^2} = \overrightarrow{\textbf{J}}^{\textbf{ст}}.
@@ -10,11 +10,11 @@
 
 Математическая модель электромагнитного поля на основе уравнения (\ref{eq_1_1}) позволяет решать самые сложные задачи электромагнетизма. Она корректно описывает электромагнитные поля в ситуациях, когда среда содержит любые неоднородности с измененными электрическими и магнитными свойствами.
 
-При решении задач с использованием схемы разделения полей, для описания осесимметричной горизонтально-слоистой среды используется следующее уравнение (\ref{eq_1_2}):
+При решении задач с использованием схемы разделения полей, для описания осесимметричной горизонтально-слоистой среды используется следующее уравнение:
 
-\begin{equation} \label{eq_1_2}
+\begin{equation*} \label{eq_1_2}
 	-\frac{1}{\mu_0} \Delta A_{\varphi} + \frac{A_{\varphi}}{\mu_0 r^2} + \sigma \frac{\partial A_{\varphi}}{\partial t} = J_{\varphi}.
-\end{equation}
+\end{equation*}
 
 В свою очередь, учёт от объектов, имеющих неоднородные значения удельной электропроводности, осуществляется за счёт математической модели, описываемой уравнением (\ref{eq_1_3})
 
@@ -22,7 +22,7 @@
 	\text{rot} \left( \frac{1}{\mu_0} \text{rot} \overrightarrow{\textbf{A}}^+ \right) + \sigma \frac{\partial \overrightarrow{\textbf{A}}^+}{\partial t} = \left( \sigma - \sigma_{\text{n}} \right) \overrightarrow{\textbf{E}}_{\text{n}}.
 \end{equation}
 
-Для тестирования на правильность решения дифференциального уравнения (\ref{eq_1_3}) будем использовать уравнение (\ref{eq_1_4}), правая часть которого представляется в виде вектор-функции $\overrightarrow{\textbf{F}}$, а также будет иметь место быть слагаемое $\gamma \overrightarrow{\textbf{A}}$ в левой части уравнения:
+Для тестирования на правильность решения дифференциального уравнения (\ref{eq_1_3}) будем использовать уравнение, правая часть которого представляется в виде вектор-функции $\overrightarrow{\textbf{F}}$, а также будет иметь место быть слагаемое $\gamma \overrightarrow{\textbf{A}}$ в левой части уравнения:
 
 \begin{equation} \label{eq_1_4}
 	\text{rot} \left( \frac{1}{\mu_0} \text{rot} \overrightarrow{\textbf{A}} \right) + \gamma \overrightarrow{\textbf{A}} + \sigma \frac{\partial \overrightarrow{\textbf{A}}}{\partial t} = \overrightarrow{\textbf{F}}.
@@ -52,7 +52,7 @@
 
 \section{Конечноэлементная дискретизация}
 
-На шестиграннике базисные вектор-функции удобней строить с помощью шаблонного элемента. Обычно в качестве такого берут кубик $\left[-1, 1\right] \cross \left[-1, 1\right] \cross \left[-1, 1\right]$ при использовании базиса лагранжева или иерархического типа.
+На шестиграннике базисные вектор-функции удобней строить с помощью шаблонного элемента. Обычно в качестве такого берут кубик $\Omega^E \in \left[-1, 1\right] \cross \left[-1, 1\right] \cross \left[-1, 1\right]$ при использовании базиса лагранжева или иерархического типа.
 
 Пусть у нас имеется произвольный шестигранник $\Omega_m$ с вершинами $\left(\hat{x}_i, \hat{y}_i, \hat{z}_i\right), i = 1...8$. Тогда отображение шаблонного кубика $\Omega^E$ в шестигранник $\Omega_m$ будет задаваться соотношениями:
 
@@ -77,18 +77,18 @@
 		\frac{\partial x}{\partial \zeta} && \frac{\partial y}{\partial \zeta} && \frac{\partial z}{\partial \zeta}
 	\end{pmatrix}
 \end{equation}
- - функциональная матрица преобразования координат, переводящего кубик $\Omega^E$ в шестигранник $\Omega_m$.
+ – функциональная матрица преобразования координат, переводящего кубик $\Omega^E$ в шестигранник $\Omega_m$.
 
 \section{Построение матриц масс, жёсткости и вектора правой части на шестигранниках}
 
-В силу сложной геометрии выпуклых шестигранников, расчёт локальных матриц удобнее проводить на отображении конечного элемента $\Omega_m$ в мастер-элемент $\Omega_E$, представляющий из себя куб размером $\Omega_E = [-1, 1]_x \times [-1, 1]_y \times [-1, 1]_z$. Тогда матрица жёсткости будет рассчитываться по формуле (\ref{eq_1_11}):
+В силу сложной геометрии выпуклых шестигранников, расчёт локальных матриц удобнее проводить на отображении конечного элемента $\Omega_m$ в мастер-элемент $\Omega_E$, представляющий из себя куб размером $\Omega^E = [-1, 1]_x \times [-1, 1]_y \times [-1, 1]_z$. Тогда матрица жёсткости будет рассчитываться по формуле:
 
 \begin{equation} \label{eq_1_11}
 \begin{gathered}
 	\hat{\text{G}}_{ij} = \int \limits_{\Omega_e} \frac{1}{\mu_0} \text{rot}  \hat{\text{$\psi$}}_i \cdot \text{rot} \hat{\text{$\psi$}}_j d \Omega = \\ = \int \limits_{-1}^1 \int \limits_{-1}^1 \int \limits_{-1}^1 \frac{1}{\mu_0} \frac{1}{|J|} \left( \textbf{J}^{\text{T}} \text{rot} \hat{\varphi}_i \right) \cdot \left( \textbf{J}^{\text{T}} \text{rot} \hat{\varphi}_j \right) \, d \xi d \eta d \zeta
 \end{gathered}
 \end{equation}
-матрица масс, в свою очередь, по формуле (\ref{eq_1_12}):
+матрица масс, в свою очередь, по формуле:
 
 \begin{equation} \label{eq_1_12}
 	\begin{gathered}
@@ -114,13 +114,13 @@
 
 \section{Учёт краевых условий}
 
-При решении уравнения (\ref{eq_1_2}) с использованием векторного МКЭ базисные вектор-функции $\overrightarrow{\psi}_i$ строятся так, что все базисные функции конечномерного пространства $\textbf{V}^\text{rot}$ с индексами $i \in N_0$ имеют нулевые касательные к $S_1$ составляющие (они образуют базис подпространства $\textbf{V}^\text{rot}_0$). Поэтому для выполнения однородных главных краевых условий достаточно к $n_0$ уравнениям системы (\ref{eq_1_7}) добавить $n - n_0$ уравнений вида:
+При решении уравнения (\ref{eq_1_3}) с использованием векторного МКЭ базисные вектор-функции $\overrightarrow{\psi}_i$ строятся так, что все базисные функции конечномерного пространства $\textbf{V}^\text{rot}$ с индексами $i \in N_0$ имеют нулевые касательные к $S_1$ составляющие (они образуют базис подпространства $\textbf{V}^\text{rot}_0$). Поэтому для выполнения однородных главных краевых условий достаточно к $n_0$ уравнениям системы (\ref{eq_1_7}) добавить $n - n_0$ уравнений вида:
 
-\begin{equation} \label{eq_1_15}
+\begin{equation*} \label{eq_1_15}
 	\begin{gathered}
 		q_i = 0, \hspace{1cm} i \in N \backslash N_0.
 	\end{gathered}
-\end{equation}
+\end{equation*}
 
 Для учёта неоднородного краевого условия (\ref{eq_1_5}), как и в случае однородного, к $n_0$ уравнениям добавляется ещё $n - n_0$ линейных (относительно весов $q_i$) уравнений, которые и должны обеспечить необходимую близость на $S_1$ касательных составляющих приближённого решения $\overrightarrow{\textbf{A}}^h = \sum \limits_{j \in N} q_j^n \, \overrightarrow{\psi}_j$ к касательным составляющим вектора $\overrightarrow{\textbf{A}}^g$.
 
@@ -142,26 +142,26 @@
 
 Домножим левую и правую части уравнения (\ref{eq_1_16}) скалярно на вектор $\overrightarrow{\tau}_i$ в точке $\left(x_i, y_i, z_i\right)$ с учётном (\ref{eq_1_17}) получим 
 
-\begin{equation} \label{eq_1_18}
+\begin{equation*} \label{eq_1_18}
 	\begin{gathered}
 		\overrightarrow{\textbf{A}}^{g,h} \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i = q_i^g \, \overrightarrow{\psi}_i \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i.
 	\end{gathered}
-\end{equation}
+\end{equation*}
 
 Полагая, что в точках $\left(x_i, y_i, z_i\right)$ значения проекции на $\overrightarrow{\tau}_i$ интерполянта $\overrightarrow{\textbf{A}}^{g,h}$ должны совпадать со значениями проекций на $\overrightarrow{\tau}_i$ вектор-функции $\overrightarrow{\textbf{A}}^g$, а также потребовав равенства касательных составляющих $\overrightarrow{\textbf{A}}^h \cross \overrightarrow{\textbf{n}}$ искомой вектор-функции $\overrightarrow{\textbf{A}}^h$ к касательным составляющим $\overrightarrow{\textbf{A}}^{g,h} \cross \overrightarrow{\textbf{n}}$ вектор-функции
 
-\begin{equation} \label{eq_1_19}
+\begin{equation*} \label{eq_1_19}
 	\begin{gathered}
 		\overrightarrow{\textbf{A}}^{g,h} = \sum \limits_{i \in N \backslash N_0} q_j^g \, \overrightarrow{\psi_j},
 	\end{gathered}
-\end{equation}
+\end{equation*}
 получим следующее выражение для учёта неоднородного главного краевого условия:
 
-\begin{equation} \label{eq_1_20}
+\begin{equation*} \label{eq_1_20}
 	\begin{gathered}
 		q_i = \frac{\overrightarrow{\textbf{A}}^g \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i}{\overrightarrow{\psi}_i \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i}, \hspace{1cm} i \in N \backslash N_0.
 	\end{gathered}
-\end{equation}
+\end{equation*}
 
 
 % Далее глава пркатической части.
