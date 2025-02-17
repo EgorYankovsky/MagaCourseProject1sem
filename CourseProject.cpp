@@ -4,7 +4,7 @@ static auto SelectTest() -> std::string;
 
 int main() {
 
-    /*
+    
     std::array<double, 8> x{ -1.0,  1.0, -1.0,  1.0, -1.0,  1.0, -1.0, 1.0 };
     std::array<double, 8> y{ -1.0, -1.0,  1.0,  1.0, -1.0, -1.0,  1.0, 1.0 };
     std::array<double, 8> z{ -1.0, -1.0, -1.0, -1.0,  1.0,  1.0,  1.0, 1.0 };
@@ -35,7 +35,7 @@ int main() {
         std::cout << std::endl;
     }
     
-    return 0;
+    //return 0;
     
 
     LocalMatrix LM(1.0, x, y, z, LMType::Stiffness);
@@ -50,7 +50,7 @@ int main() {
     }
 
     return 0;
-    */
+    
     auto inputPath = SelectTest();
     Mesh myMesh;
     MeshFileStreamer::Read(myMesh, inputPath);

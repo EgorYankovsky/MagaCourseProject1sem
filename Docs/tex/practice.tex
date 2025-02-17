@@ -221,534 +221,114 @@
 	\label{tab:numIntegr7}
 \end{table}
 
+\section{Процесс построения локальных матриц жёсткости и масс}
+
+Рассмотрим процесс построения локальных матриц жёсткости и масс. При генерации локальной матрицы масс на параллелепипеде в векторном МКЭ используется следующая локальная матрица
+
+\begin{equation} \label{eq_2_1}
+	\begin{gathered}
+		\hat{\textbf{M}} = \gamma \frac{h_x h_y h_z}{36} 
+		\begin{pmatrix} 
+			\textbf{D} & \textbf{0} & \textbf{0}\\
+			\textbf{0} & \textbf{D} & \textbf{0}\\
+			\textbf{0} & \textbf{0} & \textbf{D}\\
+		\end{pmatrix},
+	\end{gathered}
+\end{equation}
+где $\textbf{0}$ - матрица размером 4 $\cross$ 4, полностью заполненная нулями, а
+
+\begin{equation*}
+	\begin{gathered}
+		\hat{\textbf{D}} =
+		\begin{pmatrix}
+			4 & 2 & 2 & 1\\
+			2 & 4 & 1 & 2\\
+			2 & 1 & 4 & 2\\
+			1 & 2 & 2 & 4\\
+		\end{pmatrix}.
+	\end{gathered}
+\end{equation*}
+
+Тогда на единичном элементе $\Omega_E \in \left[-1; 1\right]_x \cross \left[-1; 1\right]_y \cross \left[-1; 1\right]_z$ и при $\gamma = 1$ матрица (\ref{eq_2_1}) примет вид:
+
+
+\begin{equation*}
+	\begin{gathered}
+		\hat{\textbf{M}} = \frac{2}{9} 
+		\begin{pmatrix} 
+			\textbf{D} & \textbf{0} & \textbf{0}\\
+			\textbf{0} & \textbf{D} & \textbf{0}\\
+			\textbf{0} & \textbf{0} & \textbf{D}\\
+		\end{pmatrix}.
+	\end{gathered}
+\end{equation*}
+
+Попробуем сделать ту же самую процедуру при $\gamma = 1$ и на элемента $\Omega_E \in \left[-1; 1\right]_x \cross \left[-1; 1\right]_y \cross \left[-1; 1\right]_z$, но используя интегралы из (\ref{eq_1_12}). Элементы сгенерированной матрицы в виде консольного вывода программы изображены на рисунке \ref{fig:GeneratedMatrixMass}.
+
+\begin{figure}
+	\centering
+	\vspace*{0.7cm}
+	\includegraphics[width=1.0\linewidth]{images/M.png}
+	\caption{Консольный вывод сгенерированной матрицы масс на $\Omega_E$}
+	\label{fig:GeneratedMatrixMass}
+\end{figure}
+
+Локальная матрица жёсткости $\hat{\textbf{G}}$ на параллелепипеде $\Omega_E \in \left[-1, 1\right]_x \cross \left[-1, 1\right]_y \cross \left[-1, 1\right]_z$ при $\overline{\mu} = 1$ принимает вид:
+
+\begin{equation*}
+	\hat{\textbf{G}} = \left(
+	\begin{array}{ccc}
+		\frac{1}{3}\textbf{G}_1 + \frac{1}{3}\textbf{G}_2 & -\frac{1}{3}\textbf{G}_2 & \frac{1}{3}\textbf{G}_3 \\
+		-\frac{1}{3}\textbf{G}_2 & \frac{1}{3}\textbf{G}_1 + \frac{1}{3}\textbf{G}_2 & -\frac{1}{3}\textbf{G}_1 \\
+		\frac{1}{3}\textbf{G}^\text{T}_3 & -\frac{1}{3}\textbf{G}_1 & \frac{1}{3}\textbf{G}_1 + \frac{1}{3}\textbf{G}_2 \\
+	\end{array}
+	\right),
+\end{equation*}
+где
+\begin{equation*}
+	\textbf{G}_1 = \left(
+	\begin{array}{rrrr}
+		2 & 1 & -2 & -1 \\
+		1 & 2 & -1 & -2 \\
+		-2 & -1 & 2 & 1 \\
+		-1 & -2 & 1 & 2 \\
+	\end{array}
+	\right),
+	\hspace{10mm}
+	\textbf{G}_2 = \left(
+	\begin{array}{rrrr}
+		2 & -2 & 1 & -1 \\
+		-2 & 2 & -1 & 2 \\
+		1 & -1 & 2 & -2 \\
+		-1 & 1 & -2 & 2 \\
+	\end{array}
+	\right),
+\end{equation*}
+
+\begin{equation*}
+	\textbf{G}_3 = \left(
+	\begin{array}{rrrr}
+		-2 & 2 & -1 & 1 \\
+		-1 & 1 & -2 & 2 \\
+		2 & -2 & 1 & -1 \\
+		1 & -1 & 2 & -2 \\
+	\end{array}
+	\right).
+\end{equation*}
+
+Теперь, проверим генерацию матрицы жёсткости через формулу (\ref{eq_1_11}). Консольный вывод содержимого матрицы указан на рисунке \ref{fig:GeneratedMatrixStiffness}
+
+\begin{figure}
+	\centering
+	\vspace*{0.7cm}
+	\includegraphics[width=1.0\linewidth]{images/G.png}
+	\caption{Консольный вывод сгенерированной матрицы масс на $\Omega_E$}
+	\label{fig:GeneratedMatrixStiffness}
+\end{figure}
+
 \section{Решение СЛАУ}
 
 Через LOS или Pardiso.
-
-\section{Тестирование трёхмерной задачи на полиномиальных вектор-функциях}
-
-Проведем сначала тестирование разработанной программы по векторному МКЭ на работоспособность. Образец расчетной области изображен на рисунке \ref{fig:exampleOfArea}. Это область $\Omega = [0.0, 3.0]_x \times [0.0, 3.0]_y \times [0.0, 3.0]_z$, она содержит 144 ребра, на всех границах будем задавать первые краевые условия. 
-
-Тестирование будем проводить дифференциального уравнения (\ref{eq_4_2}):
-
-\begin{equation} \label{eq_4_2}
-	\text{rot} \left(\frac{1}{\mu} \text{rot} \overrightarrow{\textbf{A}}\right) + \gamma \overrightarrow{\textbf{A}} + \sigma \frac{\partial \overrightarrow{\textbf{A}}}{\partial t} = \overrightarrow{\textbf{F}}.
-\end{equation}
-
-В таблицах \ref{tab:test1} -- \ref{tab:test9} приведено тестирование на работоспособность программы.
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (1.0, 1.0, 1.0)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (1.0, 1.0, 1.0)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; 1.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-	\end{tabularx}
-	\label{tab:test1}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y, z, x)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y, z, x)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; 1.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-	\end{tabularx}
-	\label{tab:test2}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (1 + y + x; 1 + x + z; 1 + x + y)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (1 + y + x; 1 + x + z; 1 + x + y)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{3.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{3.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; 1.0; z$)} & \centering{3.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test3}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y - z; x - z; x - y)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y - x; x - z; x - y)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{2.35132600E-016}& \centering{2.35132600E-016} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{-1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{-5.55111512E-016}& \centering{-5.55111512E-016} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{-3.97378607E-016}& \centering{-3.97378607E-016} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{-1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{-1.94289029E-016}& \centering{-1.94289029E-016} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; 1.0; z$)} & \centering{-2.74847895E-016}& \centering{-2.74847895E-016} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{-1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{4.27842044E-016}& \centering{4.27842044E-016} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-	\end{tabularx}
-	\label{tab:test4}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y \cdot z; x \cdot z; x \cdot y)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y \cdot z; x \cdot z; x \cdot y)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 1.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test5}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y^2; z^2; x^2)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y^2 - 2; z^2 - 2; x^2 - 2)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; 1.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-	\end{tabularx}
-	\label{tab:test6}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y^2 + z^2; x^2 + z^2; x^2 + y^2)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y^2 + z^2 - 4; x^2 + z^2 - 4; x^2 + y^2 - 4)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{8.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{8.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; 1.0; z$)} & \centering{2.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{5.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{8.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test7}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y^3; 0; 0)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y^3 - 6y; 0; 0)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{8.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{8.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{0.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{0.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{0.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{0.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; 1.0; z$)} & \centering{0.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{0.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{0.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{0.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test8}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y^2 \cdot z^2; x^2 \cdot z^2; x^2 \cdot y^2)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y^2 \cdot z^2 - 2(y^2 + z^2); x^2 \cdot z^2 - 2(x^2 + z^2); x^2 \cdot y^2 - 2(x^2 + y^2))^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($x; 1.0; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 1.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 1.0; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($x; 2.0; 2.0$)} & \centering{1.60000000E+001}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; y; 1.0$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 1.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; y; 2.0$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; y; 2.0$)} & \centering{1.60000000E+001}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		
-		
-		\centering{($1.0; 1.0; z$)} & \centering{1.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 1.0; z$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.0; 2.0; z$)} & \centering{4.00000000E+000}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($2.0; 2.0; z$)} & \centering{1.60000000E+001}& \centering{0.00000000E+000} & \centering{0.00000000E+000} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test9}
-\end{table}
-
-Проведём тестирование на порядок аппроксимации. Для оценки будем брать значения вектор-функции в центрах параллелепипедов. Сетка по пространству для данных тестов изображена на рисунке \ref{fig:exampleOfArea_1}.
-
-
-В таблицах \ref{tab:test10} -- \ref{tab:test11} представлены результаты тестирования для постоянной и линейной вектор-функциях.
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (1.0; 1.0; 1.0)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (1.0; 1.0; 1.0)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($0.5; 0.5; 0.5$)} & \centering{1.00000000E+000 \\ 1.00000000E+000\\
-			1.00000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.5; 0.5; 0.5$)} & \centering{1.00000000E+000 \\ 1.00000000E+000\\
-			1.00000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($0.5; 1.5; 0.5$)} & \centering{1.00000000E+000 \\ 1.00000000E+000\\
-			1.00000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.5; 1.5; 0.5$)} & \centering{1.00000000E+000 \\ 1.00000000E+000\\
-			1.00000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-			
-		\centering{($0.5; 0.5; 1.5$)} & \centering{1.00000000E+000 \\ 1.00000000E+000\\
-			1.00000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.5; 0.5; 1.5$)} & \centering{1.00000000E+000 \\ 1.00000000E+000\\
-			1.00000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($0.5; 1.5; 1.5$)} & \centering{1.00000000E+000 \\ 1.00000000E+000\\
-			1.00000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.5; 1.5; 1.5$)} & \centering{1.00000000E+000 \\ 1.00000000E+000\\
-			1.00000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-	
-	\end{tabularx}
-	\label{tab:test10}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y; z; x)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y; z; x)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Ребро} & \centering{Значение} & \centering{Абсолютная погрешность} & \centering{Относительная погрешность} \tabularnewline \hline
-		
-		
-		\centering{($0.5; 0.5; 0.5$)} & \centering{5.00000000E-001 \\ 5.00000000E-001 \\
-			5.00000000E-001}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.5; 0.5; 0.5$)} & \centering{5.00000000E-001 \\ 5.00000000E-001\\
-			1.50000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($0.5; 1.5; 0.5$)} & \centering{1.50000000E+000 \\ 5.00000000E-001\\
-			5.00000000E-001}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.5; 1.5; 0.5$)} & \centering{1.50000000E+000 \\ 5.00000000E-001\\
-			1.50000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($0.5; 0.5; 1.5$)} & \centering{5.00000000E-001 \\ 1.50000000E+000\\
-			5.00000000E-001}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.5; 0.5; 1.5$)} & \centering{5.00000000E-001 \\ 1.50000000E+000\\
-			5.00000000E-001}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($0.5; 1.5; 1.5$)} & \centering{1.50000000E+000 \\ 1.50000000E+000\\
-			5.00000000E-001}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-		\centering{($1.5; 1.5; 1.5$)} & \centering{1.50000000E+000 \\ 1.50000000E+000\\
-			1.50000000E+000}& \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} & \centering{0.00000000E+000 \\ 0.00000000E+000 \\ 0.00000000E+000} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test11}
-\end{table}
-
-Как и предполагали, при использовании билинейных вектор-функций точное решение находится вплоть до линейной вектор-функции без численной погрешности.
-
-Проведём теперь тестирование на порядок сходимости на сетке изображённой на рисунке \ref{fig:exampleOfArea}. Для этого последовательно будем разбивать сетку в 2 раза сначала по оси $x$, потом по $y$ и затем по $z$. Результаты тестирования приведены в таблицах \ref{tab:test12} -- \ref{tab:test14}.
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (0; 0; e^x)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (0; 0; 0)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Шаг по оси $x$} & \centering{Средняя погрешность} & \centering{$\text{log}_2\left(\frac{\sigma_{i-1}}{\sigma_i}\right)$} \tabularnewline \hline		
-		
-		\centering{$h$} & \centering{4.1223218E-001} & \centering{-} \tabularnewline \hline
-		
-		\centering{${}^h/_2$} & \centering{6.9015889E-002} & \centering{2.57845668} \tabularnewline \hline
-		
-		\centering{${}^h/_4$} & \centering{1.4360912E-002} & \centering{2.26478117} \tabularnewline \hline
-		
-		\centering{${}^h/_8$} & \centering{3.28952607E-003} & \centering{2.1261957} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test12}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (e^y; 0; 0)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (0; 0; 0)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Шаг по оси $y$} & \centering{Средняя погрешность} & \centering{$\text{log}_2\left(\frac{\sigma_{i-1}}{\sigma_i}\right)$} \tabularnewline \hline		
-		
-		\centering{$h$} & \centering{4.1223218E-001} & \centering{-} \tabularnewline \hline
-
-		\centering{${}^h/_2$} & \centering{6.9015889E-002} & \centering{2.57845668} \tabularnewline \hline
-
-		\centering{${}^h/_4$} & \centering{1.4360912E-002} & \centering{2.26478117} \tabularnewline \hline
-
-		\centering{${}^h/_8$} & \centering{3.28952607E-003} & \centering{2.1261957} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test13}
-\end{table}
-
-\begin{table}
-	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (0; e^z; 0)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (0; 0; 0)^{\text{T}}$, $\mu = 1$, $\gamma = 1$, $\sigma = 0$}
-	\centering
-	\small
-	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |>{\raggedright\arraybackslash}X |}
-		\hline
-		\centering{Шаг по оси $z$} & \centering{Средняя погрешность} & \centering{$\text{log}_2\left(\frac{\sigma_{i-1}}{\sigma_i}\right)$} \tabularnewline \hline		
-		
-		\centering{$h$} & \centering{4.1223218E-001} & \centering{-} \tabularnewline \hline
-		
-		\centering{${}^h/_2$} & \centering{6.9015889E-002} & \centering{2.57845668} \tabularnewline \hline
-		
-		\centering{${}^h/_4$} & \centering{1.4360912E-002} & \centering{2.26478117} \tabularnewline \hline
-		
-		\centering{${}^h/_8$} & \centering{3.28952607E-003} & \centering{2.1261957} \tabularnewline \hline
-		
-	\end{tabularx}
-	\label{tab:test14}
-\end{table}
-
-Во всех трёх случая порядок сходимости стремится к 2. Исходя из полученных данных, можно сказать, что программа верно находит численное решение эллиптической задачи.
 
 
 

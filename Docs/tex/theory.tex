@@ -104,4 +104,64 @@
 	\end{gathered}
 \end{equation}
 она универсальна и применима для любой геометрии конечного элемента и любыми базисными функциями любого порядка на нём.
+
+Для произвольных шестигранников интегралы в соотношениях (\ref{eq_1_11}) - (\ref{eq_1_12}) берутся численно. Соответствующая схема вычисления значения интеграла от функции $f(\xi, \eta, \zeta)$ по единичной области $\Omega_E$ выглядит следующим образом:
+\begin{equation} \label{eq_1_14}
+	\begin{gathered}
+		\int \limits_{-1}^1 \int \limits_{-1}^1 \int \limits_{-1}^1 f \left(\xi, \eta, \zeta\right) d\xi d\eta d\zeta \approx \sum_{k=1}^{n} \sum_{l=1}^{n} \sum_{r=1}^{n} f\left(t_k, t_l, t_r\right).
+	\end{gathered}
+\end{equation}
+
+\section{Учёт краевых условий}
+
+При решении уравнения (\ref{eq_1_2}) с использованием векторного МКЭ базисные вектор-функции $\overrightarrow{\psi}_i$ строятся так, что все базисные функции конечномерного пространства $\textbf{V}^\text{rot}$ с индексами $i \in N_0$ имеют нулевые касательные к $S_1$ составляющие (они образуют базис подпространства $\textbf{V}^\text{rot}_0$). Поэтому для выполнения однородных главных краевых условий достаточно к $n_0$ уравнениям системы (\ref{eq_1_7}) добавить $n - n_0$ уравнений вида:
+
+\begin{equation} \label{eq_1_15}
+	\begin{gathered}
+		q_i = 0, \hspace{1cm} i \in N \backslash N_0.
+	\end{gathered}
+\end{equation}
+
+Для учёта неоднородного краевого условия (\ref{eq_1_5}), как и в случае однородного, к $n_0$ уравнениям добавляется ещё $n - n_0$ линейных (относительно весов $q_i$) уравнений, которые и должны обеспечить необходимую близость на $S_1$ касательных составляющих приближённого решения $\overrightarrow{\textbf{A}}^h = \sum \limits_{j \in N} q_j^n \, \overrightarrow{\psi}_j$ к касательным составляющим вектора $\overrightarrow{\textbf{A}}^g$.
+
+Однако для учёта неоднородных краевых условий в векторном МКЭ можно использовать гораздо более простую и удобную для реализации процедуру. Основная её идея заключается в том, что вектор-функция $\overrightarrow{\textbf{A}}^g$ из правой части краевых условий (\ref{eq_1_5}) заменяется некоторым интерполянтом $\overrightarrow{\textbf{A}}^{g,h}$, представленными в виде линейной комбинации базисных вектор-функций: 
+
+\begin{equation} \label{eq_1_16}
+	\begin{gathered}
+		\overrightarrow{\textbf{A}}^{g,h} = \sum \limits_j q_j^g \, \overrightarrow{\psi_j}.
+	\end{gathered}
+\end{equation}
+
+Веса $q_j^g$ в разложении (\ref{eq_1_16}) можно найти следующим образом. Поскольку в векторном МКЭ базисные функции $\overrightarrow{\psi}_i$ строятся так, что на поверхности $S_1$ ненулевые касательные имеют только $n-n_0$ базисных вектор-функций с номерами $i \in N \backslash N_0$, при этом для каждой из таких вектор-функций на поверхность $S_1$ существует точка $\left(x_i, y_i, z_i\right)$ и проходящий через эту точку касательный к поверхности $S_1$ вектор $\overrightarrow{\tau}_i$ такой, что
+
+\begin{equation} \label{eq_1_17}
+	\begin{gathered}
+		\overrightarrow{\psi}_i \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i \neq 0, \hspace{1cm} \overrightarrow{\psi}_j \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i = 0, \hspace{1cm} \forall j \neq i.
+	\end{gathered}
+\end{equation}
+
+Домножим левую и правую части уравнения (\ref{eq_1_16}) скалярно на вектор $\overrightarrow{\tau}_i$ в точке $\left(x_i, y_i, z_i\right)$ с учётном (\ref{eq_1_17}) получим 
+
+\begin{equation} \label{eq_1_18}
+	\begin{gathered}
+		\overrightarrow{\textbf{A}}^{g,h} \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i = q_i^g \, \overrightarrow{\psi}_i \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i.
+	\end{gathered}
+\end{equation}
+
+Полагая, что в точках $\left(x_i, y_i, z_i\right)$ значения проекции на $\overrightarrow{\tau}_i$ интерполянта $\overrightarrow{\textbf{A}}^{g,h}$ должны совпадать со значениями проекций на $\overrightarrow{\tau}_i$ вектор-функции $\overrightarrow{\textbf{A}}^g$, а также потребовав равенства касательных составляющих $\overrightarrow{\textbf{A}}^h \cross \overrightarrow{\textbf{n}}$ искомой вектор-функции $\overrightarrow{\textbf{A}}^h$ к касательным составляющим $\overrightarrow{\textbf{A}}^{g,h} \cross \overrightarrow{\textbf{n}}$ вектор-функции
+
+\begin{equation} \label{eq_1_19}
+	\begin{gathered}
+		\overrightarrow{\textbf{A}}^{g,h} = \sum \limits_{i \in N \backslash N_0} q_j^g \, \overrightarrow{\psi_j},
+	\end{gathered}
+\end{equation}
+получим следующее выражение для учёта неоднородного главного краевого условия:
+
+\begin{equation} \label{eq_1_20}
+	\begin{gathered}
+		q_i = \frac{\overrightarrow{\textbf{A}}^g \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i}{\overrightarrow{\psi}_i \left(x_i, y_i, z_i\right) \cdot \overrightarrow{\tau}_i}, \hspace{1cm} i \in N \backslash N_0.
+	\end{gathered}
+\end{equation}
+
+
 % Далее глава пркатической части.
