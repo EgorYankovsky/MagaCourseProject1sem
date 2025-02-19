@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.16)  18 FEB 2025 13:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.16)  20 FEB 2025 05:35
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1616,8 +1616,10 @@ your preamble.
  [1
 
 
-{C:/Users/USER/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (tex/theory.t
-ex
+{C:/Users/USER/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (tex/taskName
+.tex) (tex/theory.tex [3
+
+]
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 1.
 <<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>>
 LaTeX Font Info:    Trying to load font information for U+msa on input line 7.
@@ -1645,9 +1647,9 @@ LaTeX Font Info:    No file PUcmr.fd. on input line 7.
 LaTeX Font Warning: Font shape `PU/cmr/m/up' undefined
 (Font)              using `PU/pdf/m/n' instead on input line 7.
 
-[3
+[4
 
-] [4] [5] [6] [7] [8] [9]) (tex/practice.tex [10]
+] [5] [6] [7] [8] [9] [10]) (tex/practice.tex [11]
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 2.
 LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 
 6.
@@ -1664,114 +1666,116 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--28
 
  []
 
-[11
+[12
 
 ]
-<images/ExampleCube.png, id=174, 538.4115pt x 394.5942pt>
+<images/ExampleCube.png, id=187, 538.4115pt x 394.5942pt>
 File: images/ExampleCube.png Graphic file (type png)
 <use images/ExampleCube.png>
 Package pdftex.def Info: images/ExampleCube.png  used on input line 42.
 (pdftex.def)             Requested size: 338.58632pt x 248.14407pt.
- [12]
-<images/GridCube.png, id=183, 516.0078pt x 375.804pt>
+ [13]
+<images/GridCube.png, id=196, 516.0078pt x 375.804pt>
 File: images/GridCube.png Graphic file (type png)
 <use images/GridCube.png>
 Package pdftex.def Info: images/GridCube.png  used on input line 52.
 (pdftex.def)             Requested size: 338.58632pt x 246.5921pt.
-<images/EmeraldField.png, id=186, 362.7954pt x 311.4837pt>
+<images/EmeraldField.png, id=199, 362.7954pt x 311.4837pt>
 File: images/EmeraldField.png Graphic file (type png)
 <use images/EmeraldField.png>
 Package pdftex.def Info: images/EmeraldField.png  used on input line 61.
 (pdftex.def)             Requested size: 118.50705pt x 101.74431pt.
-<images/EmeraldMesh.png, id=187, 352.6776pt x 313.6518pt>
+<images/EmeraldMesh.png, id=200, 352.6776pt x 313.6518pt>
 File: images/EmeraldMesh.png Graphic file (type png)
 <use images/EmeraldMesh.png>
 Package pdftex.def Info: images/EmeraldMesh.png  used on input line 65.
 (pdftex.def)             Requested size: 118.50705pt x 105.39107pt.
- [13 <./images/ExampleCube.png> <./images/GridCube.png>]
-<images/PyramidField.png, id=197, 513.117pt x 263.7855pt>
+ [14 <./images/ExampleCube.png> <./images/GridCube.png>]
+<images/PyramidField.png, id=211, 513.117pt x 263.7855pt>
 File: images/PyramidField.png Graphic file (type png)
 <use images/PyramidField.png>
 Package pdftex.def Info: images/PyramidField.png  used on input line 73.
 (pdftex.def)             Requested size: 118.50705pt x 60.92296pt.
-<images/PyramidMesh.png, id=198, 505.1673pt x 232.7094pt>
+<images/PyramidMesh.png, id=212, 505.1673pt x 232.7094pt>
 File: images/PyramidMesh.png Graphic file (type png)
 <use images/PyramidMesh.png>
 Package pdftex.def Info: images/PyramidMesh.png  used on input line 77.
 (pdftex.def)             Requested size: 118.50705pt x 54.59084pt.
-<images/HGField.png, id=199, 311.4837pt x 359.1819pt>
+<images/HGField.png, id=213, 311.4837pt x 359.1819pt>
 File: images/HGField.png Graphic file (type png)
 <use images/HGField.png>
 Package pdftex.def Info: images/HGField.png  used on input line 85.
 (pdftex.def)             Requested size: 118.50705pt x 136.65495pt.
-<images/HGMesh.png, id=200, 262.3401pt x 342.5598pt>
+<images/HGMesh.png, id=214, 262.3401pt x 342.5598pt>
 File: images/HGMesh.png Graphic file (type png)
 <use images/HGMesh.png>
 Package pdftex.def Info: images/HGMesh.png  used on input line 89.
 (pdftex.def)             Requested size: 118.50705pt x 154.74635pt.
-<images/BathField.png, id=201, 463.2507pt x 291.9708pt>
+<images/BathField.png, id=215, 463.2507pt x 291.9708pt>
 File: images/BathField.png Graphic file (type png)
 <use images/BathField.png>
 Package pdftex.def Info: images/BathField.png  used on input line 97.
 (pdftex.def)             Requested size: 118.50705pt x 74.68991pt.
-<images/BathMesh.png, id=202, 537.6888pt x 288.3573pt>
+<images/BathMesh.png, id=216, 537.6888pt x 288.3573pt>
 File: images/BathMesh.png Graphic file (type png)
 <use images/BathMesh.png>
 Package pdftex.def Info: images/BathMesh.png  used on input line 101.
 (pdftex.def)             Requested size: 118.50705pt x 63.55319pt.
-<images/DEmeraldField.png, id=203, 515.2851pt x 305.7021pt>
+<images/DEmeraldField.png, id=217, 515.2851pt x 305.7021pt>
 File: images/DEmeraldField.png Graphic file (type png)
 <use images/DEmeraldField.png>
 Package pdftex.def Info: images/DEmeraldField.png  used on input line 109.
 (pdftex.def)             Requested size: 118.50705pt x 70.30533pt.
-<images/DEmeraldMesh.png, id=204, 546.3612pt x 328.1058pt>
+<images/DEmeraldMesh.png, id=218, 546.3612pt x 328.1058pt>
 File: images/DEmeraldMesh.png Graphic file (type png)
 <use images/DEmeraldMesh.png>
 Package pdftex.def Info: images/DEmeraldMesh.png  used on input line 113.
 (pdftex.def)             Requested size: 118.50705pt x 71.16217pt.
- [14 <./images/EmeraldField.png> <./images/EmeraldMesh.png> <./images/PyramidFi
+ [15 <./images/EmeraldField.png> <./images/EmeraldMesh.png> <./images/PyramidFi
 eld.png> <./images/PyramidMesh.png> <./images/HGField.png> <./images/HGMesh.png
-> <./images/BathField.png> <./images/BathMesh.png>] [15 <./images/DEmeraldField
-.png> <./images/DEmeraldMesh.png>] [16]
-<images/M.png, id=246, 1113.40968pt x 207.77625pt>
+> <./images/BathField.png> <./images/BathMesh.png>] [16 <./images/DEmeraldField
+.png> <./images/DEmeraldMesh.png>] [17]
+<images/M.png, id=259, 1113.40968pt x 207.77625pt>
 File: images/M.png Graphic file (type png)
 <use images/M.png>
 Package pdftex.def Info: images/M.png  used on input line 275.
 (pdftex.def)             Requested size: 483.69687pt x 90.26144pt.
- [17]
-<images/G.png, id=255, 1131.47719pt x 204.01219pt>
+ [18]
+<images/G.png, id=268, 1131.47719pt x 204.01219pt>
 File: images/G.png Graphic file (type png)
 <use images/G.png>
 Package pdftex.def Info: images/G.png  used on input line 328.
 (pdftex.def)             Requested size: 483.69687pt x 87.213pt.
- [18 <./images/M.png>]
+ [19 <./images/M.png>]
 Underfull \hbox (badness 1199) in paragraph at lines 335--336
 []\T2A/cmr/m/n/14.4 »спользование PARDISO в C++ тре-бу-ет под-клю-че-ни€ биб-ли
 о-те-ки
  []
 
-[19 <./images/G.png>]
+[20 <./images/G.png>]
 Underfull \hbox (badness 1527) in paragraph at lines 339--340
 \T2A/cmr/m/n/14.4 фе-ра па-м€-ти дл€ ре-ша-те-л€. ƒл€ это-го необ-хо-ди-мо вы-з
 вать функ-цию
  []
 
-<images/resultPardiso.png, id=268, 659.46375pt x 755.82375pt>
+<images/resultPardiso.png, id=282, 659.46375pt x 755.82375pt>
 File: images/resultPardiso.png Graphic file (type png)
 <use images/resultPardiso.png>
 Package pdftex.def Info: images/resultPardiso.png  used on input line 346.
 (pdftex.def)             Requested size: 483.69687pt x 554.38779pt.
-[20]) [21 <./images/resultPardiso.png>] [22] [23
+[21]) (tex/conclusion.tex [22 <./images/resultPardiso.png>] [23]) [24
 
-] (tex/appendix1.tex
-(_minted-main/default.pygstyle)
+] [25
+
+]
+(tex/appendix1.tex (_minted-main/default.pygstyle)
 (_minted-main/DD8C6F037A911E61335488999E7549B986CDDB3CD3BCC233C2DC9F1C0C94BA1F.
 pygtex
 LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 13.
 )
 (_minted-main/EF508E33DB4F63E3E9B8B0AF3C05E4E4D48F0745770397DAE33853FBA0238CF9.
-pygtex [24
+pygtex [26
 
 ]
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
@@ -1780,45 +1784,45 @@ LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line
 (C:\Users\USER\AppData\Local\Programs\MiKTeX\tex/latex/base\ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-[25])
+[27])
 (_minted-main/00B58D8D01AA60D7C88033FFCAD0EB8606748C62EBC65A76E8DE2BA14C484A59.
 pygtex)
 (_minted-main/B04EC05580A401DD9AA7AF997FD8C0BC199C890EBCCE6428C0CBF34C849DF8A6.
-pygtex [26])
+pygtex [28])
 (_minted-main/54B39F6219A6FBB5716E14B64432871188C24423060B37B404F0DF6C5AE3572F.
 pygtex)
 (_minted-main/98C5E61F5865F6C54B275931D026BBB2307F7BEB5E98ABB14656C036986C1537.
-pygtex [27] [28])
+pygtex [29] [30])
 (_minted-main/82167A55BA6BC373A78F25F88A507624BE5E66C3CDB4FC8467F083B2C00938E0.
-pygtex [29])
-(_minted-main/F824EBCCC51C8BB1C51FC56FC058DED5E5C712B7F6DA9342D2B9BAF7031EDCD2.
-pygtex [30])
-(_minted-main/180FE31CA96EE60A976AF81A212107F6B0D89912870B8401D01978436F467310.
 pygtex [31])
+(_minted-main/F824EBCCC51C8BB1C51FC56FC058DED5E5C712B7F6DA9342D2B9BAF7031EDCD2.
+pygtex [32])
+(_minted-main/180FE31CA96EE60A976AF81A212107F6B0D89912870B8401D01978436F467310.
+pygtex [33])
 (_minted-main/6C66DD265DD631B6562E13B56A27A9D8D1A1221ED128625137F21C8619FC1399.
-pygtex [32] [33])
+pygtex [34] [35])
 (_minted-main/34B6529B3E601968C53C6EEACABDC7FA5B19EB1EAB2A53235873F30E0BD49B21.
 pygtex)
 (_minted-main/411AB87FA1685A16F556D4F0013EAFAF0776F8D56F13DD783436C6ACC54C139C.
-pygtex [34])
+pygtex [36])
 (_minted-main/AE1922964C45546DC29DE688EA1235245040F6310AE9A1A7E6CA3897F3A4F396.
 pygtex)
 (_minted-main/F4A5362A0F9B70C0373332EA86CF20FB6DFAEFB12E34AC73FCCFC8DB8706A449.
-pygtex [35] [36])
+pygtex [37] [38])
 (_minted-main/7D60DE30E0DDF45DAA66BE3633B753F14396CBAD7AA3FB16737D1FF04398E93A.
-pygtex [37])
+pygtex [39])
 (_minted-main/3D27449EFB4CB07B271040D9DD869F4F303BC3FD2308FD0498259293749C4178.
-pygtex [38] [39])
+pygtex [40] [41])
 (_minted-main/C1D2DAFE9D8BD60E7A343F3734FBC275D5368943A8F09E8E18BACE75B000BC15.
 pygtex)
 (_minted-main/D46472579369A0F15C6E918FAB4B7BF69E5172A34FAEDC3E8A82942F984D3B1B.
-pygtex [40] [41] [42] [43])
+pygtex [42] [43] [44] [45])
 (_minted-main/AAC9B005B849AF08278DA5D3FA290D606199FAAE04206727F5C0CA0A6ED19FC0.
 pygtex)
 (_minted-main/825025847D8DDD6DFCF09CE4534A2E58A56D12360551CBADF9C17BFE9171B2A0.
 pygtex)
 (_minted-main/794FD004972E848545524EC6277CCD5D64CC4A70FB7E74873F92D874034F0075.
-pygtex [44] [45] [46])) [47] (main.aux)
+pygtex [46] [47] [48])) [49] (main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -1828,13 +1832,13 @@ L3 programming layer <2024-02-20>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9706E7124C77022655F36E12E984B917;4644.
+(rerunfilecheck)             Checksum: 6D78551CD139F3857D9BD074E7A3AB9A;4873.
  ) 
 Here is how much of TeX's memory you used:
- 44180 strings out of 474436
- 988992 string characters out of 5742426
+ 44208 strings out of 474436
+ 989643 string characters out of 5742426
  2161190 words of memory out of 5000000
- 65549 multiletter control sequences out of 15000+600000
+ 65567 multiletter control sequences out of 15000+600000
  581784 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,19n,110p,3358b,811s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1846,9 +1850,9 @@ tt1000.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600
 dpi600\latt1440.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t
 2a/dpi600\labx0700.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/l
 h-t2a/dpi600\larm1000.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk/ljfour/l
-h/lh-t2a/dpi600\larm1200.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk/ljfou
-r/lh/lh-t2a/dpi600\labx1000.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk/lj
-four/lh/lh-t2a/dpi600\labx1728.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk
+h/lh-t2a/dpi600\labx1000.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk/ljfou
+r/lh/lh-t2a/dpi600\labx1728.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk/lj
+four/lh/lh-t2a/dpi600\larm1200.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts/pk
 /ljfour/lh/lh-t2a/dpi600\larm1440.pk> <C:\Users\USER\AppData\Local\MiKTeX\fonts
 /pk/ljfour/lh/lh-t2a/dpi600\labx1440.pk> <C:\Users\USER\AppData\Local\MiKTeX\fo
 nts/pk/ljfour/lh/lh-t2a/dpi600\labx2074.pk><C:/Users/USER/AppData/Local/Program
@@ -1865,9 +1869,9 @@ e1/public/amsfonts/cm/cmr7.pfb><C:/Users/USER/AppData/Local/Programs/MiKTeX/fon
 ts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/USER/AppData/Local/Programs/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/USER/AppData/Local/Progr
 ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb>
-Output written on main.pdf (46 pages, 1412585 bytes).
+Output written on main.pdf (48 pages, 1419752 bytes).
 PDF statistics:
- 985 PDF objects out of 1000 (max. 8388607)
- 100 named destinations out of 1000 (max. 500000)
- 220 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1011 PDF objects out of 1200 (max. 8388607)
+ 104 named destinations out of 1000 (max. 500000)
+ 236 words of extra memory for PDF output out of 10000 (max. 10000000)
 
