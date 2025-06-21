@@ -70,21 +70,21 @@ void GlobalVector::Fill(std::vector<std::array<size_t, 13>> areas, std::vector<s
 
 void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> borderRibs, std::vector<std::array<double, 3>> points, std::vector<std::pair<size_t, size_t>> generatedRibs) {
     for (const auto& square : borderRibs) {
-        size_t r0 = square[2];
-        size_t r1 = square[3];
-        std::array<double, 3> _x = { points[generatedRibs[r0].first][0], points[generatedRibs[r0].second][0], points[generatedRibs[r1].second][0] };
-        std::array<double, 3> _y = { points[generatedRibs[r0].first][1], points[generatedRibs[r0].second][1], points[generatedRibs[r1].second][1] };
-        std::array<double, 3> _z = { points[generatedRibs[r0].first][2], points[generatedRibs[r0].second][2], points[generatedRibs[r1].second][2] };
+        //size_t r0 = square[2];
+        //size_t r1 = square[3];
+        //std::array<double, 3> _x = { points[generatedRibs[r0].first][0], points[generatedRibs[r0].second][0], points[generatedRibs[r1].second][0] };
+        //std::array<double, 3> _y = { points[generatedRibs[r0].first][1], points[generatedRibs[r0].second][1], points[generatedRibs[r1].second][1] };
+        //std::array<double, 3> _z = { points[generatedRibs[r0].first][2], points[generatedRibs[r0].second][2], points[generatedRibs[r1].second][2] };
 
-        auto getNormal = [_x, _y, _z]() -> vector {
-            auto v = vector{ (_y[1] - _y[0]) * (_z[2] - _z[0]) - (_z[1] - _z[0]) * (_y[2] - _y[0]),
-                     -1.0 * ((_x[1] - _x[0]) * (_z[2] - _z[0]) - (_z[1] - _z[0]) * (_x[2] - _x[0])),
-                             (_x[1] - _x[0]) * (_y[2] - _y[0]) - (_y[1] - _y[0]) * (_x[2] - _x[0]) };
-            double len = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-            return vector{ v[0] / len, v[1] / len, v[2] / len };
-            };
+        //auto getNormal = [_x, _y, _z]() -> vector {
+        //    auto v = vector{ (_y[1] - _y[0]) * (_z[2] - _z[0]) - (_z[1] - _z[0]) * (_y[2] - _y[0]),
+        //             -1.0 * ((_x[1] - _x[0]) * (_z[2] - _z[0]) - (_z[1] - _z[0]) * (_x[2] - _x[0])),
+        //                     (_x[1] - _x[0]) * (_y[2] - _y[0]) - (_y[1] - _y[0]) * (_x[2] - _x[0]) };
+        //    double len = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+        //    return vector{ v[0] / len, v[1] / len, v[2] / len };
+        //    };
 
-        auto normal = getNormal();
+        //auto normal = getNormal();
         switch (square[0]) {
         case 2:
         case 3:
@@ -93,6 +93,20 @@ void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> b
             break;
         case 1:
             for (size_t ii(2); ii < 6; ++ii) {
+                
+                auto getNormal = [points](std::pair<size_t, size_t> vector_points) -> vector {
+                    double x0 = points[vector_points.first][0];
+                    double y0 = points[vector_points.first][1];
+                    double z0 = points[vector_points.first][2];
+                    double x1 = points[vector_points.second][0];
+                    double y1 = points[vector_points.second][1];
+                    double z1 = points[vector_points.second][2];
+                    auto v = vector{ x1 - x0, y1 - y0, z1 - z0 };
+                    double len = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+                    return vector{ v[0] / len, v[1] / len, v[2] / len };
+                    };
+                auto normal = getNormal(generatedRibs[ii]);
+                
                 std::array<double, 3> middlePoint{ 0.5 * (points[generatedRibs[square[ii]].first][0] + points[generatedRibs[square[ii]].second][0]),
                                                    0.5 * (points[generatedRibs[square[ii]].first][1] + points[generatedRibs[square[ii]].second][1]), 
                                                    0.5 * (points[generatedRibs[square[ii]].first][2] + points[generatedRibs[square[ii]].second][2]), };

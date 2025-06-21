@@ -6,8 +6,8 @@ void FEM::SolveElliptical() {
     x = GlobalVector(_generatedRibs.size());
 
     A->GeneratePortrait(_areas, _generatedRibs.size());
-    A->Fill(_areas, _points, _generatedRibs, _areasInfo);
-    b->Fill(_areas, _points, _generatedRibs);
+    A->Fill(_areas, _points, _generatedRibs, _areasInfo); // To slow.
+    b->Fill(_areas, _points, _generatedRibs);             // To slow.
     A->CommitBoundaryConditions(_newBorderRibs);
     b->CommitBoundaryConditions(_newBorderRibs, _points, _generatedRibs);
 }

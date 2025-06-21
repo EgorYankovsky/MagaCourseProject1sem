@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.16)  20 FEB 2025 05:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.16)  26 FEB 2025 23:16
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1763,7 +1763,59 @@ File: images/resultPardiso.png Graphic file (type png)
 <use images/resultPardiso.png>
 Package pdftex.def Info: images/resultPardiso.png  used on input line 346.
 (pdftex.def)             Requested size: 483.69687pt x 554.38779pt.
-[21]) (tex/conclusion.tex [22 <./images/resultPardiso.png>] [23]) [24
+[21]
+! Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
+l.380 		\end{tabularx}
+                      
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+! Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.380 		\end{tabularx}
+                      
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+! Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
+l.380 		\end{tabularx}
+                      
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+! Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.380 		\end{tabularx}
+                      
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+! Misplaced \noalign.
+\hline ->\noalign 
+                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
+l.380 		\end{tabularx}
+                      
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+! Extra alignment tab has been changed to \cr.
+<template> ... width\arrayrulewidth }\endtemplate 
+                                                  
+l.380 		\end{tabularx}
+                      
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+[22 <./images/resultPardiso.png>]) (tex/conclusion.tex [23]) [24
 
 ] [25
 
@@ -1832,13 +1884,13 @@ L3 programming layer <2024-02-20>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6D78551CD139F3857D9BD074E7A3AB9A;4873.
+(rerunfilecheck)             Checksum: 3814B1AD1030AEE59CF7B2D1C32C7B99;4873.
  ) 
 Here is how much of TeX's memory you used:
- 44208 strings out of 474436
- 989643 string characters out of 5742426
+ 44210 strings out of 474436
+ 989670 string characters out of 5742426
  2161190 words of memory out of 5000000
- 65567 multiletter control sequences out of 15000+600000
+ 65568 multiletter control sequences out of 15000+600000
  581784 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,19n,110p,3358b,811s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1869,9 +1921,9 @@ e1/public/amsfonts/cm/cmr7.pfb><C:/Users/USER/AppData/Local/Programs/MiKTeX/fon
 ts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/USER/AppData/Local/Programs/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/USER/AppData/Local/Progr
 ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb>
-Output written on main.pdf (48 pages, 1419752 bytes).
+Output written on main.pdf (48 pages, 1425093 bytes).
 PDF statistics:
- 1011 PDF objects out of 1200 (max. 8388607)
- 104 named destinations out of 1000 (max. 500000)
+ 1025 PDF objects out of 1200 (max. 8388607)
+ 105 named destinations out of 1000 (max. 500000)
  236 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -84,6 +84,9 @@
     <Text Include="Data\Input\testInput.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="Data\Input\test_straight.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CourseProject.cpp">

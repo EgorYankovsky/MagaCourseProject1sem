@@ -15,6 +15,6 @@ public:
     static vector TestF1(double t0, double t1, double t2, double time) { return vector{ t1, t2, t0 }; }
 
     // A = (y, z, x).
-    static vector TestA(double t0, double t1, double t2, double time) { return vector{ t1, t2, t0 }; }
+    static vector TestA(double t0, double t1, double t2, double time) { return vector{ 2.0, 2.0, 2.0 }; }
 };
 

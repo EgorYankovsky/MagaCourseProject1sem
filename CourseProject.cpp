@@ -5,51 +5,51 @@ static auto SelectTest() -> std::string;
 int main() {
 
     
-    std::array<double, 8> x{ -1.0,  1.0, -1.0,  1.0, -1.0,  1.0, -1.0, 1.0 };
-    std::array<double, 8> y{ -1.0, -1.0,  1.0,  1.0, -1.0, -1.0,  1.0, 1.0 };
-    std::array<double, 8> z{ -1.0, -1.0, -1.0, -1.0,  1.0,  1.0,  1.0, 1.0 };
+    //std::array<double, 8> x{ -1.0,  1.0, -1.0,  1.0, -1.0,  1.0, -1.0, 1.0 };
+    //std::array<double, 8> y{ -1.0, -1.0,  1.0,  1.0, -1.0, -1.0,  1.0, 1.0 };
+    //std::array<double, 8> z{ -1.0, -1.0, -1.0, -1.0,  1.0,  1.0,  1.0, 1.0 };
     //std::array<double, 8> x{ 0.0, 2.0,  1.0, 2.5,  0.0, 1.0, -1.0, 4.0 };
     //std::array<double, 8> y{ 0.0, 0.0,  2.0, 2.0, -1.0, 0.0,  3.0, 3.0 };
     //std::array<double, 8> z{ 0.0, 1.0, -1.0, 0.0,  1.0, 2.0,  1.0, 3.0 };
 
     
-    JacobiMatrix::SetValues(x, y, z);
-    for (size_t i(0); i < 3; ++i) {
-        for (size_t j(0); j < 3; ++j) {
-            std::cout << JacobiMatrix::GetValueAt(i, j)(0.0, 0.0, 0.0) << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-    for (size_t i(0); i < 3; ++i) {
-        for (size_t j(0); j < 3; ++j) {
-            std::cout << JacobiMatrix::GetValueAtTransposed(i, j)(0.0, 0.0, 0.0) << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-    for (size_t i(0); i < 3; ++i) {
-        for (size_t j(0); j < 3; ++j) {
-            std::cout << JacobiMatrix::GetValueAtInverse(i, j)(0.0, 0.0, 0.0) << " ";
-        }
-        std::cout << std::endl;
-    }
+    //JacobiMatrix::SetValues(x, y, z);
+    //for (size_t i(0); i < 3; ++i) {
+    //    for (size_t j(0); j < 3; ++j) {
+    //        std::cout << JacobiMatrix::GetValueAt(i, j)(0.0, 0.0, 0.0) << " ";
+    //    }
+    //    std::cout << std::endl;
+    //}
+    //std::cout << std::endl;
+    //for (size_t i(0); i < 3; ++i) {
+    //    for (size_t j(0); j < 3; ++j) {
+    //        std::cout << JacobiMatrix::GetValueAtTransposed(i, j)(0.0, 0.0, 0.0) << " ";
+    //    }
+    //    std::cout << std::endl;
+    //}
+    //std::cout << std::endl;
+    //for (size_t i(0); i < 3; ++i) {
+    //    for (size_t j(0); j < 3; ++j) {
+    //        std::cout << JacobiMatrix::GetValueAtInverse(i, j)(0.0, 0.0, 0.0) << " ";
+    //    }
+    //    std::cout << std::endl;
+    //}
     
     //return 0;
     
 
-    LocalMatrix LM(1.0, x, y, z, LMType::Stiffness);
+    //LocalMatrix LM(1.0, x, y, z, LMType::Stiffness);
 
-    for (size_t i(0); i < 12; ++i) {
-        for (size_t j(0); j < 12; ++j) {
-            std::cout << std::scientific << std::setprecision(6) << LM(i, j) << " ";
-            if (j % 4 == 3) std::cout << "\t";
-        }
-        std::cout << std::endl;
-        if (i % 4 == 3) std::cout << std::endl;
-    }
+    //for (size_t i(0); i < 12; ++i) {
+    //    for (size_t j(0); j < 12; ++j) {
+    //        std::cout << std::scientific << std::setprecision(6) << LM(i, j) << " ";
+    //        if (j % 4 == 3) std::cout << "\t";
+    //    }
+    //    std::cout << std::endl;
+    //    if (i % 4 == 3) std::cout << std::endl;
+    //}
 
-    return 0;
+    //return 0;
     
     auto inputPath = SelectTest();
     Mesh myMesh;
@@ -62,7 +62,7 @@ int main() {
     MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
 
     Drawer::DrawMesh(PictureOutput::SaveAsFile);
-
+    //return 0;
     FEM myFEM3D;
     
     myFEM3D.GetMeshData(&myMesh);
@@ -83,6 +83,7 @@ static auto SelectTest() -> std::string {
     std::cout << "(4) Bath mesh." << std::endl;
     std::cout << "(5) Detailed emerald mesh." << std::endl;
     std::cout << "(6) Random figure mesh." << std::endl;
+    std::cout << "(7) Summer test mesh." << std::endl;
     std::cout << "-> ";
     size_t input(0);
     std::cin >> input;
@@ -95,6 +96,7 @@ static auto SelectTest() -> std::string {
     case 4: return inputPath4;
     case 5: return inputPath5;
     case 6: return testInputPath;
+    case 7: return summerTestInputPath;
     default:
         system("cls");
         return SelectTest();

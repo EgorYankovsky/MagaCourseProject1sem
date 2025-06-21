@@ -16,7 +16,7 @@
 
 [delimiters above X description] 2 1.0 
 [delimiters above Y description] 2 1.0
-[delimiters above X description] 2 1.0
+[delimiters above Z description] 2 1.0
 
 [bordersAmount] 6
 

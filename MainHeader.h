@@ -13,6 +13,7 @@
 
 const std::string standartInputPath = "Data\\Input\\input.txt";
 const std::string testInputPath = "Data\\Input\\testInput.txt";
+const std::string summerTestInputPath = "Data\\Input\\test_straight.txt";
 const std::string inputPath1 = "Data\\Input\\input1.txt";
 const std::string inputPath2 = "Data\\Input\\input2.txt";
 const std::string inputPath3 = "Data\\Input\\input3.txt";

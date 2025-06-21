@@ -350,5 +350,36 @@ PARDISO требует настройки множества параметро�
 
 Помимо консольного вывода вызов программы PARDISO создаст текстовый файл pardiso64.log, в котором будет написан статус вызова функции (0 если нет ни ошибок, ни предупреждений; значение больше нуля если возникли предупреждения; значение меньше нуля если при вызове PARDISO произошла фатальная ошибка).
 
+%\begin{table}
+%	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y^2z^2; x^2z^2; x^2y^2)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y^2z^2 - 2\cdot(y^2+z^2); x^2z^2 - 2\cdot(x^2+z^2); x^2y^2 - 2\cdot(x^2+y^2))^{\text{T}}$, $\mu = 1$, $\gamma = 1$}
+%	\centering
+%	\small
+%	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |}
+%		\hline
+%		\centering{Точка} & \centering{Относиельная погрешность} & \centering{Дельты} \\ \hline
+%		\multirow{4}{*}{$\left(\,^4/_3$; $\,^4/_3$; $\,^4/_3\right)$} & \centering{2.656249999999992E-001 2.656249999999998E-001 2.656249999999998E-001} & \centering{---} \\ \cline{2-3}  
+%		& Значение21 & Значение22 \\ \cline{2-3}  
+%		& Значение31 & Значение32 \\ \cline{2-3}  
+%		& Значение41 & Значение42 \\ \hline
+%	\end{tabularx}
+%	\label{tab:test9}
+%\end{table}
+
+
+\begin{table}
+	\caption{Тестирование при $\overrightarrow{\textbf{A}} = (y^2z^2; x^2z^2; x^2y^2)^{\text{T}}$, $\overrightarrow{\textbf{F}} = (y^2z^2 - 2\cdot(y^2+z^2); x^2z^2 - 2\cdot(x^2+z^2); x^2y^2 - 2\cdot(x^2+y^2))^{\text{T}}$, $\mu = 1$, $\gamma = 1$}
+	\centering
+	\small
+	\begin{tabularx}{1.0\textwidth}{| >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X | >{\raggedright\arraybackslash}X |}
+			\hline
+			\centering{Точка} & \centering{Относиельная погрешность} & \centering{Дельты} \\ \hline
+			\multirow{4}{*}{Координаты} & уац & цау \\ \cline{2-3}  
+			& Значение21 & Значение22 \\ \cline{2-3}  
+			& Значение31 & Значение32 \\ \cline{2-3}  
+			& Значение41 & Значение42 \\ \hline
+		\end{tabularx}
+	\label{tab:test9}
+\end{table}
+
 %\textbf{Здесь будет программная реализация $\downarrow$}
 

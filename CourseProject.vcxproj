@@ -135,6 +135,7 @@
     <Text Include="Data\Input\input4.txt" />
     <Text Include="Data\Input\input5.txt" />
     <Text Include="Data\Input\testInput.txt" />
+    <Text Include="Data\Input\test_straight.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CourseProject.cpp" />
