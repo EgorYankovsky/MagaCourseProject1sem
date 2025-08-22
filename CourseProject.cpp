@@ -3,53 +3,81 @@
 static auto SelectTest() -> std::string;
 
 int main() {
-
-    
     //std::array<double, 8> x{ -1.0,  1.0, -1.0,  1.0, -1.0,  1.0, -1.0, 1.0 };
     //std::array<double, 8> y{ -1.0, -1.0,  1.0,  1.0, -1.0, -1.0,  1.0, 1.0 };
     //std::array<double, 8> z{ -1.0, -1.0, -1.0, -1.0,  1.0,  1.0,  1.0, 1.0 };
+    
+    //std::array<double, 8> x{ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
+    //std::array<double, 8> y{ 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
+    
+    //std::array<double, 8> x{ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
+    //std::array<double, 8> y{ 0.0, 0.0, 4.0, 4.0, 0.0, 0.0, 4.0, 4.0 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 4.0, 4.0 };
+    
+    std::array<double, 8> x{ 0.0, 0.5, 0.0, 0.5, 0.0, 0.5, 0.0, 0.5 };
+    std::array<double, 8> y{ 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.5, 0.5 };
+    std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 0.5 };
+    
+    //std::array<double, 8> x{ 0.0, 8.0, 0.0, 8.0, 0.0, 8.0, 0.0, 8.0 };
+    //std::array<double, 8> y{ 0.0, 0.0, 8.0, 8.0, 0.0, 0.0, 8.0, 8.0 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 8.0, 8.0, 8.0, 8.0 };
+    
+    
     //std::array<double, 8> x{ 0.0, 2.0,  1.0, 2.5,  0.0, 1.0, -1.0, 4.0 };
     //std::array<double, 8> y{ 0.0, 0.0,  2.0, 2.0, -1.0, 0.0,  3.0, 3.0 };
     //std::array<double, 8> z{ 0.0, 1.0, -1.0, 0.0,  1.0, 2.0,  1.0, 3.0 };
 
     
-    //JacobiMatrix::SetValues(x, y, z);
-    //for (size_t i(0); i < 3; ++i) {
-    //    for (size_t j(0); j < 3; ++j) {
-    //        std::cout << JacobiMatrix::GetValueAt(i, j)(0.0, 0.0, 0.0) << " ";
-    //    }
-    //    std::cout << std::endl;
-    //}
-    //std::cout << std::endl;
-    //for (size_t i(0); i < 3; ++i) {
-    //    for (size_t j(0); j < 3; ++j) {
-    //        std::cout << JacobiMatrix::GetValueAtTransposed(i, j)(0.0, 0.0, 0.0) << " ";
-    //    }
-    //    std::cout << std::endl;
-    //}
-    //std::cout << std::endl;
-    //for (size_t i(0); i < 3; ++i) {
-    //    for (size_t j(0); j < 3; ++j) {
-    //        std::cout << JacobiMatrix::GetValueAtInverse(i, j)(0.0, 0.0, 0.0) << " ";
-    //    }
-    //    std::cout << std::endl;
-    //}
+    JacobiMatrix::SetValues(x, y, z);
+    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(0.0, 0.0, 0.0) << std::endl;
+    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(0.5, 0.5, 0.5) << std::endl;
+    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(1.0, 1.0, 1.0) << std::endl;
+    std::cout << "S |J| de dn dc = " << Integration::Gauss3(JacobiMatrix::GetDeterminant()) << std::endl;
+    //return 0;
+    std::cout << std::endl << "J => " << std::endl;
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j) {
+            std::cout << JacobiMatrix::GetValueAt(i, j)(0.0, 0.0, 0.0) << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl << "J^(-1) => " << std::endl;
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j) {
+            std::cout << JacobiMatrix::GetValueAtInverse(i, j)(0.0, 0.0, 0.0) << " ";
+        }
+        std::cout << std::endl;
+    }
     
     //return 0;
     
 
-    //LocalMatrix LM(1.0, x, y, z, LMType::Stiffness);
+    LocalMatrix LM(1.0, x, y, z, LMType::Mass);
 
-    //for (size_t i(0); i < 12; ++i) {
-    //    for (size_t j(0); j < 12; ++j) {
-    //        std::cout << std::scientific << std::setprecision(6) << LM(i, j) << " ";
-    //        if (j % 4 == 3) std::cout << "\t";
-    //    }
-    //    std::cout << std::endl;
-    //    if (i % 4 == 3) std::cout << std::endl;
-    //}
+    std::cout << std::endl << "G => " << std::endl;
+    for (size_t i(0); i < 12; ++i) {
+        for (size_t j(0); j < 12; ++j) {
+            std::cout << std::scientific << std::setprecision(6) << LM(i, j) << " ";
+            if (j % 4 == 3) std::cout << "\t";
+        }
+        std::cout << std::endl;
+        if (i % 4 == 3) std::cout << std::endl;
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
 
-    //return 0;
+    //CheckStiffness(x, y, z, LM);
+    
+    LocalVector lv(x, y, z);
+    for (int i = 0; i < 12; ++i) {
+        if (i % 4 == 0) std::cout << std::endl;
+        std::cout << std::scientific << std::setprecision(6) << lv(i) << std::endl;
+    }
+
+    return 0;
     
     auto inputPath = SelectTest();
     Mesh myMesh;
@@ -100,5 +128,74 @@ static auto SelectTest() -> std::string {
     default:
         system("cls");
         return SelectTest();
+    }
+}
+
+void CheckMass(const std::array<double, 8>& x, 
+               const std::array<double, 8>& y, 
+               const std::array<double, 8>& z,
+               const LocalMatrix& m) {
+    double hx = x[1] - x[0];
+    double hy = y[2] - y[0];
+    double hz = z[4] - z[0];
+
+    for (int i = 0; i < 12; ++i) {
+        for (int j = 0; j < 12; ++j) {
+            if (i / 4 == j / 4)  {
+                auto fi = BasisFunction::getAt(i);
+                auto fj = BasisFunction::getAt(j);
+                auto integrated = Integration::Gauss3(fi * fj);
+                if (i / 4 == 0)
+                    integrated *= ((hy * hz) / (2.0 * hx));
+                else if (i / 4 == 1)
+                    integrated *= ((hx * hz) / (2.0 * hy));
+                else if (i / 4 == 2)
+                    integrated *= ((hy * hx) / (2.0 * hz));
+                std::cout << std::scientific << std::setprecision(6) << integrated << " ";
+            }
+            else
+                std::cout << std::scientific << std::setprecision(6) << 0.0 << " ";
+            if (j % 4 == 3) std::cout << "\t";
+        }
+        std::cout << std::endl;
+        if (i % 4 == 3) std::cout << std::endl;
+    }
+}
+
+void CheckStiffness(const std::array<double, 8>& x,
+                    const std::array<double, 8>& y,
+                    const std::array<double, 8>& z,
+                    const LocalMatrix& m) {
+    double hx = x[1] - x[0];
+    double hy = y[2] - y[0];
+    double hz = z[4] - z[0];
+
+    std::array<std::array<double, 12>, 12 > test{};
+
+    for (int i = 0; i < 12; ++i)
+    {
+        for (int j  = 0; j < 12; ++j)
+        {
+            auto rotPhi_i = BasisFunction::getRotAt(i);
+            auto rotPhi_j = BasisFunction::getRotAt(j);            
+            double ans = 0.0;
+            ans += (2.0 * hx) / (hy * hz) * Integration::Gauss3(rotPhi_i[0] * rotPhi_j[0]);
+            ans += (2.0 * hy) / (hx * hz) * Integration::Gauss3(rotPhi_i[1] * rotPhi_j[1]);
+            ans += (2.0 * hz) / (hx * hy) * Integration::Gauss3(rotPhi_i[2] * rotPhi_j[2]);
+            test[i][j] = ans;
+            
+            std::cout << std::scientific << std::setprecision(6) << ans << " ";
+            if (j % 4 == 3) std::cout << "\t";
+        }
+        std::cout << std::endl;
+        if (i % 4 == 3) std::cout << std::endl;
+    }
+
+    for (int i = 0; i < 12 ; ++i) {
+        for (int j = 0; j < 12; ++j) {
+            if (std::abs(test[i][j] - m(i, j)) > 1e-6) {
+                std::cout << "Error at (" << i << ", " << j << "): expected " << test[i][j] << ", got " << m(i, j) << std::endl;
+            }
+        }
     }
 }

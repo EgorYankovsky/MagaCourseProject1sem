@@ -35,16 +35,16 @@ public:
                          [](double t0, double t1, double t2) {return  0.5 * W_(t2); } };
 
         case 1: return { [](double t0, double t1, double t2) {return  0.0; } ,
-                         [](double t0, double t1, double t2) {return -0.5 *  W(t1); } ,
+                         [](double t0, double t1, double t2) {return -0.5 * W (t1); } ,
                          [](double t0, double t1, double t2) {return -0.5 * W_(t2); } };
         
         case 2: return { [](double t0, double t1, double t2) {return  0.0; } ,
                          [](double t0, double t1, double t2) {return  0.5 * W_(t1); } ,
-                         [](double t0, double t1, double t2) {return  0.5 *  W(t2); } };
+                         [](double t0, double t1, double t2) {return  0.5 * W (t2); } };
         
         case 3: return { [](double t0, double t1, double t2) {return  0.0; } ,
-                         [](double t0, double t1, double t2) {return  0.5 *  W(t1); } ,
-                         [](double t0, double t1, double t2) {return -0.5 *  W(t2); } };
+                         [](double t0, double t1, double t2) {return  0.5 * W (t1); } ,
+                         [](double t0, double t1, double t2) {return -0.5 * W (t2); } };
 
 
 
@@ -52,17 +52,17 @@ public:
                          [](double t0, double t1, double t2) {return  0.0; } ,
                          [](double t0, double t1, double t2) {return -0.5 * W_(t2); } };
 
-        case 5: return { [](double t0, double t1, double t2) {return  0.5 *  W(t0); } ,
+        case 5: return { [](double t0, double t1, double t2) {return  0.5 * W (t0); } ,
                          [](double t0, double t1, double t2) {return  0.0; } ,
                          [](double t0, double t1, double t2) {return  0.5 * W_(t2); } };
 
         case 6: return { [](double t0, double t1, double t2) {return -0.5 * W_(t0); } ,
                          [](double t0, double t1, double t2) {return  0.0; } ,
-                         [](double t0, double t1, double t2) {return -0.5 *  W(t2); } };
+                         [](double t0, double t1, double t2) {return -0.5 * W (t2); } };
 
-        case 7: return { [](double t0, double t1, double t2) {return -0.5 *  W(t0); } ,
+        case 7: return { [](double t0, double t1, double t2) {return -0.5 * W (t0); } ,
                          [](double t0, double t1, double t2) {return  0.0; } ,
-                         [](double t0, double t1, double t2) {return  0.5 *  W(t2); } };
+                         [](double t0, double t1, double t2) {return  0.5 * W (t2); } };
 
 
 
@@ -70,16 +70,16 @@ public:
                          [](double t0, double t1, double t2) {return  0.5 * W_(t1); } ,
                          [](double t0, double t1, double t2) {return  0.0; } };
 
-        case 9: return { [](double t0, double t1, double t2) {return -0.5 *  W(t0); } ,
+        case 9: return { [](double t0, double t1, double t2) {return -0.5 * W (t0); } ,
                          [](double t0, double t1, double t2) {return -0.5 * W_(t1); } ,
                          [](double t0, double t1, double t2) {return  0.0; } };
 
         case 10: return { [](double t0, double t1, double t2) {return  0.5 * W_(t0); } ,
-                          [](double t0, double t1, double t2) {return  0.5 *  W(t1); } ,
+                          [](double t0, double t1, double t2) {return  0.5 * W (t1); } ,
                           [](double t0, double t1, double t2) {return  0.0; } };
 
-        case 11: return { [](double t0, double t1, double t2) {return  0.5 * W(t0); } ,
-                          [](double t0, double t1, double t2) {return -0.5 * W(t1); } ,
+        case 11: return { [](double t0, double t1, double t2) {return  0.5 * W (t0); } ,
+                          [](double t0, double t1, double t2) {return -0.5 * W (t1); } ,
                           [](double t0, double t1, double t2) {return  0.0; } };
         
         default: throw std::exception("Out of index value");

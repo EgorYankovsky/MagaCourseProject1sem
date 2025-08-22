@@ -19,6 +19,17 @@ const std::string inputPath2 = "Data\\Input\\input2.txt";
 const std::string inputPath3 = "Data\\Input\\input3.txt";
 const std::string inputPath4 = "Data\\Input\\input4.txt";
 const std::string inputPath5 = "Data\\Input\\input5.txt";
+
+void CheckMass(const std::array<double, 8>& x, 
+               const std::array<double, 8>& y, 
+               const std::array<double, 8>& z,
+               const LocalMatrix& m);
+
+void CheckStiffness(const std::array<double, 8>& x, 
+                    const std::array<double, 8>& y, 
+                    const std::array<double, 8>& z,
+                    const LocalMatrix& m);
+
 //const std::string defaultOutputPointsPath = "Data\\Generated\\generatedPoints.txt";
 //const std::string defaultOutputRibsPath = "Data\\Generated\\generatedRibs.txt";
 //const std::string defaultOutputAreasPath = "Data\\Generated\\generatedAreas.txt";

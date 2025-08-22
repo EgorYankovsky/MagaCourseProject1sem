@@ -49,6 +49,7 @@ public:
 
     static std::function<double(double, double, double)> const GetValueAt(size_t i, size_t j);
     static std::function<double(double, double, double)> const GetValueAtInverse(size_t i, size_t j);
+    static std::function<double(double, double, double)> const GetValueAtInverseNoDet(size_t i, size_t j);
     static std::function<double(double, double, double)> const GetValueAtTransposed(size_t i, size_t j);
     static std::function<double(double, double, double)> const GetDeterminant();
 };

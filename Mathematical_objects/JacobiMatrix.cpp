@@ -6,67 +6,67 @@ std::array<double, 8> JacobiMatrix::_z = {};
 
 inline double JacobiMatrix::dxde(double eps, double eta, double zeta) {
     return 0.5 * (W_(eta) * W_(zeta) * (_x[1] - _x[0]) +
-                   W(eta) * W_(zeta) * (_x[3] - _x[2]) +
-                  W_(eta) *  W(zeta) * (_x[5] - _x[4]) +
-                   W(eta) *  W(zeta) * (_x[7] - _x[6]));
+                  W (eta) * W_(zeta) * (_x[3] - _x[2]) +
+                  W_(eta) * W (zeta) * (_x[5] - _x[4]) +
+                  W (eta) * W (zeta) * (_x[7] - _x[6]));
 }
 
 inline double JacobiMatrix::dyde(double eps, double eta, double zeta) {
     return 0.5 * (W_(eta) * W_(zeta) * (_y[1] - _y[0]) +
-                   W(eta) * W_(zeta) * (_y[3] - _y[2]) +
-                  W_(eta) *  W(zeta) * (_y[5] - _y[4]) +
-                   W(eta) *  W(zeta) * (_y[7] - _y[6]));
+                  W (eta) * W_(zeta) * (_y[3] - _y[2]) +
+                  W_(eta) * W (zeta) * (_y[5] - _y[4]) +
+                  W (eta) * W (zeta) * (_y[7] - _y[6]));
 }
 
 inline double JacobiMatrix::dzde(double eps, double eta, double zeta) {
     return 0.5 * (W_(eta) * W_(zeta) * (_z[1] - _z[0]) +
-                   W(eta) * W_(zeta) * (_z[3] - _z[2]) +
-                  W_(eta) *  W(zeta) * (_z[5] - _z[4]) +
-                   W(eta) *  W(zeta) * (_z[7] - _z[6]));
+                  W (eta) * W_(zeta) * (_z[3] - _z[2]) +
+                  W_(eta) * W (zeta) * (_z[5] - _z[4]) +
+                  W (eta) * W (zeta) * (_z[7] - _z[6]));
 }
 
 
 inline double JacobiMatrix::dxdn(double eps, double eta, double zeta) {
     return 0.5 * (W_(eps) * W_(zeta) * (_x[2] - _x[0]) +
-                   W(eps) * W_(zeta) * (_x[3] - _x[1]) +
-                  W_(eps) *  W(zeta) * (_x[6] - _x[4]) +
-                   W(eps) *  W(zeta) * (_x[7] - _x[5]));
+                  W (eps) * W_(zeta) * (_x[3] - _x[1]) +
+                  W_(eps) * W (zeta) * (_x[6] - _x[4]) +
+                  W (eps) * W (zeta) * (_x[7] - _x[5]));
 }
 
 inline double JacobiMatrix::dydn(double eps, double eta, double zeta) {
     return 0.5 * (W_(eps) * W_(zeta) * (_y[2] - _y[0]) +
-                   W(eps) * W_(zeta) * (_y[3] - _y[1]) +
-                  W_(eps) *  W(zeta) * (_y[6] - _y[4]) +
-                   W(eps) *  W(zeta) * (_y[7] - _y[5]));
+                  W (eps) * W_(zeta) * (_y[3] - _y[1]) +
+                  W_(eps) * W (zeta) * (_y[6] - _y[4]) +
+                  W (eps) * W (zeta) * (_y[7] - _y[5]));
 }
 
 inline double JacobiMatrix::dzdn(double eps, double eta, double zeta) {
     return 0.5 * (W_(eps) * W_(zeta) * (_z[2] - _z[0]) +
-                   W(eps) * W_(zeta) * (_z[3] - _z[1]) +
-                  W_(eps) *  W(zeta) * (_z[6] - _z[4]) +
-                   W(eps) *  W(zeta) * (_z[7] - _z[5]));
+                  W (eps) * W_(zeta) * (_z[3] - _z[1]) +
+                  W_(eps) * W (zeta) * (_z[6] - _z[4]) +
+                  W (eps) * W (zeta) * (_z[7] - _z[5]));
 }
 
 
 inline double JacobiMatrix::dxdc(double eps, double eta, double zeta) {
     return 0.5 * (W_(eps) * W_(eta) * (_x[4] - _x[0]) +
-                   W(eps) * W_(eta) * (_x[5] - _x[1]) +
-                  W_(eps) *  W(eta) * (_x[6] - _x[2]) +
-                   W(eps) *  W(eta) * (_x[7] - _x[3]));
+                  W (eps) * W_(eta) * (_x[5] - _x[1]) +
+                  W_(eps) * W (eta) * (_x[6] - _x[2]) +
+                  W (eps) * W (eta) * (_x[7] - _x[3]));
 }
 
 inline double JacobiMatrix::dydc(double eps, double eta, double zeta) {
     return 0.5 * (W_(eps) * W_(eta) * (_y[4] - _y[0]) +
-                   W(eps) * W_(eta) * (_y[5] - _y[1]) +
-                  W_(eps) *  W(eta) * (_y[6] - _y[2]) +
-                   W(eps) *  W(eta) * (_y[7] - _y[3]));
+                  W (eps) * W_(eta) * (_y[5] - _y[1]) +
+                  W_(eps) * W (eta) * (_y[6] - _y[2]) +
+                  W (eps) * W (eta) * (_y[7] - _y[3]));
 }
 
 inline double JacobiMatrix::dzdc(double eps, double eta, double zeta) {
     return 0.5 * (W_(eps) * W_(eta) * (_z[4] - _z[0]) +
-                   W(eps) * W_(eta) * (_z[5] - _z[1]) +
-                  W_(eps) *  W(eta) * (_z[6] - _z[2]) +
-                   W(eps) *  W(eta) * (_z[7] - _z[3]));
+                  W (eps) * W_(eta) * (_z[5] - _z[1]) +
+                  W_(eps) * W (eta) * (_z[6] - _z[2]) +
+                  W (eps) * W (eta) * (_z[7] - _z[3]));
 }
 
 
@@ -93,35 +93,74 @@ std::function<double(double, double, double)> const JacobiMatrix::GetValueAt(siz
 std::function<double(double, double, double)> const JacobiMatrix::GetValueAtInverse(size_t i, size_t j) {
     if (i == 0 and j == 0) 
         return [](double t0, double t1, double t2) { return (dydn(t0, t1, t2) * dzdc(t0, t1, t2) -
-                                                             dydc(t0, t1, t2) * dzdn(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
+                                                             dydc(t0, t1, t2) * dzdn(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
     if (i == 0 and j == 1)
-        return [](double t0, double t1, double t2) { return -1.0 * (dyde(t0, t1, t2) * dzdc(t0, t1, t2) -
-                                                                    dydc(t0, t1, t2) * dzde(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
+        return [](double t0, double t1, double t2) { return (dydc(t0, t1, t2) * dzde(t0, t1, t2) -
+                                                             dyde(t0, t1, t2) * dzdc(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
     if (i == 0 and j == 2)
         return [](double t0, double t1, double t2) { return (dyde(t0, t1, t2) * dzdn(t0, t1, t2) -
-                                                             dydn(t0, t1, t2) * dzde(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
+                                                             dydn(t0, t1, t2) * dzde(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
 
     if (i == 1 and j == 0)
-        return [](double t0, double t1, double t2) { return -1.0 * (dxdn(t0, t1, t2) * dzdc(t0, t1, t2) -
-                                                                    dxdc(t0, t1, t2) * dzdn(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
-
+        return [](double t0, double t1, double t2) { return (dxdc(t0, t1, t2) * dzdn(t0, t1, t2) -
+                                                             dxdn(t0, t1, t2) * dzdc(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
     if (i == 1 and j == 1)
         return [](double t0, double t1, double t2) { return (dxde(t0, t1, t2) * dzdc(t0, t1, t2) -
-                                                             dxdc(t0, t1, t2) * dzde(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
-
+                                                             dxdc(t0, t1, t2) * dzde(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
     if (i == 1 and j == 2)
-        return [](double t0, double t1, double t2) { return -1.0 * (dxde(t0, t1, t2) * dzdn(t0, t1, t2) -
-                                                                    dxdn(t0, t1, t2) * dzde(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
+        return [](double t0, double t1, double t2) { return (dxdn(t0, t1, t2) * dzde(t0, t1, t2) -
+                                                             dxde(t0, t1, t2) * dzdn(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
 
     if (i == 2 and j == 0)
         return [](double t0, double t1, double t2) { return (dxdn(t0, t1, t2) * dydc(t0, t1, t2) -
-                                                             dxdc(t0, t1, t2) * dydn(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
+                                                             dxdc(t0, t1, t2) * dydn(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
     if (i == 2 and j == 1)
-        return [](double t0, double t1, double t2) { return -1.0 * (dxde(t0, t1, t2) * dydc(t0, t1, t2) -
-                                                                    dxdc(t0, t1, t2) * dyde(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
+        return [](double t0, double t1, double t2) { return (dxdc(t0, t1, t2) * dyde(t0, t1, t2) -
+                                                             dxde(t0, t1, t2) * dydc(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
     if (i == 2 and j == 2)
         return [](double t0, double t1, double t2) { return (dxde(t0, t1, t2) * dydn(t0, t1, t2) -
-                                                             dxdn(t0, t1, t2) * dyde(t0, t1, t2)) / GetDeterminant()(t0, t1, t2); };
+                                                             dxdn(t0, t1, t2) * dyde(t0, t1, t2)) 
+                                                             / GetDeterminant()(t0, t1, t2); };
+}
+
+std::function<double(double, double, double)> const JacobiMatrix::GetValueAtInverseNoDet(size_t i, size_t j) {
+    if (i == 0 and j == 0)
+        return [](double t0, double t1, double t2) { return (dydn(t0, t1, t2) * dzdc(t0, t1, t2) -
+                                                             dydc(t0, t1, t2) * dzdn(t0, t1, t2)); };
+    if (i == 0 and j == 1)
+        return [](double t0, double t1, double t2) { return (dzdn(t0, t1, t2) * dxde(t0, t1, t2) -
+                                                             dxdn(t0, t1, t2) * dzdc(t0, t1, t2)); };
+    if (i == 0 and j == 2)
+        return [](double t0, double t1, double t2) { return (dxdn(t0, t1, t2) * dydc(t0, t1, t2) -
+                                                             dydn(t0, t1, t2) * dxdc(t0, t1, t2)); };
+
+    if (i == 1 and j == 0)
+        return [](double t0, double t1, double t2) { return (dzde(t0, t1, t2) * dydc(t0, t1, t2) -
+                                                             dyde(t0, t1, t2) * dzdc(t0, t1, t2)); };
+    if (i == 1 and j == 1)
+        return [](double t0, double t1, double t2) { return (dxde(t0, t1, t2) * dzdc(t0, t1, t2) -
+                                                             dxdc(t0, t1, t2) * dzde(t0, t1, t2)); };
+    if (i == 1 and j == 2)
+        return [](double t0, double t1, double t2) { return (dyde(t0, t1, t2) * dxdc(t0, t1, t2) -
+                                                             dxde(t0, t1, t2) * dydc(t0, t1, t2)); };
+
+    if (i == 2 and j == 0)
+        return [](double t0, double t1, double t2) { return (dyde(t0, t1, t2) * dzdn(t0, t1, t2) -
+                                                             dzde(t0, t1, t2) * dydn(t0, t1, t2)); };
+    if (i == 2 and j == 1)
+        return [](double t0, double t1, double t2) { return (dzde(t0, t1, t2) * dxdn(t0, t1, t2) -
+                                                             dxde(t0, t1, t2) * dzdn(t0, t1, t2)); };
+    if (i == 2 and j == 2)
+        return [](double t0, double t1, double t2) { return (dxde(t0, t1, t2) * dydn(t0, t1, t2) -
+                                                             dxdn(t0, t1, t2) * dyde(t0, t1, t2)); };
 }
 
 std::function<double(double, double, double)> const JacobiMatrix::GetValueAtTransposed(size_t i, size_t j) { return GetValueAt(j, i); }

@@ -1,5 +1,7 @@
 #include "LocalMatrix.h"
 
+typedef Integration I;
+
 std::function<double(double, double, double)> operator* (std::function<double(double, double, double)> f1,
 														 std::function<double(double, double, double)> f2) {
 	return [f1, f2](double t0, double t1, double t2) { return f1(t0, t1, t2) * f2(t0, t1, t2); };
@@ -15,13 +17,17 @@ std::function<double(double, double, double)> operator/(std::function<double(dou
 	return [f1, f2](double t0, double t1, double t2) { return f1(t0, t1, t2) / f2(t0, t1, t2); };
 }
 
+std::function<double(double, double, double)> operator/(double v, std::function<double(double, double, double)> f) {
+	return [v, f](double t0, double t1, double t2) { return v / f(t0, t1, t2); };
+}
+
 void LocalMatrix::generate() {
 	switch (_matrixType) {
 	case LMType::Stiffness:
 		generateG();
 		break;
 	case LMType::Mass:
-		generateM();
+		generateM1();
 		break;
 	case LMType::NotStated:
 	default:
@@ -66,12 +72,28 @@ void LocalMatrix::generateM() {
 	J::SetValues(_x, _y, _z);
 	for (size_t i(0); i < _localMatrixSize; ++i) {
 		for (size_t j(0); j < _localMatrixSize; ++j) {
-			for (size_t k(0); k < 3; ++k) {
-				_values[i][j] += Integration::Gauss5(J::GetValueAtInverse(k, i / 4) * BasisFunction::getAt(i) *
-													 J::GetValueAtInverse(k, j / 4) * BasisFunction::getAt(j) *
-													 J::GetDeterminant());
-			}
-			_values[i][j] *= _koef;
+			std::function<double(double, double, double)> f = [](double, double, double) { return 0.0; };
+			for (size_t k(0); k < 3; ++k)
+				f = f + J::GetValueAtInverse(k, i / 4) * J::GetValueAtInverse(k, j / 4);
+			_values[i][j] = _koef * Integration::Gauss3(BasisFunction::getAt(i) * BasisFunction::getAt(j) * f);
+			//_values[i][j] = _koef * Integration::Gauss3(J::GetDeterminant() * BasisFunction::getAt(i) * 
+			//																  BasisFunction::getAt(j) * f);
+		}
+	}
+}
+
+void LocalMatrix::generateM1() {
+	J::SetValues(_x, _y, _z);
+	for (size_t i(0); i < _localMatrixSize; ++i) {
+		for (size_t j(0); j < _localMatrixSize; ++j) {
+//			_values[i][j] = _koef * I::Gauss3((BasisFunction::getAt(i) * BasisFunction::getAt(j) *
+//											   (J::GetValueAtInverseNoDet(0, i / 4) * J::GetValueAtInverseNoDet(0, j / 4) +
+//											    J::GetValueAtInverseNoDet(1, i / 4) * J::GetValueAtInverseNoDet(1, j / 4) +
+//											    J::GetValueAtInverseNoDet(2, i / 4) * J::GetValueAtInverseNoDet(2, j / 4))) / J::GetDeterminant());
+			_values[i][j] = _koef * I::Gauss3((BasisFunction::getAt(i) * BasisFunction::getAt(j) *
+											   (J::GetValueAtInverseNoDet(0, i / 4) * J::GetValueAtInverseNoDet(0, j / 4) +
+											    J::GetValueAtInverseNoDet(1, i / 4) * J::GetValueAtInverseNoDet(1, j / 4) +
+											    J::GetValueAtInverseNoDet(2, i / 4) * J::GetValueAtInverseNoDet(2, j / 4))) / J::GetDeterminant());
 		}
 	}
 }

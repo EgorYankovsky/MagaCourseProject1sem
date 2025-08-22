@@ -27,6 +27,7 @@ private:
     void generate();
     void generateG();
     void generateM();
+    void generateM1();
 
 public:
     LocalMatrix() { _koef = 0.0; }
