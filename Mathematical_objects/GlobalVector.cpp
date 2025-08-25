@@ -107,7 +107,7 @@ void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> b
                     double len = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
                     return vector{ v[0] / len, v[1] / len, v[2] / len };
                     };
-                auto normal = getNormal(generatedRibs[ii]);
+                auto normal = getNormal(generatedRibs[square[ii]]);
                 
                 std::array<double, 3> middlePoint{ 0.5 * (points[generatedRibs[square[ii]].first][0] + points[generatedRibs[square[ii]].second][0]),
                                                    0.5 * (points[generatedRibs[square[ii]].first][1] + points[generatedRibs[square[ii]].second][1]), 

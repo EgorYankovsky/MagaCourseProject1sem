@@ -7,7 +7,7 @@ void GlobalMatrix::addLocalMatrixValues(const std::array<size_t, 12> localRibs, 
         for (const auto& j : localRibs) {
             int ind(0);
             double value = G(ii, jj) + M(ii, jj);
-            if (i - j == 0) _di[i] += value;
+            if (i == j) _di[i] += value;
             else if (i < j) {
                 ind = _ig[j];
                 for (; ind <= _ig[j + 1] - 1; ind++) if (_jg[ind] == i) break;
