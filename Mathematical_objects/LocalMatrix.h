@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdio>
+
 #include "Matrix.h"
 #include "JacobiMatrix.h"
 #include "..\Integration\Integration.h"
@@ -36,6 +38,7 @@ public:
         generate();
     }
     ~LocalMatrix() {}
+    
     double operator() (size_t i, size_t j) const override { return _values[i][j]; };
     double& operator() (size_t i, size_t j) override { return _values[i][j]; };
     inline LMType GetMatrixType() const { return _matrixType; }

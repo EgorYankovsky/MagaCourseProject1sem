@@ -3,81 +3,10 @@
 static auto SelectTest() -> std::string;
 
 int main() {
-    //std::array<double, 8> x{ -1.0,  1.0, -1.0,  1.0, -1.0,  1.0, -1.0, 1.0 };
-    //std::array<double, 8> y{ -1.0, -1.0,  1.0,  1.0, -1.0, -1.0,  1.0, 1.0 };
-    //std::array<double, 8> z{ -1.0, -1.0, -1.0, -1.0,  1.0,  1.0,  1.0, 1.0 };
-    
-    //std::array<double, 8> x{ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
-    //std::array<double, 8> y{ 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0 };
-    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
-    
-    //std::array<double, 8> x{ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
-    //std::array<double, 8> y{ 0.0, 0.0, 4.0, 4.0, 0.0, 0.0, 4.0, 4.0 };
-    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 4.0, 4.0 };
-    
-    std::array<double, 8> x{ 0.0, 0.5, 0.0, 0.5, 0.0, 0.5, 0.0, 0.5 };
-    std::array<double, 8> y{ 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.5, 0.5 };
-    std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 0.5 };
-    
-    //std::array<double, 8> x{ 0.0, 8.0, 0.0, 8.0, 0.0, 8.0, 0.0, 8.0 };
-    //std::array<double, 8> y{ 0.0, 0.0, 8.0, 8.0, 0.0, 0.0, 8.0, 8.0 };
-    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 8.0, 8.0, 8.0, 8.0 };
-    
-    
-    //std::array<double, 8> x{ 0.0, 2.0,  1.0, 2.5,  0.0, 1.0, -1.0, 4.0 };
-    //std::array<double, 8> y{ 0.0, 0.0,  2.0, 2.0, -1.0, 0.0,  3.0, 3.0 };
-    //std::array<double, 8> z{ 0.0, 1.0, -1.0, 0.0,  1.0, 2.0,  1.0, 3.0 };
 
-    
-    JacobiMatrix::SetValues(x, y, z);
-    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(0.0, 0.0, 0.0) << std::endl;
-    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(0.5, 0.5, 0.5) << std::endl;
-    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(1.0, 1.0, 1.0) << std::endl;
-    std::cout << "S |J| de dn dc = " << Integration::Gauss3(JacobiMatrix::GetDeterminant()) << std::endl;
+    //TestLocalMatrixAndVector();
+    //TestNewVector();
     //return 0;
-    std::cout << std::endl << "J => " << std::endl;
-    for (size_t i(0); i < 3; ++i) {
-        for (size_t j(0); j < 3; ++j) {
-            std::cout << JacobiMatrix::GetValueAt(i, j)(0.0, 0.0, 0.0) << " ";
-        }
-        std::cout << std::endl;
-    }
-
-    std::cout << std::endl << "J^(-1) => " << std::endl;
-    for (size_t i(0); i < 3; ++i) {
-        for (size_t j(0); j < 3; ++j) {
-            std::cout << JacobiMatrix::GetValueAtInverse(i, j)(0.0, 0.0, 0.0) << " ";
-        }
-        std::cout << std::endl;
-    }
-    
-    //return 0;
-    
-
-    LocalMatrix LM(1.0, x, y, z, LMType::Mass);
-
-    std::cout << std::endl << "G => " << std::endl;
-    for (size_t i(0); i < 12; ++i) {
-        for (size_t j(0); j < 12; ++j) {
-            std::cout << std::scientific << std::setprecision(6) << LM(i, j) << " ";
-            if (j % 4 == 3) std::cout << "\t";
-        }
-        std::cout << std::endl;
-        if (i % 4 == 3) std::cout << std::endl;
-    }
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
-
-    //CheckStiffness(x, y, z, LM);
-    
-    LocalVector lv(x, y, z);
-    for (int i = 0; i < 12; ++i) {
-        if (i % 4 == 0) std::cout << std::endl;
-        std::cout << std::scientific << std::setprecision(6) << lv(i) << std::endl;
-    }
-
-    return 0;
     
     auto inputPath = SelectTest();
     Mesh myMesh;
@@ -89,7 +18,7 @@ int main() {
     MeshGenerator::Generate3DMesh(myMesh);
     MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
 
-    Drawer::DrawMesh(PictureOutput::SaveAsFile);
+    Drawer::DrawMesh(PictureOutput::ShowOnDesktop);
     //return 0;
     FEM myFEM3D;
     
@@ -198,4 +127,107 @@ void CheckStiffness(const std::array<double, 8>& x,
             }
         }
     }
+}
+
+void TestLocalMatrixAndVector() {
+    std::array<double, 8> x{ -1.0,  1.0, -1.0,  1.0, -1.0,  1.0, -1.0, 1.0 };
+    std::array<double, 8> y{ -1.0, -1.0,  1.0,  1.0, -1.0, -1.0,  1.0, 1.0 };
+    std::array<double, 8> z{ -1.0, -1.0, -1.0, -1.0,  1.0,  1.0,  1.0, 1.0 };
+
+    //std::array<double, 8> x{ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
+    //std::array<double, 8> y{ 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
+
+    //std::array<double, 8> x{ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
+    //std::array<double, 8> y{ 0.0, 0.0, 4.0, 4.0, 0.0, 0.0, 4.0, 4.0 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 4.0, 4.0 };
+
+    //std::array<double, 8> x{ 0.0, 0.5, 0.0, 0.5, 0.0, 0.5, 0.0, 0.5 };
+    //std::array<double, 8> y{ 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.5, 0.5 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 0.5 };
+
+    //std::array<double, 8> x{ 0.0, 8.0, 0.0, 8.0, 0.0, 8.0, 0.0, 8.0 };
+    //std::array<double, 8> y{ 0.0, 0.0, 8.0, 8.0, 0.0, 0.0, 8.0, 8.0 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 8.0, 8.0, 8.0, 8.0 };
+
+
+    //std::array<double, 8> x{ 0.0, 2.0,  1.0, 2.5,  0.0, 1.0, -1.0, 4.0 };
+    //std::array<double, 8> y{ 0.0, 0.0,  2.0, 2.0, -1.0, 0.0,  3.0, 3.0 };
+    //std::array<double, 8> z{ 0.0, 1.0, -1.0, 0.0,  1.0, 2.0,  1.0, 3.0 };
+
+
+    JacobiMatrix::SetValues(x, y, z);
+    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(0.0, 0.0, 0.0) << std::endl;
+    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(0.5, 0.5, 0.5) << std::endl;
+    std::cout << "|J| = " << JacobiMatrix::GetDeterminant()(1.0, 1.0, 1.0) << std::endl;
+    std::cout << "S |J| de dn dc = " << Integration::Gauss3(JacobiMatrix::GetDeterminant()) << std::endl;
+    //return 0;
+    std::cout << std::endl << "J => " << std::endl;
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j) {
+            std::cout << JacobiMatrix::GetValueAt(i, j)(0.0, 0.0, 0.0) << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl << "J^(-1) => " << std::endl;
+    for (size_t i(0); i < 3; ++i) {
+        for (size_t j(0); j < 3; ++j) {
+            std::cout << JacobiMatrix::GetValueAtInverse(i, j)(0.0, 0.0, 0.0) << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    //return 0;
+
+
+    LocalMatrix LM(1.0, x, y, z, LMType::Stiffness);
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    CheckStiffness(x, y, z, LM);
+
+    //LocalVector lv(x, y, z);
+    //for (int i = 0; i < 12; ++i) {
+    //    if (i % 4 == 0) std::cout << std::endl;
+    //    std::cout << std::scientific << std::setprecision(6) << lv(i) << std::endl;
+    //}
+}
+
+void TestNewVector() {
+    //std::array<double, 8> x{ -1.0,  1.0, -1.0,  1.0, -1.0,  1.0, -1.0, 1.0 };
+    //std::array<double, 8> y{ -1.0, -1.0,  1.0,  1.0, -1.0, -1.0,  1.0, 1.0 };
+    //std::array<double, 8> z{ -1.0, -1.0, -1.0, -1.0,  1.0,  1.0,  1.0, 1.0 };
+
+    std::array<double, 8> x{ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
+    std::array<double, 8> y{ 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0 };
+    std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
+
+    //std::array<double, 8> x{ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
+    //std::array<double, 8> y{ 0.0, 0.0, 4.0, 4.0, 0.0, 0.0, 4.0, 4.0 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 4.0, 4.0 };
+
+    //std::array<double, 8> x{ 0.0, 0.5, 0.0, 0.5, 0.0, 0.5, 0.0, 0.5 };
+    //std::array<double, 8> y{ 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.5, 0.5 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 0.5 };
+
+    //std::array<double, 8> x{ 0.0, 8.0, 0.0, 8.0, 0.0, 8.0, 0.0, 8.0 };
+    //std::array<double, 8> y{ 0.0, 0.0, 8.0, 8.0, 0.0, 0.0, 8.0, 8.0 };
+    //std::array<double, 8> z{ 0.0, 0.0, 0.0, 0.0, 8.0, 8.0, 8.0, 8.0 };
+
+
+    //std::array<double, 8> x{ 0.0, 2.0,  1.0, 2.5,  0.0, 1.0, -1.0, 4.0 };
+    //std::array<double, 8> y{ 0.0, 0.0,  2.0, 2.0, -1.0, 0.0,  3.0, 3.0 };
+    //std::array<double, 8> z{ 0.0, 1.0, -1.0, 0.0,  1.0, 2.0,  1.0, 3.0 };
+
+
+    LocalVector lv1(x, y, z);
+    //lv1.generateNew();
+    for (int i = 0; i < 12; ++i) {
+        if (i % 4 == 0) std::cout << std::endl;
+        std::cout << std::scientific << std::setprecision(6) << lv1(i) << std::endl;
+    }
+
 }

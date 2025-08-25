@@ -55,6 +55,8 @@ public:
     double& operator() (size_t i, size_t j) override;        // setter.
 
     GlobalMatrix();
+    GlobalMatrix(std::vector<double> al, std::vector<double> au, std::vector<double> di,
+        std::vector<size_t> ig, std::vector<size_t> jg) : _al(al), _au(au), _di(di), _ig(ig), _jg(jg) {};
     ~GlobalMatrix();
 
     friend GlobalVector operator*(const GlobalMatrix A, const GlobalVector b);

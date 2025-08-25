@@ -62,7 +62,7 @@ void LocalMatrix::generateG() {
 			//	}
 			//}
 
-			for (size_t k(0); k < 3; ++k) _values[i][j] += Integration::Gauss5((v1[k] * v2[k]) / J::GetDeterminant());
+			for (size_t k(0); k < 3; ++k) _values[i][j] += Integration::Gauss3((v1[k] * v2[k]) / J::GetDeterminant());
 			_values[i][j] /= _koef;
 		}
 	}

@@ -22,6 +22,7 @@ public:
 
     GlobalVector();
     GlobalVector(size_t size);
+    GlobalVector(std::vector<double> v) : _values(v) {}
     ~GlobalVector() {}
 
     void Fill(std::vector<std::array<size_t, 13>> areas, std::vector<std::array<double, 3>> points,

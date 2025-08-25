@@ -1,5 +1,8 @@
 #pragma once
 
+#include <omp.h>
+#include <cstdio>
+
 #include "Vector.h"
 #include "LocalMatrix.h"
 #include "..\Functions\Function.h"
@@ -13,6 +16,7 @@ public:
     }
     ~LocalVector() {};
 
+    void generateNew();
     double operator() (size_t i) const override { return _values[i]; }
     double& operator() (size_t i) override { return _values[i]; }
     size_t getSize() const override { return 12; }

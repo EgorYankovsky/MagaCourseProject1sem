@@ -30,6 +30,10 @@ void CheckStiffness(const std::array<double, 8>& x,
                     const std::array<double, 8>& z,
                     const LocalMatrix& m);
 
+void TestLocalMatrixAndVector();
+
+void TestNewVector();
+
 //const std::string defaultOutputPointsPath = "Data\\Generated\\generatedPoints.txt";
 //const std::string defaultOutputRibsPath = "Data\\Generated\\generatedRibs.txt";
 //const std::string defaultOutputAreasPath = "Data\\Generated\\generatedAreas.txt";
