@@ -86,6 +86,27 @@ public:
         }
     }
 
+    static std::array < std::function<double(double, double, double)>, 3> get_at(size_t i) {
+        switch (i)
+        {
+        case 0: return std::array<std::function<double(double, double, double)>, 3> {_phi_0, [](double, double, double) { return 0.0; }, [](double, double, double) { return 0.0; } };
+        case 1: return std::array<std::function<double(double, double, double)>, 3> {_phi_1, [](double, double, double) { return 0.0; }, [](double, double, double) { return 0.0; } };
+        case 2: return std::array<std::function<double(double, double, double)>, 3> {_phi_2, [](double, double, double) { return 0.0; }, [](double, double, double) { return 0.0; } };
+        case 3: return std::array<std::function<double(double, double, double)>, 3> {_phi_3, [](double, double, double) { return 0.0; }, [](double, double, double) { return 0.0; } };
+
+        case 4: return std::array<std::function<double(double, double, double)>, 3> {[](double, double, double) { return 0.0; }, _phi_4, [](double, double, double) { return 0.0; } };
+        case 5: return std::array<std::function<double(double, double, double)>, 3> {[](double, double, double) { return 0.0; }, _phi_5, [](double, double, double) { return 0.0; } };
+        case 6: return std::array<std::function<double(double, double, double)>, 3> {[](double, double, double) { return 0.0; }, _phi_6, [](double, double, double) { return 0.0; } };
+        case 7: return std::array<std::function<double(double, double, double)>, 3> {[](double, double, double) { return 0.0; }, _phi_7, [](double, double, double) { return 0.0; } };
+
+        case 8: return std::array<std::function<double(double, double, double)>, 3> {[](double, double, double) { return 0.0; }, [](double, double, double) { return 0.0; }, _phi_8 };
+        case 9: return std::array<std::function<double(double, double, double)>, 3> {[](double, double, double) { return 0.0; }, [](double, double, double) { return 0.0; }, _phi_9 };
+        case 10: return std::array<std::function<double(double, double, double)>, 3> {[](double, double, double) { return 0.0; }, [](double, double, double) { return 0.0; }, _phi_10 };
+        case 11: return std::array<std::function<double(double, double, double)>, 3> {[](double, double, double) { return 0.0; }, [](double, double, double) { return 0.0; }, _phi_11 };
+        default: throw std::exception("Out of index value");
+        }
+    }
+
     static std::function<double(double, double, double)> getAt (size_t i) {
         switch (i)
         {

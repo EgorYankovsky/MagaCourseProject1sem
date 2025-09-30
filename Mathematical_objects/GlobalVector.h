@@ -1,11 +1,14 @@
 #pragma once
 
-#include "..\Logger\Logger.h"
-#include "Vector.h"
-#include "LocalVector.h"
-
 #include <vector>
 #include <array>
+#include <algorithm>
+#include <set>
+
+#include "..\Logger\Logger.h"
+#include "..\Functions\CoordinatesConverter.h"
+#include "Vector.h"
+#include "LocalVector.h"
 
 class GlobalVector : public Vector
 {
@@ -28,6 +31,9 @@ public:
     void Fill(std::vector<std::array<size_t, 13>> areas, std::vector<std::array<double, 3>> points,
         std::vector<std::pair<size_t, size_t>> generatedRibs);
     void CommitBoundaryConditions(std::vector<std::array<size_t, 6>> borderRibs, std::vector<std::array<double, 3>> points, std::vector<std::pair<size_t, size_t>> generatedRibs);
+
+    void CommitBoundaryConditions(const std::vector<std::array<size_t, 13>>& areas, const std::vector<std::array<double, 3>>& points,
+                                  const std::vector<std::pair<size_t, size_t>>& generated_ribs);
 
     double Norma() const;
 

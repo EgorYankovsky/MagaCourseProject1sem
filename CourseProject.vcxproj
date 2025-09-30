@@ -128,20 +128,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="Data\Input\input.txt" />
-    <Text Include="Data\Input\input1.txt" />
-    <Text Include="Data\Input\input2.txt" />
-    <Text Include="Data\Input\input3.txt" />
-    <Text Include="Data\Input\input4.txt" />
-    <Text Include="Data\Input\input5.txt" />
-    <Text Include="Data\Input\testInput.txt" />
-    <Text Include="Data\Input\test_straight.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="CourseProject.cpp" />
     <ClCompile Include="Drawer\Drawer.cpp" />
     <ClCompile Include="FEM\FEM.cpp" />
     <ClCompile Include="Functions\BasisFunction.cpp" />
+    <ClCompile Include="Functions\CoordinatesConverter.cpp" />
     <ClCompile Include="Functions\Function.cpp" />
     <ClCompile Include="Integration\Integration.cpp" />
     <ClCompile Include="Logger\Logger.cpp" />
@@ -164,6 +155,7 @@
     <ClInclude Include="Drawer\Drawer.h" />
     <ClInclude Include="FEM\FEM.h" />
     <ClInclude Include="Functions\BasisFunction.h" />
+    <ClInclude Include="Functions\CoordinatesConverter.h" />
     <ClInclude Include="Functions\Function.h" />
     <ClInclude Include="Integration\Integration.h" />
     <ClInclude Include="Logger\Logger.h" />

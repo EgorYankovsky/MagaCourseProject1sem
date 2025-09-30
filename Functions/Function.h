@@ -11,17 +11,22 @@ public:
     Function() = delete;
 
     // F = (2.0, 2.0, 2.0).
-    static vector TestF0(double t0, double t1, double t2, double time) { return vector{ 2.0, 0.0, 0.0 }; }
+    static vector TestF0(double t0, double t1, double t2, double time) {
+        return vector{ 2.0,
+                       2.0,
+                       2.0 };
+    }
 
     // F = (y, z, x).
     static vector TestF1(double t0, double t1, double t2, double time) { return vector{ t1, t2, t0 }; }
 
-    static vectorf TestFf(std::array<double, 8> x, 
-                          std::array<double, 8> y, 
-                          std::array<double, 8> z) 
-                          { return vectorf{ Y(y), 
-                                            Z(z), 
-                                            X(x)}; }
+    static vectorf TestFf(std::array<double, 8> x,
+        std::array<double, 8> y,
+        std::array<double, 8> z) {
+        return vectorf{ Y(y),
+                        Z(z),
+                        X(x) };
+    }
 
     static std::function<double(double, double, double)> Constant(double value) {
         std::function<double(double, double, double)> f = [value](double eps, double eta, double zeta) { return value; };
@@ -67,8 +72,6 @@ public:
         return f;
     }
 
-
     // A = (y, z, x).
-    static vector TestA(double t0, double t1, double t2, double time) { return vector{ 2.0, 0.0, 0.0 }; }
+    static vector TestA(double t0, double t1, double t2, double time) { return vector{ 2.0, 2.0, 2.0 }; }
 };
-

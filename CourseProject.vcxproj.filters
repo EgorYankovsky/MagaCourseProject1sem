@@ -63,32 +63,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Data\Input\input.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Input\input1.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Input\input2.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Input\input3.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Input\input4.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Input\input5.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Input\testInput.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Data\Input\test_straight.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="CourseProject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -151,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="Solvers\Solver.cpp">
       <Filter>Исходные файлы\Solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions\CoordinatesConverter.cpp">
+      <Filter>Исходные файлы\Functions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Solvers\MainSolverHeader.h">
       <Filter>Файлы заголовков\Solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\CoordinatesConverter.h">
+      <Filter>Файлы заголовков\Functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

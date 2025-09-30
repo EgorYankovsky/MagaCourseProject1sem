@@ -59,6 +59,7 @@ public:
     void SetSolver(Solver* s);
     void Solve();
 
+    void ConsoleTestOutput();
     void WriteAnswer();
 
     EquationType Type = EquationType::NotStated;

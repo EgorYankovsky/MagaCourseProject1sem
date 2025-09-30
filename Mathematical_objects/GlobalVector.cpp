@@ -70,8 +70,10 @@ void GlobalVector::Fill(std::vector<std::array<size_t, 13>> areas, std::vector<s
     }
 }
 
-void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> borderRibs, std::vector<std::array<double, 3>> points, std::vector<std::pair<size_t, size_t>> generatedRibs) {
-    for (const auto& square : borderRibs) {
+void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> border_ribs, 
+                                            std::vector<std::array<double, 3>> points, 
+                                            std::vector<std::pair<size_t, size_t>> generated_ribs) {
+    for (const auto& square : border_ribs) {
         //size_t r0 = square[2];
         //size_t r1 = square[3];
         //std::array<double, 3> _x = { points[generatedRibs[r0].first][0], points[generatedRibs[r0].second][0], points[generatedRibs[r1].second][0] };
@@ -96,7 +98,7 @@ void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> b
         case 1:
             for (size_t ii(2); ii < 6; ++ii) {
                 
-                auto getNormal = [points](std::pair<size_t, size_t> vector_points) -> vector {
+                auto get_normal = [points](std::pair<size_t, size_t> vector_points) -> vector {
                     double x0 = points[vector_points.first][0];
                     double y0 = points[vector_points.first][1];
                     double z0 = points[vector_points.first][2];
@@ -106,19 +108,124 @@ void GlobalVector::CommitBoundaryConditions(std::vector<std::array<size_t, 6>> b
                     auto v = vector{ x1 - x0, y1 - y0, z1 - z0 };
                     double len = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
                     return vector{ v[0] / len, v[1] / len, v[2] / len };
-                    };
-                auto normal = getNormal(generatedRibs[square[ii]]);
+                };
+
+                auto normal = get_normal(generated_ribs[square[ii]]);
                 
-                std::array<double, 3> middlePoint{ 0.5 * (points[generatedRibs[square[ii]].first][0] + points[generatedRibs[square[ii]].second][0]),
-                                                   0.5 * (points[generatedRibs[square[ii]].first][1] + points[generatedRibs[square[ii]].second][1]), 
-                                                   0.5 * (points[generatedRibs[square[ii]].first][2] + points[generatedRibs[square[ii]].second][2]), };
-                auto fVector = Function::TestA(middlePoint[0], middlePoint[1], middlePoint[2], 0.0);
+                std::array<double, 3> middle_point{ 0.5 * (points[generated_ribs[square[ii]].first][0] + points[generated_ribs[square[ii]].second][0]),
+                                                    0.5 * (points[generated_ribs[square[ii]].first][1] + points[generated_ribs[square[ii]].second][1]), 
+                                                    0.5 * (points[generated_ribs[square[ii]].first][2] + points[generated_ribs[square[ii]].second][2]), };
+
+                auto fVector = Function::TestA(middle_point[0], middle_point[1], middle_point[2], 0.0);
                 auto fValue = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
+                
+                
+                
+                
                 _values[square[ii]] = fValue;
             }
             break;
         default:
             break;
+        }
+    }
+}
+
+void GlobalVector::CommitBoundaryConditions(const std::vector<std::array<size_t, 13>>& areas,
+    const std::vector<std::array<double, 3>>& points,
+    const std::vector<std::pair<size_t, size_t>>& generated_ribs) {
+    // nx, ny, nz - amount of points along axes.
+    
+    std::set<size_t> committed_ribs{};
+
+    int nx = areas[0][2] + 1;
+    int ny = (areas[0][5] + nx) / (2 * nx - 1);
+    int nz = (areas[areas.size() - 1][12] + 1 + nx * ny) / (3 * nx * ny - nx - ny);
+
+
+    auto get_normal = [points](const std::pair<size_t, size_t>& vector_points) -> vector {
+        double x0 = points[vector_points.first][0]; double y0 = points[vector_points.first][1];
+        double z0 = points[vector_points.first][2]; double x1 = points[vector_points.second][0];
+        double y1 = points[vector_points.second][1]; double z1 = points[vector_points.second][2];
+        auto v = vector{ x1 - x0, y1 - y0, z1 - z0 };
+        double len = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+        return vector{ v[0] / len, v[1] / len, v[2] / len }; };
+
+    
+    auto mv_multiplication = [](const matrix & m, const vector & v) -> vector {
+        return vector{ m[0][0] * v[0] + m[0][1] * v[1] + m[0][2] * v[2],
+                       m[1][0] * v[0] + m[1][1] * v[1] + m[1][2] * v[2],
+                       m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2] };
+    };
+
+    auto switcher = [](ptrdiff_t& num) {
+        if (num == 0) num = num;
+        else if (num == 1) num = 4;
+        else if (num == 2) num = 5;
+        else if (num == 3) num = 1;
+        else if (num == 4) num = 8;
+        else if (num == 5) num = 9;
+        else if (num == 6) num = 10;
+        else if (num == 7) num = 11;
+        else if (num == 8) num = 2;
+        else if (num == 9) num = 6;
+        else if (num == 10) num = 7;
+        else if (num == 11) num = 3;
+        else throw std::exception("Conversation error.");
+        };
+
+    // oXY0
+    for (int i(0); i < ny - 1; ++i) {
+        for (int j(0); j < nx - 1; ++j) {
+            decltype(auto) selected_area = areas[i * (nx - 1) + j]; // Dirty moment. Int and size_t multiplication.
+
+            std::array<double, 8> x_array{ points[generated_ribs[selected_area[5]].first][0], points[generated_ribs[selected_area[6]].first][0],
+                                           points[generated_ribs[selected_area[7]].first][0], points[generated_ribs[selected_area[8]].first][0],
+                                           points[generated_ribs[selected_area[5]].second][0], points[generated_ribs[selected_area[6]].second][0],
+                                           points[generated_ribs[selected_area[7]].second][0], points[generated_ribs[selected_area[8]].second][0], };
+
+            std::array<double, 8> y_array{ points[generated_ribs[selected_area[5]].first][1], points[generated_ribs[selected_area[6]].first][1],
+                                           points[generated_ribs[selected_area[7]].first][1], points[generated_ribs[selected_area[8]].first][1],
+                                           points[generated_ribs[selected_area[5]].second][1], points[generated_ribs[selected_area[6]].second][1],
+                                           points[generated_ribs[selected_area[7]].second][1], points[generated_ribs[selected_area[8]].second][1], };
+
+            std::array<double, 8> z_array{ points[generated_ribs[selected_area[5]].first][2], points[generated_ribs[selected_area[6]].first][2],
+                                           points[generated_ribs[selected_area[7]].first][2], points[generated_ribs[selected_area[8]].first][2],
+                                           points[generated_ribs[selected_area[5]].second][2], points[generated_ribs[selected_area[6]].second][2],
+                                           points[generated_ribs[selected_area[7]].second][2], points[generated_ribs[selected_area[8]].second][2], };
+
+            std::array<size_t, 4> boundary_flat{ selected_area[1], selected_area[2], selected_area[3], selected_area[4] };
+            for (const auto& rib : boundary_flat) {
+                if (committed_ribs.find(rib) != committed_ribs.end()) continue;
+                committed_ribs.insert(rib);
+                auto normal = get_normal(generated_ribs[rib]);
+                std::array<double, 3> middle_point{ 0.5 * (points[generated_ribs[rib].first][0] + points[generated_ribs[rib].second][0]),
+                                                    0.5 * (points[generated_ribs[rib].first][1] + points[generated_ribs[rib].second][1]), 
+                                                    0.5 * (points[generated_ribs[rib].first][2] + points[generated_ribs[rib].second][2]), };
+                
+                decltype(auto) fVector = Function::TestA(middle_point[0], middle_point[1], middle_point[2], 0.0);
+                decltype(auto) numerator = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
+
+                decltype(auto) local_coordinates = coordinates_converter::convert_from_xyz(middle_point[0], middle_point[1], middle_point[2], 
+                                                                                           x_array, y_array, z_array); // Account basis function psi at the current rib's middle point.
+                
+                decltype(auto) inverse_Jacobian = coordinates_converter::Jacobian::find_inverse(local_coordinates[0], local_coordinates[1], local_coordinates[2],
+                                                                                                x_array, y_array, z_array);
+
+                decltype(auto) current_local_rib_index = std::find(boundary_flat.begin(), boundary_flat.end(), rib) - boundary_flat.begin();
+                
+                switcher(current_local_rib_index);
+                
+                decltype(auto) phi = vector{ BasisFunction::get_at(current_local_rib_index)[0](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[1](local_coordinates[0], local_coordinates[1], local_coordinates[2]), 
+                                             BasisFunction::get_at(current_local_rib_index)[2](local_coordinates[0], local_coordinates[1], local_coordinates[2])};
+                
+                decltype(auto) psiVector = mv_multiplication(inverse_Jacobian, phi);
+
+                decltype(auto) denominator = psiVector[0] * normal[0] + psiVector[1] * normal[1] + psiVector[2] * normal[2];
+
+                _values[rib] = numerator / denominator;
+            }
         }
     }
 }

@@ -16,6 +16,9 @@ std::function<double(double, double, double)> BasisFunction::_phi_9 = [](double 
 std::function<double(double, double, double)> BasisFunction::_phi_10 = [](double t0, double t1, double t2) {return W_(t0) * W (t1); };
 std::function<double(double, double, double)> BasisFunction::_phi_11 = [](double t0, double t1, double t2) {return W (t0) * W (t1); };
 
+
+
+
 std::array<double, 3> BasisFunction::getVectorF(double t0, double t1, double t2, double time, std::array<double, 12> weights) {
     const std::array<size_t, 12> switchV{
                                  0, 3, 8, 11,

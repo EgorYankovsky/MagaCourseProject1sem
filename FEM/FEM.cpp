@@ -9,7 +9,8 @@ void FEM::SolveElliptical() {
     A->Fill(_areas, _points, _generatedRibs, _areasInfo); // To slow.
     b->Fill(_areas, _points, _generatedRibs);             // To slow.
     A->CommitBoundaryConditions(_newBorderRibs);
-    b->CommitBoundaryConditions(_newBorderRibs, _points, _generatedRibs);
+    b->CommitBoundaryConditions(_areas, _points, _generatedRibs);
+    //b->CommitBoundaryConditions(_newBorderRibs, _points, _generatedRibs);
 }
 
 void FEM::SolveParabolical() {
@@ -88,6 +89,16 @@ vector FEM::GetSolutionAtPoint(double x, double y, double z)
     Logger::ConsoleOutput("Can't get solution at point.", NotificationColor::Alert);
     exit(-1);
     return vector();
+}
+
+void FEM::ConsoleTestOutput() {
+    for (const auto& area : _areas) {
+        double center_x(0.0), center_y(0.0), center_z(0.0);
+        // Account geometrical center of current area.
+        // Find x, y, z.
+        auto value = GetSolutionAtPoint(center_x, center_y, center_z);
+        std::cout << value[0] << " " << value[1] << " " << value[2] << std::endl;
+    }
 }
 
 void FEM::SetSolver(Solver* s) {

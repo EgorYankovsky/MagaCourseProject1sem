@@ -16,6 +16,7 @@ private:
     static void GenerateListOfAreas(Mesh& mesh);
     static void GenerateListOfRibs(Mesh& mesh);
     static void GenerateListOfBorders(Mesh& mesh);
+    static void CheckMesh(Mesh& mesh);
 public:
     MeshGenerator() = delete;
     static void Generate3DMesh(Mesh& mesh);

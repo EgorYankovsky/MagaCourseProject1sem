@@ -2,6 +2,21 @@
 
 static auto SelectTest() -> std::string;
 
+/* Mesh checking
+def check_correctness(_x, _y, _z, _indexes):
+    a = _x[_indexes[1]] - _x[_indexes[0]]
+    b = _y[_indexes[1]] - _y[_indexes[0]]
+    c = _z[_indexes[1]] - _z[_indexes[0]]
+
+    d = _x[_indexes[2]] - _x[_indexes[0]]
+    e = _y[_indexes[2]] - _y[_indexes[0]]
+    f = _z[_indexes[2]] - _z[_indexes[0]]
+
+    def fun(x, y, z):
+        return (b * f - c * e) * (x - _x[_indexes[0]]) - (a * f - c * d) * (y - _y[_indexes[0]]) + (a * e - b * d) * (z - _z[_indexes[0]])
+    return fun(_x[_indexes[3]], _y[_indexes[3]], _z[_indexes[3]]) == 0
+*/
+
 int main() {
 
     //TestLocalMatrixAndVector();
@@ -10,11 +25,13 @@ int main() {
     
     auto inputPath = SelectTest();
     Mesh myMesh;
+
     MeshFileStreamer::Read(myMesh, inputPath);
     if (!myMesh.CheckData()) {
         Logger::ConsoleOutput("Error during data checking.", NotificationColor::Alert);
         return -1;
     }
+    
     MeshGenerator::Generate3DMesh(myMesh);
     MeshFileStreamer::Write(&myMesh, FileExtension::Txt);
 
@@ -28,32 +45,23 @@ int main() {
     myFEM3D.SetSolver(new LOS());
     myFEM3D.Solve();
     myFEM3D.WriteAnswer();
+    myFEM3D.ConsoleTestOutput();
     return 0;
 }
 
 static auto SelectTest() -> std::string {
     std::cout << "Select test num:" << std::endl;
     std::cout << "(0) Standard cubic mesh." << std::endl;
-    std::cout << "(1) Emerald mesh." << std::endl;
-    std::cout << "(2) Beveled pyramid mesh." << std::endl;
-    std::cout << "(3) Hourglass-shaped mesh." << std::endl;
-    std::cout << "(4) Bath mesh." << std::endl;
-    std::cout << "(5) Detailed emerald mesh." << std::endl;
-    std::cout << "(6) Random figure mesh." << std::endl;
-    std::cout << "(7) Summer test mesh." << std::endl;
+    std::cout << "(1) New mesh." << std::endl;
+    std::cout << "(2) Based mesh." << std::endl;
     std::cout << "-> ";
     size_t input(0);
     std::cin >> input;
     switch (input)
     {
-    case 0: return standartInputPath;
-    case 1: return inputPath1;
-    case 2: return inputPath2;
-    case 3: return inputPath3;
-    case 4: return inputPath4;
-    case 5: return inputPath5;
-    case 6: return testInputPath;
-    case 7: return summerTestInputPath;
+    case 0: return standardCubicMesh;
+    case 1: return newMesh;
+    case 2: return basedMesh;
     default:
         system("cls");
         return SelectTest();

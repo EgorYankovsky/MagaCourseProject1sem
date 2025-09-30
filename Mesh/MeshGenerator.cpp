@@ -45,6 +45,7 @@ void MeshGenerator::Generate3DMesh(Mesh& mesh) {
     GenerateListOfRibs(mesh);
     GenerateListOfAreas(mesh);
     GenerateListOfBorders(mesh);
+    CheckMesh(mesh);
 }
 
 int MeshGenerator::SelectAreaNum(Mesh& mesh, std::array<size_t, 12> arr) {
@@ -357,6 +358,16 @@ void MeshGenerator::GenerateListOfBorders(Mesh& mesh) {
     auto nxny = nx * ny;
     auto rxy = (nx - 1) * ny + (ny - 1) * nx;
 
+    /*
+    * Border structure:
+    * {
+    *   int border_type;
+    *   int formula_number;
+    * 
+    *   int rib1;
+    *
+    * }
+    */
 
     // XY0
     for (size_t i = 0; i < ny - 1; i++)
@@ -429,4 +440,8 @@ void MeshGenerator::GenerateListOfBorders(Mesh& mesh) {
         index++;
     }
     */
+}
+
+void MeshGenerator::CheckMesh(Mesh& mesh) {
+
 }

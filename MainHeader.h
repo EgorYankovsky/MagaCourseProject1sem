@@ -11,14 +11,18 @@
 #include "Solvers/MainSolverHeader.h"
 #include "Drawer/Drawer.h"
 
-const std::string standartInputPath = "Data\\Input\\input.txt";
-const std::string testInputPath = "Data\\Input\\testInput.txt";
-const std::string summerTestInputPath = "Data\\Input\\test_straight.txt";
-const std::string inputPath1 = "Data\\Input\\input1.txt";
-const std::string inputPath2 = "Data\\Input\\input2.txt";
-const std::string inputPath3 = "Data\\Input\\input3.txt";
-const std::string inputPath4 = "Data\\Input\\input4.txt";
-const std::string inputPath5 = "Data\\Input\\input5.txt";
+#pragma region badMeshes
+const std::string emeraldMesh = "Data\\Input\\emeraldMesh.txt";
+const std::string skewedPyramidMesh = "Data\\Input\\skewedPyramidMesh.txt";
+const std::string bathMesh = "Data\\Input\\bathMesh.txt";
+const std::string detailedEmeraldMesh = "Data\\Input\\detailedEmeraldMesh.txt";
+const std::string randomFigureMesh = "Data\\Input\\randomFigureMesh.txt";
+const std::string summerTestInputPath = "Data\\Input\\summerTestInputPath.txt";
+#pragma endregion
+
+const std::string standardCubicMesh = "Data\\Input\\standardCubicMesh.txt";
+const std::string newMesh = "Data\\Input\\newMesh.txt";
+const std::string basedMesh = "Data\\Input\\basedMesh.txt";
 
 void CheckMass(const std::array<double, 8>& x, 
                const std::array<double, 8>& y, 
