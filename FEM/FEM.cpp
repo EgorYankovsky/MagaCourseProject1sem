@@ -92,12 +92,72 @@ vector FEM::GetSolutionAtPoint(double x, double y, double z)
 }
 
 void FEM::ConsoleTestOutput() {
+
+    auto switcher = [](int& num) {
+        if (num == 0) num = num;
+        else if (num == 1) num = 4;
+        else if (num == 2) num = 5;
+        else if (num == 3) num = 1;
+        else if (num == 4) num = 8;
+        else if (num == 5) num = 9;
+        else if (num == 6) num = 10;
+        else if (num == 7) num = 11;
+        else if (num == 8) num = 2;
+        else if (num == 9) num = 6;
+        else if (num == 10) num = 7;
+        else if (num == 11) num = 3;
+        else throw std::exception("Conversation error.");
+        };
+
+    auto mv_multiplication = [](const matrix& m, const vector& v) -> vector {
+        return vector{ m[0][0] * v[0] + m[0][1] * v[1] + m[0][2] * v[2],
+                       m[1][0] * v[0] + m[1][1] * v[1] + m[1][2] * v[2],
+                       m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2] };
+        };
+
     for (const auto& area : _areas) {
         double center_x(0.0), center_y(0.0), center_z(0.0);
+
+        
+        std::array<double, 8> x_array{ _points[_generatedRibs[area[5]].first][0], _points[_generatedRibs[area[6]].first][0],
+                                       _points[_generatedRibs[area[7]].first][0], _points[_generatedRibs[area[8]].first][0],
+                                       _points[_generatedRibs[area[5]].second][0], _points[_generatedRibs[area[6]].second][0],
+                                       _points[_generatedRibs[area[7]].second][0], _points[_generatedRibs[area[8]].second][0], };
+
+        std::array<double, 8> y_array{ _points[_generatedRibs[area[5]].first][1], _points[_generatedRibs[area[6]].first][1],
+                                       _points[_generatedRibs[area[7]].first][1], _points[_generatedRibs[area[8]].first][1],
+                                       _points[_generatedRibs[area[5]].second][1], _points[_generatedRibs[area[6]].second][1],
+                                       _points[_generatedRibs[area[7]].second][1], _points[_generatedRibs[area[8]].second][1], };
+
+        std::array<double, 8> z_array{ _points[_generatedRibs[area[5]].first][2], _points[_generatedRibs[area[6]].first][2],
+                                       _points[_generatedRibs[area[7]].first][2], _points[_generatedRibs[area[8]].first][2],
+                                       _points[_generatedRibs[area[5]].second][2], _points[_generatedRibs[area[6]].second][2],
+                                       _points[_generatedRibs[area[7]].second][2], _points[_generatedRibs[area[8]].second][2], };
+
+        for (const auto& val : x_array) center_x += val; center_x /= 8.0;
+        for (const auto& val : y_array) center_y += val; center_y /= 8.0;
+        for (const auto& val : z_array) center_z += val; center_z /= 8.0;
+
+        decltype(auto) local_coordinates = coordinates_converter::convert_from_xyz(center_x, center_y, center_z,
+                                                                                   x_array, y_array, z_array);
+        decltype(auto) inverse_Jacobian = coordinates_converter::Jacobian::find_inverse(local_coordinates[0], local_coordinates[1], local_coordinates[2],
+            x_array, y_array, z_array);
+
+        vector ans{ 0.0, 0.0, 0.0 };
+        for (int i = 0; i < 12; ++i) {
+            int index = i; switcher(index);
+            decltype(auto) phi = vector{ BasisFunction::get_at(i)[0](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                         BasisFunction::get_at(i)[1](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                         BasisFunction::get_at(i)[2](local_coordinates[0], local_coordinates[1], local_coordinates[2]) };
+            decltype(auto) psiVector = mv_multiplication(inverse_Jacobian, phi);
+            decltype(auto) q_i = x(area[index + 1]);
+            ans[0] += q_i * psiVector[0]; ans[1] += q_i * psiVector[1]; ans[2] += q_i * psiVector[2];
+        }
+
+        std::cout << std::scientific << std::setprecision(15) << ans[0] << " " << ans[1] << " " << ans[2] << std::endl;
         // Account geometrical center of current area.
         // Find x, y, z.
-        auto value = GetSolutionAtPoint(center_x, center_y, center_z);
-        std::cout << value[0] << " " << value[1] << " " << value[2] << std::endl;
+        //auto value = GetSolutionAtPoint(center_x, center_y, center_z);
     }
 }
 

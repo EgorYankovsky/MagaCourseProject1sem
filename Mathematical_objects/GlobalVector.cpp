@@ -212,7 +212,7 @@ void GlobalVector::CommitBoundaryConditions(const std::vector<std::array<size_t,
                 decltype(auto) inverse_Jacobian = coordinates_converter::Jacobian::find_inverse(local_coordinates[0], local_coordinates[1], local_coordinates[2],
                                                                                                 x_array, y_array, z_array);
 
-                decltype(auto) current_local_rib_index = std::find(boundary_flat.begin(), boundary_flat.end(), rib) - boundary_flat.begin();
+                decltype(auto) current_local_rib_index = std::find(selected_area.begin() + 1, selected_area.end(), rib) - (selected_area.begin() + 1);
                 
                 switcher(current_local_rib_index);
                 
@@ -220,6 +220,284 @@ void GlobalVector::CommitBoundaryConditions(const std::vector<std::array<size_t,
                                              BasisFunction::get_at(current_local_rib_index)[1](local_coordinates[0], local_coordinates[1], local_coordinates[2]), 
                                              BasisFunction::get_at(current_local_rib_index)[2](local_coordinates[0], local_coordinates[1], local_coordinates[2])};
                 
+                decltype(auto) psiVector = mv_multiplication(inverse_Jacobian, phi);
+
+                decltype(auto) denominator = psiVector[0] * normal[0] + psiVector[1] * normal[1] + psiVector[2] * normal[2];
+
+                _values[rib] = numerator / denominator;
+            }
+        }
+    }
+
+
+    // oXY1
+    for (int i(0); i < ny - 1; ++i) {
+        for (int j(0); j < nx - 1; ++j) {
+            decltype(auto) selected_area = areas[(nz - 2) * (nx - 1) * (ny - 1) + i * (nx - 1) + j]; // Dirty moment. Int and size_t multiplication.
+
+            std::array<double, 8> x_array{ points[generated_ribs[selected_area[5]].first][0], points[generated_ribs[selected_area[6]].first][0],
+                                           points[generated_ribs[selected_area[7]].first][0], points[generated_ribs[selected_area[8]].first][0],
+                                           points[generated_ribs[selected_area[5]].second][0], points[generated_ribs[selected_area[6]].second][0],
+                                           points[generated_ribs[selected_area[7]].second][0], points[generated_ribs[selected_area[8]].second][0], };
+
+            std::array<double, 8> y_array{ points[generated_ribs[selected_area[5]].first][1], points[generated_ribs[selected_area[6]].first][1],
+                                           points[generated_ribs[selected_area[7]].first][1], points[generated_ribs[selected_area[8]].first][1],
+                                           points[generated_ribs[selected_area[5]].second][1], points[generated_ribs[selected_area[6]].second][1],
+                                           points[generated_ribs[selected_area[7]].second][1], points[generated_ribs[selected_area[8]].second][1], };
+
+            std::array<double, 8> z_array{ points[generated_ribs[selected_area[5]].first][2], points[generated_ribs[selected_area[6]].first][2],
+                                           points[generated_ribs[selected_area[7]].first][2], points[generated_ribs[selected_area[8]].first][2],
+                                           points[generated_ribs[selected_area[5]].second][2], points[generated_ribs[selected_area[6]].second][2],
+                                           points[generated_ribs[selected_area[7]].second][2], points[generated_ribs[selected_area[8]].second][2], };
+
+            std::array<size_t, 4> boundary_flat{ selected_area[9], selected_area[10], selected_area[11], selected_area[12] };
+            for (const auto& rib : boundary_flat) {
+                if (committed_ribs.find(rib) != committed_ribs.end()) continue;
+                committed_ribs.insert(rib);
+                auto normal = get_normal(generated_ribs[rib]);
+                std::array<double, 3> middle_point{ 0.5 * (points[generated_ribs[rib].first][0] + points[generated_ribs[rib].second][0]),
+                                                    0.5 * (points[generated_ribs[rib].first][1] + points[generated_ribs[rib].second][1]),
+                                                    0.5 * (points[generated_ribs[rib].first][2] + points[generated_ribs[rib].second][2]), };
+
+                decltype(auto) fVector = Function::TestA(middle_point[0], middle_point[1], middle_point[2], 0.0);
+                decltype(auto) numerator = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
+
+                decltype(auto) local_coordinates = coordinates_converter::convert_from_xyz(middle_point[0], middle_point[1], middle_point[2],
+                    x_array, y_array, z_array); // Account basis function psi at the current rib's middle point.
+
+                decltype(auto) inverse_Jacobian = coordinates_converter::Jacobian::find_inverse(local_coordinates[0], local_coordinates[1], local_coordinates[2],
+                    x_array, y_array, z_array);
+
+                decltype(auto) current_local_rib_index = std::find(selected_area.begin() + 1, selected_area.end(), rib) - (selected_area.begin() + 1);
+
+                switcher(current_local_rib_index);
+
+                decltype(auto) phi = vector{ BasisFunction::get_at(current_local_rib_index)[0](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[1](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[2](local_coordinates[0], local_coordinates[1], local_coordinates[2]) };
+
+                decltype(auto) psiVector = mv_multiplication(inverse_Jacobian, phi);
+
+                decltype(auto) denominator = psiVector[0] * normal[0] + psiVector[1] * normal[1] + psiVector[2] * normal[2];
+
+                _values[rib] = numerator / denominator;
+            }
+        }
+    }
+
+
+    // oX0Z
+    for (int i(0); i < nz - 1; ++i) {
+        for (int j(0); j < nx - 1; ++j) {
+            decltype(auto) selected_area = areas[(nx - 1) * (ny - 1) * i + (nx - 1) * j]; // Dirty moment. Int and size_t multiplication.
+
+            std::array<double, 8> x_array{ points[generated_ribs[selected_area[5]].first][0], points[generated_ribs[selected_area[6]].first][0],
+                                           points[generated_ribs[selected_area[7]].first][0], points[generated_ribs[selected_area[8]].first][0],
+                                           points[generated_ribs[selected_area[5]].second][0], points[generated_ribs[selected_area[6]].second][0],
+                                           points[generated_ribs[selected_area[7]].second][0], points[generated_ribs[selected_area[8]].second][0], };
+
+            std::array<double, 8> y_array{ points[generated_ribs[selected_area[5]].first][1], points[generated_ribs[selected_area[6]].first][1],
+                                           points[generated_ribs[selected_area[7]].first][1], points[generated_ribs[selected_area[8]].first][1],
+                                           points[generated_ribs[selected_area[5]].second][1], points[generated_ribs[selected_area[6]].second][1],
+                                           points[generated_ribs[selected_area[7]].second][1], points[generated_ribs[selected_area[8]].second][1], };
+
+            std::array<double, 8> z_array{ points[generated_ribs[selected_area[5]].first][2], points[generated_ribs[selected_area[6]].first][2],
+                                           points[generated_ribs[selected_area[7]].first][2], points[generated_ribs[selected_area[8]].first][2],
+                                           points[generated_ribs[selected_area[5]].second][2], points[generated_ribs[selected_area[6]].second][2],
+                                           points[generated_ribs[selected_area[7]].second][2], points[generated_ribs[selected_area[8]].second][2], };
+
+            std::array<size_t, 4> boundary_flat{ selected_area[2], selected_area[5], selected_area[7], selected_area[10] };
+            for (const auto& rib : boundary_flat) {
+                if (committed_ribs.find(rib) != committed_ribs.end()) continue;
+                committed_ribs.insert(rib);
+                auto normal = get_normal(generated_ribs[rib]);
+                std::array<double, 3> middle_point{ 0.5 * (points[generated_ribs[rib].first][0] + points[generated_ribs[rib].second][0]),
+                                                    0.5 * (points[generated_ribs[rib].first][1] + points[generated_ribs[rib].second][1]),
+                                                    0.5 * (points[generated_ribs[rib].first][2] + points[generated_ribs[rib].second][2]), };
+
+                decltype(auto) fVector = Function::TestA(middle_point[0], middle_point[1], middle_point[2], 0.0);
+                decltype(auto) numerator = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
+
+                decltype(auto) local_coordinates = coordinates_converter::convert_from_xyz(middle_point[0], middle_point[1], middle_point[2],
+                    x_array, y_array, z_array); // Account basis function psi at the current rib's middle point.
+
+                decltype(auto) inverse_Jacobian = coordinates_converter::Jacobian::find_inverse(local_coordinates[0], local_coordinates[1], local_coordinates[2],
+                    x_array, y_array, z_array);
+
+                decltype(auto) current_local_rib_index = std::find(selected_area.begin() + 1, selected_area.end(), rib) - (selected_area.begin() + 1);
+
+                switcher(current_local_rib_index);
+
+                decltype(auto) phi = vector{ BasisFunction::get_at(current_local_rib_index)[0](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[1](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[2](local_coordinates[0], local_coordinates[1], local_coordinates[2]) };
+
+                decltype(auto) psiVector = mv_multiplication(inverse_Jacobian, phi);
+
+                decltype(auto) denominator = psiVector[0] * normal[0] + psiVector[1] * normal[1] + psiVector[2] * normal[2];
+
+                _values[rib] = numerator / denominator;
+            }
+        }
+    }
+
+
+    // oX1Z
+    for (int i(0); i < nz - 1; ++i) {
+        for (int j(0); j < nx - 1; ++j) {
+            decltype(auto) selected_area = areas[(nx - 1) * (ny - 1) * i + (nx - 1) * (j + 1) - 1]; // Dirty moment. Int and size_t multiplication.
+
+            std::array<double, 8> x_array{ points[generated_ribs[selected_area[5]].first][0], points[generated_ribs[selected_area[6]].first][0],
+                                           points[generated_ribs[selected_area[7]].first][0], points[generated_ribs[selected_area[8]].first][0],
+                                           points[generated_ribs[selected_area[5]].second][0], points[generated_ribs[selected_area[6]].second][0],
+                                           points[generated_ribs[selected_area[7]].second][0], points[generated_ribs[selected_area[8]].second][0], };
+
+            std::array<double, 8> y_array{ points[generated_ribs[selected_area[5]].first][1], points[generated_ribs[selected_area[6]].first][1],
+                                           points[generated_ribs[selected_area[7]].first][1], points[generated_ribs[selected_area[8]].first][1],
+                                           points[generated_ribs[selected_area[5]].second][1], points[generated_ribs[selected_area[6]].second][1],
+                                           points[generated_ribs[selected_area[7]].second][1], points[generated_ribs[selected_area[8]].second][1], };
+
+            std::array<double, 8> z_array{ points[generated_ribs[selected_area[5]].first][2], points[generated_ribs[selected_area[6]].first][2],
+                                           points[generated_ribs[selected_area[7]].first][2], points[generated_ribs[selected_area[8]].first][2],
+                                           points[generated_ribs[selected_area[5]].second][2], points[generated_ribs[selected_area[6]].second][2],
+                                           points[generated_ribs[selected_area[7]].second][2], points[generated_ribs[selected_area[8]].second][2], };
+
+            std::array<size_t, 4> boundary_flat{ selected_area[3], selected_area[6], selected_area[8], selected_area[11] };
+            for (const auto& rib : boundary_flat) {
+                if (committed_ribs.find(rib) != committed_ribs.end()) continue;
+                committed_ribs.insert(rib);
+                auto normal = get_normal(generated_ribs[rib]);
+                std::array<double, 3> middle_point{ 0.5 * (points[generated_ribs[rib].first][0] + points[generated_ribs[rib].second][0]),
+                                                    0.5 * (points[generated_ribs[rib].first][1] + points[generated_ribs[rib].second][1]),
+                                                    0.5 * (points[generated_ribs[rib].first][2] + points[generated_ribs[rib].second][2]), };
+
+                decltype(auto) fVector = Function::TestA(middle_point[0], middle_point[1], middle_point[2], 0.0);
+                decltype(auto) numerator = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
+
+                decltype(auto) local_coordinates = coordinates_converter::convert_from_xyz(middle_point[0], middle_point[1], middle_point[2],
+                    x_array, y_array, z_array); // Account basis function psi at the current rib's middle point.
+
+                decltype(auto) inverse_Jacobian = coordinates_converter::Jacobian::find_inverse(local_coordinates[0], local_coordinates[1], local_coordinates[2],
+                    x_array, y_array, z_array);
+
+                decltype(auto) current_local_rib_index = std::find(selected_area.begin() + 1, selected_area.end(), rib) - (selected_area.begin() + 1);
+
+                switcher(current_local_rib_index);
+
+                decltype(auto) phi = vector{ BasisFunction::get_at(current_local_rib_index)[0](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[1](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[2](local_coordinates[0], local_coordinates[1], local_coordinates[2]) };
+
+                decltype(auto) psiVector = mv_multiplication(inverse_Jacobian, phi);
+
+                decltype(auto) denominator = psiVector[0] * normal[0] + psiVector[1] * normal[1] + psiVector[2] * normal[2];
+
+                _values[rib] = numerator / denominator;
+            }
+        }
+    }
+
+    // o0YZ
+    for (int i(0); i < nz - 1; ++i) {
+        for (int j(0); j < nx - 1; ++j) {
+            decltype(auto) selected_area = areas[i * (nx - 1) * (ny - 1) + j]; // Dirty moment. Int and size_t multiplication.
+
+            std::array<double, 8> x_array{ points[generated_ribs[selected_area[5]].first][0], points[generated_ribs[selected_area[6]].first][0],
+                                           points[generated_ribs[selected_area[7]].first][0], points[generated_ribs[selected_area[8]].first][0],
+                                           points[generated_ribs[selected_area[5]].second][0], points[generated_ribs[selected_area[6]].second][0],
+                                           points[generated_ribs[selected_area[7]].second][0], points[generated_ribs[selected_area[8]].second][0], };
+
+            std::array<double, 8> y_array{ points[generated_ribs[selected_area[5]].first][1], points[generated_ribs[selected_area[6]].first][1],
+                                           points[generated_ribs[selected_area[7]].first][1], points[generated_ribs[selected_area[8]].first][1],
+                                           points[generated_ribs[selected_area[5]].second][1], points[generated_ribs[selected_area[6]].second][1],
+                                           points[generated_ribs[selected_area[7]].second][1], points[generated_ribs[selected_area[8]].second][1], };
+
+            std::array<double, 8> z_array{ points[generated_ribs[selected_area[5]].first][2], points[generated_ribs[selected_area[6]].first][2],
+                                           points[generated_ribs[selected_area[7]].first][2], points[generated_ribs[selected_area[8]].first][2],
+                                           points[generated_ribs[selected_area[5]].second][2], points[generated_ribs[selected_area[6]].second][2],
+                                           points[generated_ribs[selected_area[7]].second][2], points[generated_ribs[selected_area[8]].second][2], };
+
+            std::array<size_t, 4> boundary_flat{ selected_area[1], selected_area[5], selected_area[6], selected_area[9] };
+            for (const auto& rib : boundary_flat) {
+                if (committed_ribs.find(rib) != committed_ribs.end()) continue;
+                committed_ribs.insert(rib);
+                auto normal = get_normal(generated_ribs[rib]);
+                std::array<double, 3> middle_point{ 0.5 * (points[generated_ribs[rib].first][0] + points[generated_ribs[rib].second][0]),
+                                                    0.5 * (points[generated_ribs[rib].first][1] + points[generated_ribs[rib].second][1]),
+                                                    0.5 * (points[generated_ribs[rib].first][2] + points[generated_ribs[rib].second][2]), };
+
+                decltype(auto) fVector = Function::TestA(middle_point[0], middle_point[1], middle_point[2], 0.0);
+                decltype(auto) numerator = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
+
+                decltype(auto) local_coordinates = coordinates_converter::convert_from_xyz(middle_point[0], middle_point[1], middle_point[2],
+                    x_array, y_array, z_array); // Account basis function psi at the current rib's middle point.
+
+                decltype(auto) inverse_Jacobian = coordinates_converter::Jacobian::find_inverse(local_coordinates[0], local_coordinates[1], local_coordinates[2],
+                    x_array, y_array, z_array);
+
+                decltype(auto) current_local_rib_index = std::find(selected_area.begin() + 1, selected_area.end(), rib) - (selected_area.begin() + 1);
+
+                switcher(current_local_rib_index);
+
+                decltype(auto) phi = vector{ BasisFunction::get_at(current_local_rib_index)[0](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[1](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[2](local_coordinates[0], local_coordinates[1], local_coordinates[2]) };
+
+                decltype(auto) psiVector = mv_multiplication(inverse_Jacobian, phi);
+
+                decltype(auto) denominator = psiVector[0] * normal[0] + psiVector[1] * normal[1] + psiVector[2] * normal[2];
+
+                _values[rib] = numerator / denominator;
+            }
+        }
+    }
+
+    // o1YZ
+    for (int i(0); i < nz - 1; ++i) {
+        for (int j(0); j < nx - 1; ++j) {
+            decltype(auto) selected_area = areas[i * (nx - 1) * (ny - 1) + j + (ny - 2) * (nx - 1)]; // Dirty moment. Int and size_t multiplication.
+
+            std::array<double, 8> x_array{ points[generated_ribs[selected_area[5]].first][0], points[generated_ribs[selected_area[6]].first][0],
+                                           points[generated_ribs[selected_area[7]].first][0], points[generated_ribs[selected_area[8]].first][0],
+                                           points[generated_ribs[selected_area[5]].second][0], points[generated_ribs[selected_area[6]].second][0],
+                                           points[generated_ribs[selected_area[7]].second][0], points[generated_ribs[selected_area[8]].second][0], };
+
+            std::array<double, 8> y_array{ points[generated_ribs[selected_area[5]].first][1], points[generated_ribs[selected_area[6]].first][1],
+                                           points[generated_ribs[selected_area[7]].first][1], points[generated_ribs[selected_area[8]].first][1],
+                                           points[generated_ribs[selected_area[5]].second][1], points[generated_ribs[selected_area[6]].second][1],
+                                           points[generated_ribs[selected_area[7]].second][1], points[generated_ribs[selected_area[8]].second][1], };
+
+            std::array<double, 8> z_array{ points[generated_ribs[selected_area[5]].first][2], points[generated_ribs[selected_area[6]].first][2],
+                                           points[generated_ribs[selected_area[7]].first][2], points[generated_ribs[selected_area[8]].first][2],
+                                           points[generated_ribs[selected_area[5]].second][2], points[generated_ribs[selected_area[6]].second][2],
+                                           points[generated_ribs[selected_area[7]].second][2], points[generated_ribs[selected_area[8]].second][2], };
+
+            std::array<size_t, 4> boundary_flat{ selected_area[4], selected_area[7], selected_area[8], selected_area[12] };
+            for (const auto& rib : boundary_flat) {
+                if (committed_ribs.find(rib) != committed_ribs.end()) continue;
+                committed_ribs.insert(rib);
+                auto normal = get_normal(generated_ribs[rib]);
+                std::array<double, 3> middle_point{ 0.5 * (points[generated_ribs[rib].first][0] + points[generated_ribs[rib].second][0]),
+                                                    0.5 * (points[generated_ribs[rib].first][1] + points[generated_ribs[rib].second][1]),
+                                                    0.5 * (points[generated_ribs[rib].first][2] + points[generated_ribs[rib].second][2]), };
+
+                decltype(auto) fVector = Function::TestA(middle_point[0], middle_point[1], middle_point[2], 0.0);
+                decltype(auto) numerator = fVector[0] * normal[0] + fVector[1] * normal[1] + fVector[2] * normal[2];
+
+                decltype(auto) local_coordinates = coordinates_converter::convert_from_xyz(middle_point[0], middle_point[1], middle_point[2],
+                    x_array, y_array, z_array); // Account basis function psi at the current rib's middle point.
+
+                decltype(auto) inverse_Jacobian = coordinates_converter::Jacobian::find_inverse(local_coordinates[0], local_coordinates[1], local_coordinates[2],
+                    x_array, y_array, z_array);
+
+                decltype(auto) current_local_rib_index = std::find(selected_area.begin() + 1, selected_area.end(), rib) - (selected_area.begin() + 1);
+
+                switcher(current_local_rib_index);
+
+                decltype(auto) phi = vector{ BasisFunction::get_at(current_local_rib_index)[0](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[1](local_coordinates[0], local_coordinates[1], local_coordinates[2]),
+                                             BasisFunction::get_at(current_local_rib_index)[2](local_coordinates[0], local_coordinates[1], local_coordinates[2]) };
+
                 decltype(auto) psiVector = mv_multiplication(inverse_Jacobian, phi);
 
                 decltype(auto) denominator = psiVector[0] * normal[0] + psiVector[1] * normal[1] + psiVector[2] * normal[2];
