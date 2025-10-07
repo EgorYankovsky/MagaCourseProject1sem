@@ -94,18 +94,18 @@ vector FEM::GetSolutionAtPoint(double x, double y, double z)
 void FEM::ConsoleTestOutput() {
 
     auto switcher = [](int& num) {
-        if (num == 0) num = num;
-        else if (num == 1) num = 4;
-        else if (num == 2) num = 5;
-        else if (num == 3) num = 1;
-        else if (num == 4) num = 8;
-        else if (num == 5) num = 9;
-        else if (num == 6) num = 10;
-        else if (num == 7) num = 11;
-        else if (num == 8) num = 2;
-        else if (num == 9) num = 6;
-        else if (num == 10) num = 7;
-        else if (num == 11) num = 3;
+        if (num == 0) num = 0;
+        else if (num == 1) num = 3;
+        else if (num == 2) num = 8;
+        else if (num == 3) num = 11;
+        else if (num == 4) num = 1;
+        else if (num == 5) num = 2;
+        else if (num == 6) num = 9;
+        else if (num == 7) num = 10;
+        else if (num == 8) num = 4;
+        else if (num == 9) num = 5;
+        else if (num == 10) num = 6;
+        else if (num == 11) num = 7;
         else throw std::exception("Conversation error.");
         };
 
@@ -153,8 +153,8 @@ void FEM::ConsoleTestOutput() {
             decltype(auto) q_i = x(area[index + 1]);
             ans[0] += q_i * psiVector[0]; ans[1] += q_i * psiVector[1]; ans[2] += q_i * psiVector[2];
         }
-
-        std::cout << std::scientific << std::setprecision(15) << ans[0] << " " << ans[1] << " " << ans[2] << std::endl;
+        std::cout << std::scientific << std::setprecision(6) << center_x << " " << center_y << " " << center_z << " | ";
+        std::cout << std::scientific << std::setprecision(6) << ans[0] << " " << ans[1] << " " << ans[2] << std::endl;
         // Account geometrical center of current area.
         // Find x, y, z.
         //auto value = GetSolutionAtPoint(center_x, center_y, center_z);

@@ -52,16 +52,16 @@ int main() {
 static auto SelectTest() -> std::string {
     std::cout << "Select test num:" << std::endl;
     std::cout << "(0) Standard cubic mesh." << std::endl;
-    std::cout << "(1) New mesh." << std::endl;
-    std::cout << "(2) Based mesh." << std::endl;
+    std::cout << "(1) Pointed mesh." << std::endl;
+    std::cout << "(2) Diagonal mesh." << std::endl;
     std::cout << "-> ";
     size_t input(0);
     std::cin >> input;
     switch (input)
     {
     case 0: return standardCubicMesh;
-    case 1: return newMesh;
-    case 2: return basedMesh;
+    case 1: return PointedMesh;
+    case 2: return DiagonalMesh;
     default:
         system("cls");
         return SelectTest();

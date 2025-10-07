@@ -55,7 +55,11 @@ def drawScatter(output_status : int):
     ax.set_xlim(_bmin, _bmax)
     ax.set_ylim(_bmin, _bmax)
     ax.set_zlim(_bmin, _bmax)
-    plt.axis('off')
+    ax.xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+    ax.yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+    ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+    ax.grid(False)
+    #plt.axis('off')
     for point in pointsArr:
         ax.scatter(point.x, point.y, point.z, color="black")
     for rib in ribsArr:

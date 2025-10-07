@@ -174,6 +174,7 @@ void GlobalVector::CommitBoundaryConditions(const std::vector<std::array<size_t,
         else throw std::exception("Conversation error.");
         };
 
+
     // oXY0
     for (int i(0); i < ny - 1; ++i) {
         for (int j(0); j < nx - 1; ++j) {

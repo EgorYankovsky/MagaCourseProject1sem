@@ -20,9 +20,9 @@ const std::string randomFigureMesh = "Data\\Input\\randomFigureMesh.txt";
 const std::string summerTestInputPath = "Data\\Input\\summerTestInputPath.txt";
 #pragma endregion
 
-const std::string standardCubicMesh = "Data\\Input\\standardCubicMesh.txt";
-const std::string newMesh = "Data\\Input\\newMesh.txt";
-const std::string basedMesh = "Data\\Input\\basedMesh.txt";
+const std::string standardCubicMesh = "Data\\Input\\StandardCubicMesh.txt";
+const std::string PointedMesh = "Data\\Input\\PointedMesh.txt";
+const std::string DiagonalMesh = "Data\\Input\\DiagonalMesh.txt";
 
 void CheckMass(const std::array<double, 8>& x, 
                const std::array<double, 8>& y, 

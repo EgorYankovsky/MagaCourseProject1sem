@@ -12,7 +12,7 @@ public:
     LocalVector() {};
     LocalVector(std::array<double, 8> x, std::array<double, 8> y, std::array<double, 8> z) : _x(x), _y(y), _z(z) {
         M = new LocalMatrix(1.0, _x, _y, _z, LMType::Mass);
-        generate();
+        generateNew();
     }
     ~LocalVector() {};
 
