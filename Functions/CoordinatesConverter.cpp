@@ -1,16 +1,16 @@
 #include "CoordinatesConverter.h"
 
 inline static double_t coordinates_converter::dxde(double_t var_eps, double_t nu, double_t khi, cube x) {
-    return 0.125 * ((1.0 - nu) * (1.0 - khi) * (x[1] - x[0]) + (1.0 + nu) * (1.0 - khi) * (x[3] - x[2]) +
-                    (1.0 - nu) * (1.0 + khi) * (x[5] - x[4]) + (1.0 + nu) * (1.0 + khi) * (x[7] - x[6]));}
+    return 0.125 * ((1.0-nu) * (1.0-khi) * (x[1]-x[0]) + (1.0+nu) * (1.0-khi) * (x[3]-x[2]) +
+                    (1.0-nu) * (1.0+khi) * (x[5]-x[4]) + (1.0+nu) * (1.0+khi) * (x[7]-x[6]));}
 
 inline static double_t coordinates_converter::dxdn(double_t var_eps, double_t nu, double_t khi, cube x) {
-    return 0.125 * ((1.0 - var_eps) * (1.0 - khi) * (x[2] - x[0]) + (1.0 + var_eps) * (1.0 - khi) * (x[3] - x[1]) +
-                    (1.0 - var_eps) * (1.0 + khi) * (x[6] - x[4]) + (1.0 + var_eps) * (1.0 + khi) * (x[7] - x[5])); }
+    return 0.125 * ((1.0-var_eps) * (1.0-khi) * (x[2]-x[0]) + (1.0+var_eps) * (1.0-khi) * (x[3]-x[1]) +
+                    (1.0-var_eps) * (1.0+khi) * (x[6]-x[4]) + (1.0+var_eps) * (1.0+khi) * (x[7]-x[5])); }
 
 inline static double_t coordinates_converter::dxdc(double_t var_eps, double_t nu, double_t khi, cube x) {
-    return 0.125 * ((1.0 - var_eps) * (1.0 - nu) * (x[4] - x[0]) + (1.0 + var_eps) * (1.0 - nu) * (x[5] - x[1]) +
-                    (1.0 - var_eps) * (1.0 + nu) * (x[6] - x[2]) + (1.0 + var_eps) * (1.0 + nu) * (x[7] - x[3])); }
+    return 0.125 * ((1.0-var_eps) * (1.0-nu) * (x[4]-x[0]) + (1.0+var_eps) * (1.0-nu) * (x[5]-x[1]) +
+                    (1.0-var_eps) * (1.0+nu) * (x[6]-x[2]) + (1.0+var_eps) * (1.0+nu) * (x[7]-x[3])); }
 
 
 
@@ -96,12 +96,12 @@ matrix coordinates_converter::Jacobian::find_inverse(double_t var_eps, double_t 
     auto h = dzdn(var_eps, nu, khi, cfs_z);
     auto i = dzdc(var_eps, nu, khi, cfs_z);
 
-    auto detJ = a * e * i + b * f * g + c * d * h -
-        c * e * g - b * d * i - a * f * h;
+    auto detJ = a*e*i + b*f*g + c*d*h -
+                c*e*g - b*d*i - a*f*h;
 
-    return matrix{ {{(e * i - h * f) / detJ, (h * c - b * i) / detJ, (b * f - c * e) / detJ},
-                    {(g * f - d * i) / detJ, (a * i - c * g) / detJ, (c * d - a * f) / detJ},
-                    {(d * h - g * e) / detJ, (b * g - a * h) / detJ, (a * e - b * d) / detJ}} };
+    return matrix{ {{(e*i - h*f)/detJ, (h*c - b*i)/detJ, (b*f - c*e)/detJ},
+                    {(g*f - d*i)/detJ, (a*i - c*g)/detJ, (c*d - a*f)/detJ},
+                    {(d*h - g*e)/detJ, (b*g - a*h)/detJ, (a*e - b*d)/detJ}} };
 }
 
 

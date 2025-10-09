@@ -115,6 +115,7 @@ void FEM::ConsoleTestOutput() {
                        m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2] };
         };
 
+
     for (const auto& area : _areas) {
         double center_x(0.0), center_y(0.0), center_z(0.0);
 
